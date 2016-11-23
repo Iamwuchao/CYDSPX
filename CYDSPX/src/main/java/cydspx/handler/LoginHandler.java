@@ -26,12 +26,16 @@ public class LoginHandler {
 			response.setMessage("用户名密码不能为空");
 		}
 		User user = userDBServer.getUserByName(userName);
-		if(user!=null){
+		if(user!=null && user.getPassword().equals(password)){
 			System.out.println("###### "+user.getUserName());
+			session.setAttribute(SessionKey.USER_INFO.name(), user);
+			response.setCode(ResponseCode.SUCCESS.ordinal());
+			response.setMessage("登录成功");
 		}
-		session.setAttribute(SessionKey.USER_NAME.name(), userName);
-		response.setCode(ResponseCode.SUCCESS.ordinal());
-		response.setMessage("登录成功");
+		else{
+			response.setCode(ResponseCode.FAIL.ordinal());
+			response.setMessage("用户名或密码错误");
+		}
 		return response;
 	}
 }
