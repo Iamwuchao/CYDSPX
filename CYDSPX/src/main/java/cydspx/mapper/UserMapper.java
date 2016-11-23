@@ -1,0 +1,23 @@
+package cydspx.mapper;
+
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.type.JdbcType;
+
+import cydspx.mode.User;
+
+public interface UserMapper {
+	@Results({
+		@Result(property="userId",column="user_id",javaType=Integer.class,jdbcType=JdbcType.INTEGER),
+		@Result(property="userName",column="user_name",javaType=String.class,jdbcType=JdbcType.VARCHAR),
+		@Result(property="password",column="password",javaType=String.class,jdbcType=JdbcType.VARCHAR),
+		@Result(property="school",column="school",javaType=String.class,jdbcType=JdbcType.VARCHAR),
+		@Result(property="userType",column="user_type",javaType = Integer.class,jdbcType=JdbcType.INTEGER),
+		@Result(property="email",column="email",javaType=String.class,jdbcType=JdbcType.VARCHAR)
+		
+	})
+	@Select("SELECT * FROM user_table where user_name=#{userName};")
+	public User getUserByUserName(@Param("userName") String userName);
+}
