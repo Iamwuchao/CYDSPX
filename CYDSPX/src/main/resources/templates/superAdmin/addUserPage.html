@@ -1,0 +1,49 @@
+
+
+<div>
+	  		
+	  		用户名
+	  		<input style="width: 30%"
+					type="text" class="form-control" id="username"   placeholder="用户名"/>
+			<br/>
+			密码			
+			<input style="width: 30%"
+					type="password" class="form-control" id="password"   placeholder="密码"/>			
+			<br/>
+			生成账户类型
+			<select   style="width: 30%" class="form-control" id="type">
+				<option value="schoolAdmin"> 校级管理员 </option>
+				<option value="expert"> 专家账号 </option>
+			</select>
+			<br/>
+			<button class="btn btn-primary" id="confirm">
+				确认生成
+			</button>
+			
+			
+			
+	<script>
+	$(document).on("click", "#confirm", function(){
+// 		alert("FFF")
+		  $.ajax(
+			{
+		      url: '/cydspx/superAdmin/addUser',
+		      type: 'get',
+		      dataType: 'json',
+		      data: {
+		    	  "username": $("#username").val(),
+		    	  "password": $("#password").val(),
+		    	  "type": $("#type").val(),
+		    	  
+		    	  },
+		      success: function(data) {
+		    	  alert(data.message)
+		      }
+		    }
+		  
+		  );
+
+	})
+
+	</script>
+</div>

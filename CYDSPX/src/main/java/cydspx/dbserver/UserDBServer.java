@@ -19,4 +19,11 @@ public class UserDBServer {
 		return userMapper.getUserByUserName(userName);
 	}
 	
+	
+	public void insertUser(String username, String  password,int  type)
+	{
+		userMapper.insertUser(username, password, type);
+		
+	}
+	
 }

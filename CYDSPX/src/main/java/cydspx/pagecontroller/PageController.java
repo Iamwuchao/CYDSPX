@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import cydspx.globalInfo.SessionKey;
 import cydspx.globalInfo.UserType;
@@ -27,11 +28,19 @@ public class PageController {
 			return "";
 		}
 		else if(user.getUserType()==UserType.SUPERADMIN.ordinal()){
-			return "";
+			return "/superAdmin/superAdmin";
 		}
 		else{
 			return "/cydspx";
-		}
-		
+		}		
 	}
+	
+	@RequestMapping("/cydspx/superAdmin/getPage")
+	public String getSuperAdminPage( @RequestParam String pageName)
+	{
+//		if(pageName.equals("addUserPage"))
+		return "/superAdmin/" + pageName;
+	}
+	
+	
 }

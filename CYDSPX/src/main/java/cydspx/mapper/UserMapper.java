@@ -1,5 +1,6 @@
 package cydspx.mapper;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -20,4 +21,12 @@ public interface UserMapper {
 	})
 	@Select("SELECT * FROM user_table where user_name=#{userName};")
 	public User getUserByUserName(@Param("userName") String userName);
+	
+	
+	@Insert("INSERT INTO `cydspx`.`user_table` (`user_name`,  `password`, `user_type`) VALUES (#{username}, #{password}, #{type});")
+	public void insertUser(
+			@Param("username") String username,
+			@Param("password") String password,
+			@Param("type") int type
+			);
 }
