@@ -25,7 +25,9 @@ public class LoginHandler {
 			response.setCode(ResponseCode.FAIL.ordinal());
 			response.setMessage("用户名密码不能为空");
 		}
+		System.out.println("FFF---");
 		User user = userDBServer.getUserByName(userName);
+		System.out.println("FFF---eeee");
 		if(user!=null && user.getPassword().equals(password)){
 			System.out.println("###### "+user.getUserName());
 			session.setAttribute(SessionKey.USER_INFO.name(), user);

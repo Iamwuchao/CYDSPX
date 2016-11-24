@@ -39,7 +39,6 @@ public class PageController {
 	@RequestMapping("/cydspx/superAdmin/getPage")
 	public String getSuperAdminPage( @RequestParam String pageName)
 	{
-//		if(pageName.equals("addUserPage"))
 		return "/superAdmin/" + pageName;
 	}
 	

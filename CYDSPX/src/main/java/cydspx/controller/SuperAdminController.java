@@ -1,5 +1,7 @@
 package cydspx.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cydspx.handler.LoginHandler;
 import cydspx.handler.SuperAdminHandler;
 import cydspx.mode.ResponseMessage;
+import cydspx.mode.User;
 
 
 //public class LoginController {
@@ -32,6 +35,25 @@ public class SuperAdminController {
 	{
 		return superAdminHandler.addUser(session, username, password, type);
 	}
+	
+	
+	@RequestMapping("/cydspx/superAdmin/getSchoolAdminAndExpertList")
+	@ResponseBody
+	public List<User> getSchoolAdminAndExpertList(HttpSession session) 
+	{
+//		System.out.println("0000++++++++==");
+		return superAdminHandler.getSchoolAdminAndExpertList(session);
+	}
+
+	@RequestMapping("/cydspx/superAdmin/deleteUser")
+	@ResponseBody
+	public ResponseMessage deleteUser(HttpSession session, @RequestParam int userId) 
+	{
+//		System.out.println("0000++++++++==");
+		return superAdminHandler.deleteUser(session, userId);
+	}
+
+	
 }
 
 

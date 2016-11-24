@@ -1,0 +1,105 @@
+<div>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th> 用户名</th>
+<!-- 				<th> </th> -->
+				<th> 用户类型</th>
+				<th> 删除</th>
+			</tr>
+		</thead>
+		
+		
+		<tbody  id="userTable">
+			
+			<tr v-for="user in userList" userId='{{user.userId}}' >
+			      <td>{{user.userName}}</td>
+			      <td>{{user.userType | toString}}  </td>
+			      <td> 
+				      <button    type="button" class="btn btn-primary deleteButton">
+				      	删除
+				      </button>
+			      </td>
+		    </tr>
+		</tbody>
+	</table>
+</div>
+
+<script>
+$(document).ready(function(){
+	  $.ajax(
+		{
+	      url: '/cydspx/superAdmin/getSchoolAdminAndExpertList',
+	      type: 'get',
+	      dataType: 'json',
+	      data: {
+	    	  
+	    	  },
+	      
+	      success: function(data) {
+	    	  new Vue({
+	    			el: '#userTable',
+	    			data: {
+	    				userList: data
+	    			},
+	    			filters: {
+	    				toString: function(value) {
+	    					if(value == 0) return "专家账户"
+	    					if(value == 1) return "学校管理员"
+	    					return "未知类型"
+	    					
+	    					
+	    				},
+	    			
+	    				
+	    			},
+	    		})
+	      }
+	    }
+	  
+	  );
+})
+
+$(document).on("click", ".deleteButton", function(){
+	var tr = $(this).parents("tr");
+	alert($(tr).attr("userId"))
+// 	return ;
+	$.ajax(
+			{
+		      url: '/cydspx/superAdmin/deleteUser',
+		      type: 'post',
+		      dataType: 'json',
+		      data: {userId: $(tr).attr("userId")},
+		      
+		      success: function(data) {
+// 		    	  alert("HAHAH")
+
+
+// 					alert(data.message);
+				
+		    	  if(data.message =="")
+		      	  {
+		    		  alert("删除成功");
+		    		  $(tr).remove();
+		      	  }
+		    	  else 
+			      {
+			    		  alert("删除失败");
+			      }
+		      }
+		    }
+		  
+		  );
+	
+})
+
+
+
+
+
+
+
+
+
+	
+</script>

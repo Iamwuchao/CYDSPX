@@ -1,5 +1,8 @@
 package cydspx.handler;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import cydspx.globalInfo.SessionKey;
 import cydspx.globalInfo.UserType;
 import cydspx.mode.ResponseMessage;
 import cydspx.mode.User;
+//import groovyjarjarantlr.collections.List;
 
 @Component
 public class SuperAdminHandler {
@@ -50,9 +54,70 @@ public class SuperAdminHandler {
 		}
 		else
 		{
-			userDBServer.insertUser(username, password, userType);
-			response.setMessage("生成成功！");
+			try
+			{
+				userDBServer.insertUser(username, password, userType);
+				response.setMessage("生成成功！");
+			}
+			catch(Exception e)
+			{
+				response.setMessage("数据库错误");
+			}
+			
+			
 		}
 		return response;
 	}
+	
+	
+	public List<User> getSchoolAdminAndExpertList(HttpSession session)
+	{
+//		ResponseMessage response = new ResponseMessage();
+		
+		
+		List<User> userList = new ArrayList<User>();
+		
+		for(User user : userDBServer.getAllUserList())
+		{
+			if(user.getUserType() == UserType.EXPERT.ordinal() ||
+				user.getUserType() == UserType.SCHOOLADMIN.ordinal())
+			{
+				System.out.println(user.getUserId());
+				userList.add(user);
+			}
+		}
+		
+		
+		return userList;
+		
+	}
+	
+	public ResponseMessage deleteUser(HttpSession session, int userId)
+	{
+		ResponseMessage response = new ResponseMessage();	
+//		response.setMessage("");
+//		return response;
+		try
+		{
+			userDBServer.deleteUser(userId);
+			response.setMessage("");
+		}
+		catch(Exception e)
+		{
+			response.setMessage("数据库发生错误");
+		}
+		return response;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

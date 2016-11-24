@@ -2,6 +2,8 @@ package cydspx.dbserver;
 
 import lombok.Data;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +24,17 @@ public class UserDBServer {
 	
 	public void insertUser(String username, String  password,int  type)
 	{
-		userMapper.insertUser(username, password, type);
-		
+		userMapper.insertUser(username, password, type);		
 	}
 	
+	public List<User> getAllUserList()
+	{
+		return userMapper.getAllUserList();
+	}
+	
+	
+	public void deleteUser(int userId)
+	{
+		userMapper.deleteUser(userId);		
+	}
 }
