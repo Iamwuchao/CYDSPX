@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.type.JdbcType;
 
 import cydspx.mode.User;
@@ -53,7 +54,13 @@ public interface UserMapper {
 	public void deleteUser(
 			@Param("userId") int userId
 			);
-
+	
+	 
+	@Update("UPDATE `cydspx`.`user_table` SET `password`=#{password} WHERE `id`=#{userId};")
+	public void setUserPassword(
+			@Param("userId") int userId,
+			@Param("password") String password
+			);
 	
 	
 }

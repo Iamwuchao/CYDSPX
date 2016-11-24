@@ -5,7 +5,9 @@
 				<th> 用户名</th>
 <!-- 				<th> </th> -->
 				<th> 用户类型</th>
+				<th> 重置密码</th>
 				<th> 删除</th>
+				
 			</tr>
 		</thead>
 		
@@ -15,6 +17,15 @@
 			<tr v-for="user in userList" userId='{{user.userId}}' >
 			      <td>{{user.userName}}</td>
 			      <td>{{user.userType | toString}}  </td>
+			      <td>
+			      
+				      <form class="form-inline" role="form">
+						  <div class="form-group">
+						    <input type="text" class="form-control" name="inputPassword" placeholder="新密码"/>
+						  </div>
+						  <button type="button" class="btn btn-danger setPasswordButton">重置</button>
+						</form> 
+				      </td>
 			      <td> 
 				      <button    type="button" class="btn btn-primary deleteButton">
 				      	删除
@@ -26,43 +37,47 @@
 </div>
 
 <script>
+function loadPage()
+{
+	 $.ajax(
+				{
+			      url: '/cydspx/superAdmin/getSchoolAdminAndExpertList',
+			      type: 'get',
+			      dataType: 'json',
+			      data: {
+			    	  
+			    	  },
+			      
+			      success: function(data) {
+			    	  new Vue({
+			    			el: '#userTable',
+			    			data: {
+			    				userList: data
+			    			},
+			    			filters: {
+			    				toString: function(value) {
+			    					if(value == 0) return "专家账户"
+			    					if(value == 1) return "学校管理员"
+			    					return "未知类型"
+			    					
+			    					
+			    				},
+			    			
+			    				
+			    			},
+			    		})
+			      }
+			    }
+			  
+			  );
+}
 $(document).ready(function(){
-	  $.ajax(
-		{
-	      url: '/cydspx/superAdmin/getSchoolAdminAndExpertList',
-	      type: 'get',
-	      dataType: 'json',
-	      data: {
-	    	  
-	    	  },
-	      
-	      success: function(data) {
-	    	  new Vue({
-	    			el: '#userTable',
-	    			data: {
-	    				userList: data
-	    			},
-	    			filters: {
-	    				toString: function(value) {
-	    					if(value == 0) return "专家账户"
-	    					if(value == 1) return "学校管理员"
-	    					return "未知类型"
-	    					
-	    					
-	    				},
-	    			
-	    				
-	    			},
-	    		})
-	      }
-	    }
-	  
-	  );
+	loadPage()
 })
 
 $(document).on("click", ".deleteButton", function(){
 	var tr = $(this).parents("tr");
-	alert($(tr).attr("userId"))
+// 	alert($(tr).attr("userId"))
 // 	return ;
 	$.ajax(
 			{
@@ -72,10 +87,6 @@ $(document).on("click", ".deleteButton", function(){
 		      data: {userId: $(tr).attr("userId")},
 		      
 		      success: function(data) {
-// 		    	  alert("HAHAH")
-
-
-// 					alert(data.message);
 				
 		    	  if(data.message =="")
 		      	  {
@@ -85,6 +96,47 @@ $(document).on("click", ".deleteButton", function(){
 		    	  else 
 			      {
 			    		  alert("删除失败");
+			      }
+		      }
+		    }
+		  
+		  );
+	
+})
+
+
+$(document).on("click", ".setPasswordButton", function(){
+	var tr = $(this).parents("tr");
+// 	alert($(tr).attr("userId"))
+	
+	userId = $(tr).attr("userId");
+	newPassword = $(tr).find("input").val();
+// 	alert(userId+ ","+newPassword);
+// 	return ;
+	
+// 	return ;
+	$.ajax(
+			{
+		      url: '/cydspx/superAdmin/setUserPassword',
+		      type: 'post',
+		      dataType: 'json',
+		      data: {
+		    	  userId: userId,
+		    	  newPassword: newPassword,
+		    },
+		      
+		      success: function(data) {
+				
+		    	  if(data.message =="")
+		      	  {
+		    		  alert("重置成功");
+		    		  $(tr).find("input").val("")
+// 		    		  loadPage();
+// 		    		  $(tr).remove();
+		      	  }
+		    	  else 
+			      {
+			    	  alert(data.message);
 			      }
 		      }
 		    }

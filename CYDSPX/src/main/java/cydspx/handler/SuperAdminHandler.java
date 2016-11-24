@@ -95,8 +95,6 @@ public class SuperAdminHandler {
 	public ResponseMessage deleteUser(HttpSession session, int userId)
 	{
 		ResponseMessage response = new ResponseMessage();	
-//		response.setMessage("");
-//		return response;
 		try
 		{
 			userDBServer.deleteUser(userId);
@@ -109,6 +107,22 @@ public class SuperAdminHandler {
 		return response;
 	}
 	
+	
+	public ResponseMessage setUserPassword(HttpSession session, int userId, String newPassword)
+	{
+		ResponseMessage response = new ResponseMessage();	
+		try
+		{
+			userDBServer.setUserPassword(userId, newPassword);
+			response.setMessage("");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			response.setMessage("数据库发生错误");
+		}
+		return response;
+	}
 	
 	
 	

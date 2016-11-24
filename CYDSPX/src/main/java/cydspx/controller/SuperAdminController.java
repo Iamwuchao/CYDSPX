@@ -52,6 +52,13 @@ public class SuperAdminController {
 //		System.out.println("0000++++++++==");
 		return superAdminHandler.deleteUser(session, userId);
 	}
+	
+	@RequestMapping("/cydspx/superAdmin/setUserPassword")
+	@ResponseBody
+	public ResponseMessage setUserPassword(HttpSession session, @RequestParam int userId, @RequestParam String newPassword)
+	{
+		return superAdminHandler.setUserPassword(session, userId, newPassword);
+	}
 
 	
 }

@@ -37,4 +37,10 @@ public class UserDBServer {
 	{
 		userMapper.deleteUser(userId);		
 	}
+	
+	
+	public void setUserPassword(int userId, String password)
+	{
+		userMapper.setUserPassword(userId, password);		
+	}
 }
