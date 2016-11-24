@@ -19,8 +19,9 @@ public class PageController {
 	}
 	
 	@RequestMapping("/cydspx/homepage")
-	public String showHometpage(HttpSession session){
+	public String showHomepage(HttpSession session){
 		User user = (User) session.getAttribute(SessionKey.USER_INFO.name());
+		if(user == null) return "login";
 		if(user.getUserType()==UserType.EXPERT.ordinal()){
 			return "/expert/expert";
 		}

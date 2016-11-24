@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.type.JdbcType;
 
 import cydspx.mode.Candidate;
+import cydspx.mode.CandidateAbstract;
 
 public interface CandidateMapper {
 	@Results({
@@ -57,5 +58,26 @@ public interface CandidateMapper {
 	
 	@Select("select * from candidate_table where academy_name=#{academy_name};")
 	public List<Candidate> getCandidatesOfSchool(@Param("academy_name") String academy_name);
+	
+	
+	/*
+	 * 查询候选导师的摘要信息
+	 */
+	@Results({
+		@Result(property="id",column="id",javaType=Integer.class,jdbcType=JdbcType.INTEGER),
+		@Result(property="name",column="name",javaType=String.class,jdbcType=JdbcType.VARCHAR),
+		@Result(property="workunit",column="workunit",javaType=String.class,jdbcType=JdbcType.VARCHAR),
+		@Result(property="photograph",column="photograph",javaType=String.class,jdbcType=JdbcType.VARCHAR),
+		@Result(property="job",column="job",javaType=String.class,jdbcType=JdbcType.VARCHAR),
+		@Result(property="title",column="title",javaType=String.class,jdbcType=JdbcType.VARCHAR)
+		
+		
+	})
+	@Select({"select id,`name`,workunit,photograph,job,title,`resume` "
+			+ "from  cydspx.candidate_table as b left join "
+			+ "( select candidate_id from cydspx.candidate_group_table where group_id=#{groupId}) as a on b.id= a.candidate_id;"})
+	public List<CandidateAbstract> getCanidateAbstractByGroupId(@Param("groupId") int groupId);
+	
+	
 	
 }
