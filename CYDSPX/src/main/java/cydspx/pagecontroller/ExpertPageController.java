@@ -11,8 +11,12 @@ import cydspx.mode.User;
 
 @Controller
 public class ExpertPageController {
+
 	
-	
+	@RequestMapping("/cydspx/ju")
+	public String expertjudgeSelectPage(){
+		return "/expert/judgeselect";
+	}
 	
 	
 	
