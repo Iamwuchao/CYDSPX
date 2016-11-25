@@ -18,7 +18,12 @@ public class UserDBServer {
 	private UserMapper userMapper;
 	
 	public User getUserByName(String userName){
+		try{
 		return userMapper.getUserByUserName(userName);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	

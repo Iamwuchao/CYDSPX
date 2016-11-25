@@ -1,23 +1,25 @@
 package cydspx.pagecontroller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import cydspx.globalInfo.SessionKey;
-import cydspx.globalInfo.UserType;
-import cydspx.mode.User;
 
 @Controller
 public class ExpertPageController {
 
 	
-	@RequestMapping("/cydspx/ju")
+	@RequestMapping("/cydspx/judgeselecttable")
 	public String expertjudgeSelectPage(){
-		return "/expert/judgeselect";
+		return "/expert/judgeselecttable";
 	}
 	
+	@RequestMapping("/cydspx/notgradecandidatetable")
+	public String ungradedcandidatetable(){
+		return "/export/ungradedcandidatetable";
+	}
 	
+	@RequestMapping("/cydspx/gradedcandidatettable")
+	public String gradedcandidatetable(){
+		return "/export/gradecandidatetable";
+	}
 	
 }

@@ -10,5 +10,6 @@ public class CandidateAbstract {
 	private String photograph;
 	private String job;					//职务			17
 	private String title;				//职称			18
-	private String resume;//简历
+	private String attachment;//简历附件
+	private int score;//得分
 }

@@ -1,0 +1,24 @@
+<table id="candidateTable" class="table table-bordered">
+				  <caption>候选导师基本信息</caption>
+				  <thead>
+				   <tr>
+				      <th>姓名</th>
+				      <th>工作单位</th>
+				      <th>职务</th>
+				      <th>职称</th>
+				      <th>简历附件</th>
+				      <th>评分</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr  v-for="candidate in candidateList">
+				      <td>{{candidate.name}}</td>
+				      <td>{{candidate.workunit}}</td>
+				    <!--<td>{{candidate.photograph}}</td>--> 
+				      <td>{{candidate.job}}</td>
+				      <td>{{candidate.title}}</td>
+				      <td><a v-bind:href="candidate.attachment">附件</a></td>
+				      <td>{{candidate.score}}</td>
+				    </tr>
+				  </tbody>
+</table>

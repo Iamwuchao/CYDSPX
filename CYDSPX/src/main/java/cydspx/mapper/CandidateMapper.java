@@ -69,11 +69,10 @@ public interface CandidateMapper {
 		@Result(property="workunit",column="workunit",javaType=String.class,jdbcType=JdbcType.VARCHAR),
 		@Result(property="photograph",column="photograph",javaType=String.class,jdbcType=JdbcType.VARCHAR),
 		@Result(property="job",column="job",javaType=String.class,jdbcType=JdbcType.VARCHAR),
-		@Result(property="title",column="title",javaType=String.class,jdbcType=JdbcType.VARCHAR)
-		
-		
+		@Result(property="title",column="title",javaType=String.class,jdbcType=JdbcType.VARCHAR),
+		@Result(property="attachment",column="attachment",javaType=String.class,jdbcType=JdbcType.VARCHAR)
 	})
-	@Select({"select id,`name`,workunit,photograph,job,title,`resume` "
+	@Select({"select id,`name`,workunit,photograph,job,title,`attachment` "
 			+ "from  cydspx.candidate_table as b left join "
 			+ "( select candidate_id from cydspx.candidate_group_table where group_id=#{groupId}) as a on b.id= a.candidate_id;"})
 	public List<CandidateAbstract> getCanidateAbstractByGroupId(@Param("groupId") int groupId);
