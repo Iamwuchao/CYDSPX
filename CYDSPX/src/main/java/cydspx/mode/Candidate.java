@@ -31,6 +31,6 @@ public class Candidate {
 	private String email;				//电子邮件		25
 	private String resume;				//工作简历		26
 	private String origin_recommand;	//原始推荐单位	27
-	private int prize_id;				//导师获奖信息
-	private int elect_join_id;			//导师参评信息
+	//private int prize_id;				//导师获奖信息
+	//private int elect_join_id;			//导师参评信息
 }

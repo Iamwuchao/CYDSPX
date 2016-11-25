@@ -40,8 +40,8 @@ public interface CandidateMapper {
 		@Result(property="email",column="email",javaType=String.class,jdbcType=JdbcType.VARCHAR),
 		@Result(property="resume",column="resume",javaType=String.class,jdbcType=JdbcType.VARCHAR),
 		@Result(property="origin_recommand",column="origin_recommand",javaType=String.class,jdbcType=JdbcType.VARCHAR),
-		@Result(property="prize_id",column="prize_id",javaType=Integer.class,jdbcType=JdbcType.INTEGER),
-		@Result(property="elect_join_id",column="elect_join_id",javaType=Integer.class,jdbcType=JdbcType.INTEGER),
+		//@Result(property="prize_id",column="prize_id",javaType=Integer.class,jdbcType=JdbcType.INTEGER),
+		//@Result(property="elect_join_id",column="elect_join_id",javaType=Integer.class,jdbcType=JdbcType.INTEGER),
 		@Result(property="attachment",column="attachment",javaType=String.class,jdbcType=JdbcType.VARCHAR)
 		
 	})
@@ -49,15 +49,18 @@ public interface CandidateMapper {
 	@Insert({"insert into candidate_table(name, sex, birthday, state, cert_type, cert_no, photograph, nation, " + 
 				"politics, edu_type, edu_hierarchy, subject_category, degree_type, academy_name, specialty_name, " + 
 				"job, title, workunit, address, postal_code, mobile_phone, tel_phone, email, resume, origin_recommand, " +
-				"prize_id, elect_join_id, attachment" ,
+				"attachment" ,
 			"values(#{name}, #{sex}, #{birthday}, #{state}, #{cert_typr}, #{cert_no}, #{photograph}, #{nation}, " +
 				"#{politics}, #{edu_type}, #{edu_hierarchy}, #{subject_category}, #{degree_type}, #{academy_name}, #{specialty_name}, " +
 				"#{job}, #{title}, #{workunit}, #{address}, #{postal_code}, #{mobile_phone}, #{tel_phone}, #{email}, #{resume}, #{origin_recommand}, " +
-				"#{prize_id}, #{elect_join_id}, #{attachment}"})
+				"#{attachment}"})
 	public boolean addCandidate(Candidate c);
 	
 	@Select("select * from candidate_table where academy_name=#{academy_name};")
 	public List<Candidate> getCandidatesOfSchool(@Param("academy_name") String academy_name);
+	
+	@Select("select * from candidate_table where name=#{name};")
+	public List<Candidate> getCandidateByName(@Param("name") String name);
 	
 	
 	/*
