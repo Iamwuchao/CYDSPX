@@ -6,5 +6,5 @@ import lombok.Data;
 public class CandidateServiceRelation {
 	private int id;
 	private int candidate_id;
-	private int service_id;
+	private String service;
 }

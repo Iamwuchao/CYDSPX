@@ -6,5 +6,5 @@ import lombok.Data;
 public class CandidateVocationRelation {
 	private int id;
 	private int candidate_id;
-	private int vocation_id;
+	private String vocation;
 }

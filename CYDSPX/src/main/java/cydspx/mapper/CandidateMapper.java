@@ -50,11 +50,37 @@ public interface CandidateMapper {
 				"politics, edu_type, edu_hierarchy, subject_category, degree_type, academy_name, specialty_name, " + 
 				"job, title, workunit, address, postal_code, mobile_phone, tel_phone, email, resume, origin_recommand, " +
 				"attachment" ,
-			"values(#{name}, #{sex}, #{birthday}, #{state}, #{cert_typr}, #{cert_no}, #{photograph}, #{nation}, " +
+			"values(#{name}, #{sex}, #{birthday}, #{state}, #{cert_type}, #{cert_no}, #{photograph}, #{nation}, " +
 				"#{politics}, #{edu_type}, #{edu_hierarchy}, #{subject_category}, #{degree_type}, #{academy_name}, #{specialty_name}, " +
 				"#{job}, #{title}, #{workunit}, #{address}, #{postal_code}, #{mobile_phone}, #{tel_phone}, #{email}, #{resume}, #{origin_recommand}, " +
 				"#{attachment}"})
-	public boolean addCandidate(Candidate c);
+	public boolean addCandidate(
+			@Param("name") String name,
+			@Param("sex") int sex,
+			@Param("birthday") String birthday,
+			@Param("state") String state,
+			@Param("cert_type") String cert_type,
+			@Param("cert_no") String cert_no,
+			@Param("photograph") String photograph,
+			@Param("nation") String nation,
+			@Param("politics") String politics,
+			@Param("edu_type") String edu_type,
+			@Param("edu_hierarchy") String edu_hierarchy,
+			@Param("subject_category") String subject_category,
+			@Param("degree_type") String degree_type,
+			@Param("academy_name") String academy_name,
+			@Param("specialty_name") String specialty_name,
+			@Param("job") String job,
+			@Param("title") String title,
+			@Param("workunit") String workunit,
+			@Param("address") String address,
+			@Param("postal_code") String postal_code,
+			@Param("mobile_phone") String mobile_phone,
+			@Param("tel_phone") String tel_phone,
+			@Param("email") String email,
+			@Param("resume") String resume,
+			@Param("origin_recommand") String origin_recommand
+		);
 	
 	@Select("select * from candidate_table where academy_name=#{academy_name};")
 	public List<Candidate> getCandidatesOfSchool(@Param("academy_name") String academy_name);

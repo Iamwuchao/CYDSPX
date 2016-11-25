@@ -1,5 +1,7 @@
 package cydspx.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +36,10 @@ public class CandidateController {
 			@RequestParam String degree_type,
 			@RequestParam String academy_name,
 			@RequestParam String specialty_name,
+			@RequestParam List<String> vocations,
 			@RequestParam String job,
 			@RequestParam String title,
+			@RequestParam List<String> services,
 			@RequestParam String workunit,
 			@RequestParam String address,
 			@RequestParam String postal_code,
