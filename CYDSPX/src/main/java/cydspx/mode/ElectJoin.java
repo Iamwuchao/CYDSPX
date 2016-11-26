@@ -8,5 +8,5 @@ public class ElectJoin {
 	private int candidate_id;
 	private String project_name;
 	private String elect_year;
-	private String level;
+	private String elect_level;
 }

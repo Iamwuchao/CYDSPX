@@ -21,7 +21,7 @@
     width:100px;
     height:120px;
 }
-.upload .uploadpictrue, .upload .uploadfile{
+.upload .uploadpictrue, .upload .uploadpic, .upload .uploadfile{
 	float: left;
 }
 .upload span{
@@ -35,6 +35,9 @@
     border-radius: 2px;
     border:1px solid #5A8F9E;
     margin:5px 0;
+}
+.input-group, fieldset.resume{
+	position:relative;
 }
 .input-group input.form-control{
     width:90%;
@@ -120,6 +123,9 @@
     font-weight: 200;
     font-size:16px;
 }
+.select label.errormessage{
+	font-size:10px;
+}
 legend{
     font-weight: 700;
     border-bottom: 1px solid #BDE1EC;
@@ -166,4 +172,13 @@ legend{
 }
 #submitBtn:hover{
     background: #3790BB;
+}
+.errormessage{
+	position:absolute;
+	top:35px;
+	left:90px;
+	color:red;
+	font-size:10px;
+	font-weight:300;
+	color:red;
 }

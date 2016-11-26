@@ -183,6 +183,9 @@ a:hover,a:focus{
 
 
 body{
+/* 	background-image: -ms-linear-gradient(to bottom, #82d0ef 0, #def4fd 100%)!important; */
+/* 	background-image: -moz-linear-gradient(to bottom, #82d0ef 0, #def4fd 100%)!important; */
+/* 	background-image: -webkit-linear-gradient(to bottom, #82d0ef 0, #def4fd 100%)!important; */
     background-image: linear-gradient(to bottom, #82d0ef 0, #def4fd 100%)!important;
 }
 .navbar-inverse{
