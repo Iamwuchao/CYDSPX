@@ -29,7 +29,6 @@ public class ExpertDBServer {
 	@Autowired
 	private ElectResultMapper electResultMapper;
 	
-	
 	/*
 	 * 返回指定专家的已评分的候选人列表 
 	 */
@@ -77,5 +76,12 @@ public class ExpertDBServer {
 	 */
 	public int addExpertGroupInfo(int expertId,int groupId){
 		return expertGroupMapper.saveExpertGroupInfo(groupId, expertId);
+	}
+	
+	/*
+	 * 保存专家评分
+	 */
+	public int saveGradeInfo(int expertId,int candidateId,int score){
+		return electResultMapper.saveGradeInfo(candidateId, expertId, score);
 	}
 }

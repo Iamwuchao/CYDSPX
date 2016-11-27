@@ -7,6 +7,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cydspx.mapper.CandidateGroupMapper;
 import cydspx.mapper.CandidateMapper;
 import cydspx.mode.Candidate;
 import cydspx.mode.CandidateAbstract;
@@ -19,6 +20,8 @@ public class CandidateDBServer {
 	@Autowired
 	private CandidateMapper candidateMapper;
 	
+	@Autowired
+	private CandidateGroupMapper candidateGroupMapper;
 	public boolean addCandidate(
 			String name,
 			int sex,
@@ -58,5 +61,10 @@ public class CandidateDBServer {
 	
 	public List<CandidateAbstract> getAllCandidates(){
 		return candidateMapper.getAllCateAbstract();
+	}
+	
+	public boolean containsCandidate(int groupId,int candidateId){
+		int count = candidateGroupMapper.containCandidateOfGroup(groupId, candidateId);
+		return count>0?true:false;
 	}
 }

@@ -24,6 +24,9 @@ public interface CandidateGroupMapper {
 		@Result(property="title",column="title",javaType=String.class,jdbcType=JdbcType.VARCHAR),
 		@Result(property="attachment",column="attachment",javaType=String.class,jdbcType=JdbcType.VARCHAR)
 	})
-	@Select("SELECT id,`name`,workunit,photograph,job,title,`attachment` FROM candidate_table as a left join  ( select candidate_id from cydspx.expert_group_table where group_id=#{groupId}) as b on a.id = b.candidate_id;")
+	@Select("SELECT id,`name`,workunit,photograph,job,title,`attachment` FROM candidate_table as a left join  ( select candidate_id  from cydspx.candidate_group_table where group_id=#{groupId}) as b on a.id = b.candidate_id;")
 	List<CandidateAbstract> getAllCandidateBygroupId(@Param("groupId") int groupId);
+	
+	@Select("SELECT count(id) FROM cydspx.candidate_group_table where group_id=#{groupId} and candidate_id=#{candidateId};")
+	int containCandidateOfGroup(@Param("groupId") int groupId,@Param("candidateId") int candidateId);
 }

@@ -2,6 +2,7 @@ package cydspx.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -28,4 +29,6 @@ public interface ElectResultMapper {
 			+ "on a.id = b.candidate_id;")
 	public List<CandidateAbstract> getGradedCandidateList(@Param("expertId") int expertId);
 	
+	@Insert("INSERT INTO `cydspx`.`elect_result_table` (`candidate_id`, `expert_id`, `ret`) VALUES (#{candidateId}, #{expertId}, #{score});")
+	public int saveGradeInfo(@Param("candidateId") int candidateId,@Param("expertId") int expertId,@Param("score") int score);
 }
