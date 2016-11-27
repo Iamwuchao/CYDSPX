@@ -9,6 +9,7 @@
 				      <th>简历附件</th>
 				      <th>评分</th>
 				      <th>请打分</th>
+				      
 				    </tr>
 				  </thead>
 				  <tbody>
@@ -20,11 +21,11 @@
 				      <td>{{candidate.title}}</td>
 				      
 				      <td><a v-bind:href="candidate.attachment">附件</a></td>
-				      <td>{{candidate.score}}</td>
-				     <td><input id="score_{{project.projectId}}" 
+				     
+				     <td><input id="score_{{candidate.id}}" 
 				 onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" 
 				 type="text" class="form-control" placeholder="请打分，满分一百"></input></td>
-				      <td><button  id="{{project.projectId}}" type="button" class="btn btn-success" onclick="grade(this)">提交评分</button> </td>
+				      <td><button  id="{{candidate.id}}" type="button" class="btn btn-success" onclick="grade(this)">提交评分</button> </td>
 				    </tr>
 				  </tbody>
 </table>

@@ -23,9 +23,17 @@ public class ExpertController {
 	
 	@RequestMapping("/cydspx/ungradedcandidatelist")
 	@ResponseBody
-	public List<CandidateAbstract> getUngradedcandidateList(HttpSession session){
+	public List<CandidateAbstract> getUngradedCandidateList(HttpSession session){
 		User user = (User) session.getAttribute(SessionKey.USER_INFO.name());
 		if(user == null) return new LinkedList<CandidateAbstract>();
 		return expertHandler.getUngradedCandidateList(user);
+	}
+	
+	@RequestMapping("/cydspx/gradedcandidatelist")
+	@ResponseBody
+	public List<CandidateAbstract> getGradedCandidateList(HttpSession session){
+		User user = (User) session.getAttribute(SessionKey.USER_INFO.name());
+		if(user == null) return new LinkedList<CandidateAbstract>();
+		return expertHandler.getGradedCandidateList(user);
 	}
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import cydspx.mapper.CandidateMapper;
 import cydspx.mode.Candidate;
+import cydspx.mode.CandidateAbstract;
 
 
 @Data
@@ -53,5 +54,9 @@ public class CandidateDBServer {
 	
 	public List<Candidate> getCandidatesOfSchool(String academy_name) {
 		return candidateMapper.getCandidatesOfSchool(academy_name);
+	}
+	
+	public List<CandidateAbstract> getAllCandidates(){
+		return candidateMapper.getAllCateAbstract();
 	}
 }

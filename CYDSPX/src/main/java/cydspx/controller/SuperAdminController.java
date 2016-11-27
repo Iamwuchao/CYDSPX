@@ -10,21 +10,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cydspx.handler.AllocationHandler;
 import cydspx.handler.LoginHandler;
 import cydspx.handler.SuperAdminHandler;
 import cydspx.mode.ResponseMessage;
 import cydspx.mode.User;
 
-
-//public class LoginController {
-//
-//	
-//}
 @Controller
 public class SuperAdminController {
 	@Autowired
 	private SuperAdminHandler superAdminHandler;
 
+	@Autowired
+	private AllocationHandler allocationHandler;
+	
 	@RequestMapping("/cydspx/superAdmin/addUser")
 	@ResponseBody
 	public ResponseMessage addUserPage(HttpSession session,
@@ -60,6 +59,14 @@ public class SuperAdminController {
 		return superAdminHandler.setUserPassword(session, userId, newPassword);
 	}
 
+	/*
+	 * 分组
+	 */
+	@RequestMapping("/cydspx/superAdmin/allocation")
+	@ResponseBody
+	public ResponseMessage allocate(){
+		return allocationHandler.allocation();
+	}
 	
 }
 

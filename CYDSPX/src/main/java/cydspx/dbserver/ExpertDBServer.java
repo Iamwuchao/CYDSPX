@@ -40,7 +40,7 @@ public class ExpertDBServer {
 	/*
 	 * 返回专家所在的专家组ID
 	 */
-	public int getExpertGroupId(int expertId){
+	public Integer getExpertGroupId(int expertId){
 		return expertGroupMapper.getGroupIdByUserID(expertId);
 	}
 	
@@ -54,7 +54,8 @@ public class ExpertDBServer {
 	 */
 	public List<CandidateAbstract> getUngradedCandidateList(int expertId){
 		List<CandidateAbstract> gradedList = electResultMapper.getGradedCandidateList(expertId);
-		int groupId = getExpertGroupId(expertId);
+		Integer groupId = getExpertGroupId(expertId);
+		if(groupId == null) return new LinkedList<CandidateAbstract>();
 		List<CandidateAbstract> allList = candidateGroupMapper.getAllCandidateBygroupId(groupId);
 		
 		Set<Integer> gradedIdSet = new HashSet<Integer>();
@@ -69,5 +70,12 @@ public class ExpertDBServer {
 				ungradedCandidateList.add(candidate);
 		}
 		return ungradedCandidateList;
+	}
+	
+	/*
+	 * 保存专家分组信息
+	 */
+	public int addExpertGroupInfo(int expertId,int groupId){
+		return expertGroupMapper.saveExpertGroupInfo(groupId, expertId);
 	}
 }

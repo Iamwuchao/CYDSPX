@@ -48,4 +48,8 @@ public class UserDBServer {
 	{
 		userMapper.setUserPassword(userId, password);		
 	}
+	
+	public List<User> getAllUsersByType(int type){
+		return userMapper.getAllUsersByType(type);
+	}
 }

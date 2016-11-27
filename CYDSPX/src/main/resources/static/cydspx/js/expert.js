@@ -1,46 +1,64 @@
-var graded = 1;//已评价
-var notgraded = 2;//未评价
+var graded = "已评分";//已评价
+var notgraded = "未评分";//未评价
+var showCandidate;
+var candidateList = [{
+	name:"name",
+	workunit:"dlut",
+	job:"job",
+	title:"title",
+	attachment:"a.doc",
+}]
 
-function getungradedcandidatetable(){
-	$.ajax({
-		url : '/cydspx/notgradecandidatetable',
-		type : 'get',
-		dataType : 'text',
-		success : function(data) {
-			$("#candidateTable_div").html(data);
-			updatecandidateList();
-		}
-	});
-}
-
-function getgradedcandidatetable(){
-	$.ajax({
-		url : '/cydspx/gradedcandidatettable',
-		type : 'get',
-		dataType : 'text',
-		success : function(data) {
-			$("#candidateTable_div").html(data);
-			updateCandidateList();
-		}
-	});
-}
-
-function updateCandidateList(){
+function showCandidateTable(){
 	var val = $("#selectkind").val();
+	var urlTable="";
+	var urlList = "";
 	if(val == graded){
+		urlTable = '/cydspx/gradedcandidatettable';
+		urlList='/cydspx/gradedcandidatelist';
+	}
+	else if(val == notgraded){
+		urlTable="/cydspx/notgradecandidatetable";
+		urlList="/cydspx/ungradedcandidatelist";
+	}
+	getgradedcandidatetable(urlTable,urlList);
+}
+
+/*
+ * 显示未评分的候选人列表
+ */
+function getgradedcandidatetable(urlTable,urlList){
+	$.ajax({
+		url : urlTable,
+		type : 'get',
+		dataType : 'text',
+		success : function(data) {
+			$("#candidateTable_div").html(data);
+			updateCandidateList(urlList);
+		}
+	});
+}
+
+
+
+function updateCandidateList(urlList){
+	
 		$.ajax({
-			url:'/cydspx/notgradecandidatetable',
+			url:urlList,
 			type:'get',
 			datatype:'json',
 			success:function(data){
+				showCandidate =   new Vue({
+	    			el:'#candidateTable',
+	    			data:{
+	    				candidateList:candidateList
+	    			}
+	    		});
 				
+				for(index in data){
+					data[index].attachment = "/cydspx/attachment/" + data[index].attachment+"/";
+				}
+				showCandidate.candidateList = data;
 			}
 		});
-	}
-	else if(val == notgraded){
-		$.ajax({
-			url:'/cydspx/notgradecandidatetable'
-		});
-	}
-	
 }
