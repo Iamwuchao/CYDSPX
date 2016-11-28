@@ -37,7 +37,7 @@
 	    <nav>
 	        <ul>
 	            <li>
-	                <a href="/cydspx/schoolAdmin/checkCandidate"><span class="glyphicon glyphicon-th-large"></span>提交候选人信息</a>
+	                <a href="/cydspx/schoolAdmin/addCandidate"><span class="glyphicon glyphicon-th-large"></span>提交候选人信息</a>
 	            </li>
 	            <li>
 	                <a href="/cydspx/schoolAdmin/checkCandidate"><span class="glyphicon glyphicon-th-large"></span>查看候选人信息</a>
@@ -111,8 +111,8 @@
 				                    <div class="input-group">
 				                        <span class="input-group-addon">民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族</span>
 										<select class="select" name="nation">
-			                            	<option v-for="option in nationList" v-bind:value="option.value">
-			                                	{{ option.text }}
+			                            	<option v-for="option in nationList" v-bind:value="option">
+			                                	{{ option }}
 			                              	</option>
 			                        	</select>
 				                        <span class="required-span">*</span>
@@ -243,8 +243,8 @@
 				                    <div class="input-group">
 				                        <span class="input-group-addon">学历类别</span>
 				                    	<select class="select" name="edu_type">
-				                            <option v-for="option in edu_typeList" v-bind:value="option.value">
-				                                {{ option.text }}
+				                            <option v-for="option in edu_typeList" v-bind:value="option">
+				                                {{ option }}
 				                              </option>
 				                        </select>
 				                    </div>
@@ -270,8 +270,8 @@
 				                        <span class="input-group-addon">学科门类</span>
 <!-- 				                        <input type="text" class="form-control"></input> -->
 				                    	<select class="select" name="subject_category">
-				                            <option v-for="option in subject_categoryList" v-bind:value="option.value">
-				                                {{ option.text }}
+				                            <option v-for="option in subject_categoryList" v-bind:value="option">
+				                                {{ option }}
 				                              </option>
 				                        </select>
 				                    </div>
@@ -282,8 +282,8 @@
 				                    <div class="input-group">
 				                        <span class="input-group-addon">学位类别</span>
 				                        <select class="select" name="degree_type">
-				                            <option v-for="option in degree_typeList" v-bind:value="option.value">
-				                                {{ option.text }}
+				                            <option v-for="option in degree_typeList" v-bind:value="option">
+				                                {{ option }}
 				                              </option>
 				                        </select>
 				                    </div>
@@ -314,8 +314,8 @@
 				                    <div class="input-group">
 				                        <span class="input-group-addon">行&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业</span>
 				                        <select class="select" name="vocation">
-				                            <option v-for="option in vocationList" v-bind:value="option.value">
-				                                {{ option.text }}
+				                            <option v-for="option in vocationList" v-bind:value="option">
+				                                {{ option }}
 				                              </option>
 				                        </select>
 				                        <span class="required-span">*</span>
@@ -338,8 +338,8 @@
 				                    <div class="input-group">
 				                        <span class="input-group-addon">职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称</span>
 				                        <select class="select" name="title">
-				                            <option v-for="option in titleList" v-bind:value="option.value">
-				                                {{ option.text }}
+				                            <option v-for="option in titleList" v-bind:value="option">
+				                                {{ option }}
 				                              </option>
 				                        </select>
 				                    </div>
@@ -373,8 +373,8 @@
 				                        <span class="input-group-addon">服务意向</span>
 				                        <div class="select">
 				                            <span v-for="option in service_intentionList">
-				                                <input type="checkbox" name="service_intention" v-bind:value="option.text"></input>
-				                                {{option.text}}
+				                                <input type="checkbox" name="service_intention" v-bind:value="option"></input>
+				                                {{option}}
 				                            </span>
 				                        </div>
 				                        <span class="required-span">*</span>
