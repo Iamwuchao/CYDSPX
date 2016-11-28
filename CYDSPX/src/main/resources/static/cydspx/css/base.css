@@ -247,7 +247,7 @@ nav ul li a:hover span{
 	padding:20px 20px;
 	margin-top:30px;
 	background:#fff;
-	float:left;
+	margin-left:20%;
 	box-sizing:border-box;
 }
 .container .container-title{
