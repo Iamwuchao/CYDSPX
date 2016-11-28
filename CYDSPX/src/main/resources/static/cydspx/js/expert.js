@@ -62,3 +62,26 @@ function updateCandidateList(urlList){
 			}
 		});
 }
+
+function grade(object){
+	var cnadidateId = $(object).attr("id");
+	var score = $("#"+"score_"+candidateId).val();
+	$.ajax({
+		url:"/cydspx/gradeforcandidate",
+		type:"post",
+		dataType:"json",
+		data:{
+			candidateId:candidateId,
+			score:score
+		},
+		success:function(response){
+			//if(response.)
+		//	alert(response.message);
+			//updateProjectList();
+			if(response.code==0)
+				showCandidateTable();
+			else
+				alert(response.message);
+		}
+	});
+}
