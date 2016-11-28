@@ -4,8 +4,7 @@ function showCandidateManagepage(){
 		type:'get',
 		dataType:'text',
 		success:function(data){
-			$("#contains").html(data);
-			getProjectList(kind);
+			$("#candidateTable").html(data);
 		}
 		
 	});
