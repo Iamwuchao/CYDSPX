@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import lombok.Data;
+
+import cydspx.globalInfo.Const;
+
 import cydspx.handler.CandidateHandler;
 import cydspx.mode.ResponseMessage;
 
@@ -50,10 +54,36 @@ public class CandidateController {
 			@RequestParam String origin_recommand
 			) 
 	{
+		System.out.println("haha");
 		return candidateHandler.addCandidate(session, name, sex, birthday, state, cert_type, cert_no, 
 										photograph, nation, politics, edu_type, edu_hierarchy,
 										subject_category, degree_type, academy_name, specialty_name,
 										job, title, workunit, address, postal_code, mobile_phone,
 										tel_phone, email, resume, origin_recommand);
+	}
+	
+	@Data
+	class FormChoicesRespMessage {
+		private String[] degree_types;
+		private String[] services;
+		private String[] subject_categories;
+		private String[] titles;
+		private String[] vocations;
+		private String[] nations;
+	}
+	
+	@RequestMapping("/cydspx/candidate/getFormChoices")
+	@ResponseBody
+	public FormChoicesRespMessage addUserPage(HttpSession session) 
+	{
+		System.out.println("haha");
+		FormChoicesRespMessage msg = new FormChoicesRespMessage();
+		msg.degree_types = Const.degree_types;
+		msg.services = Const.services;
+		msg.subject_categories = Const.subject_categories;
+		msg.titles = Const.titles;
+		msg.vocations = Const.vocations;
+		msg.nations = Const.nations;
+		return msg;
 	}
 }
