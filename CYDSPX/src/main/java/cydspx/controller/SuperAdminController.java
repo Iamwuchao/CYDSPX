@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cydspx.handler.AllocationHandler;
-import cydspx.handler.LoginHandler;
 import cydspx.handler.SuperAdminHandler;
 import cydspx.mode.ResponseMessage;
 import cydspx.mode.User;
@@ -40,7 +39,6 @@ public class SuperAdminController {
 	@ResponseBody
 	public List<User> getSchoolAdminAndExpertList(HttpSession session) 
 	{
-//		System.out.println("0000++++++++==");
 		return superAdminHandler.getSchoolAdminAndExpertList(session);
 	}
 
@@ -48,7 +46,6 @@ public class SuperAdminController {
 	@ResponseBody
 	public ResponseMessage deleteUser(HttpSession session, @RequestParam int userId) 
 	{
-//		System.out.println("0000++++++++==");
 		return superAdminHandler.deleteUser(session, userId);
 	}
 	
@@ -68,6 +65,14 @@ public class SuperAdminController {
 		return allocationHandler.allocation();
 	}
 	
+	/*
+	 * 设置分组规则，每组几个专家
+	 */
+	@RequestMapping("/cydspx/superAdmin/setgroupsize")
+	@ResponseBody
+	public ResponseMessage setGroupInfo(@RequestParam int groupSize){
+		return allocationHandler.setGroupSize(groupSize);
+	}
 }
 
 

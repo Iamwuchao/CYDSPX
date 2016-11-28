@@ -13,7 +13,7 @@ function showCandidateManagepage(){
 function candidateGrouping(){
 	$.ajax({
 		url:'/cydspx/superAdmin/allocation',
-		type:'get',
+		type:'post',
 		dataType:'json',
 		success:function(data){
 			//$("#contains").html(data);
@@ -21,6 +21,21 @@ function candidateGrouping(){
 			alert(data.responseMessage);
 		}
 		
+	});
+}
+
+function setCandidateManageInfo(){
+	var groupSize = $("#judgeGroupCount").val();
+	$.ajax({
+		url:'/cydspx/superAdmin/setgroupsize',
+		tyep:'post',
+		data:{
+			"groupSize":groupSize
+		},
+		dataType:'json',
+		success:function(data){
+			alert(data.message);
+		}
 	});
 }
 
@@ -35,8 +50,7 @@ function getPage(pageName)
 	      
 	      success: function(data){
 // 	    	  alert(data)
-	    	  $("#contains").html(data);
+	    	  $("#candidateTable").html(data);
 	      }
 	    });
-	
 }

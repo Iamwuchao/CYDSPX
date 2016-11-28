@@ -3,6 +3,8 @@ package cydspx.handler;
 import java.util.Iterator;
 import java.util.List;
 
+import lombok.Data;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,9 +22,11 @@ import cydspx.mode.User;
  * 该类主要用于划分 专家组 和 候选人组
  * 将候选人组分配给专家组
  */
+@Data
 @Component
 public class AllocationHandler {
-	private static final int groupSize =5;
+	
+	private static int groupSize =5;
 	
 	@Autowired
 	private CandidateDBServer candidateDBServer;
@@ -37,6 +41,18 @@ public class AllocationHandler {
 	private AllocationDBServer allocationDBServer;
 	
 	/*
+	 * 设置分组信息
+	 */
+	public ResponseMessage setGroupSize(int newGroupSize){
+		ResponseMessage respnose = new ResponseMessage();
+		groupSize = newGroupSize;
+		respnose.setCode(ResponseCode.SUCCESS.ordinal());
+		respnose.setMessage("设置成功");
+		return respnose;
+		
+	}
+	
+	/*
 	 * 这个函数用于分组
 	 */
 	public ResponseMessage allocation(){
@@ -46,6 +62,12 @@ public class AllocationHandler {
 		//先对专家进行分组
 		List<User> allExpert = userDBServer.getAllUsersByType(UserType.EXPERT.ordinal());
 		
+		if(allExpert!=null)
+			System.out.println("############# allexpert "+allExpert.size());
+		else
+		{
+			System.out.println("$$$$$ ");
+		}
 		if(groupSize<=0) {
 			response.setCode(ResponseCode.FAIL.ordinal());
 			response.setMessage("每个候选人至少需要超过一位专家评审，请重新设置评审规则");
@@ -54,7 +76,7 @@ public class AllocationHandler {
 		
 		int groupCount = allExpert.size()/groupSize;
 		
-		//将分组信息写入数据库
+		//将专家分组信息写入数据库
 		saveExpertGroupInfo(allExpert,groupCount,groupSize);
 		
 		//对候选人进行分组
