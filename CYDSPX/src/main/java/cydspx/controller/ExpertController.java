@@ -39,6 +39,9 @@ public class ExpertController {
 		return expertHandler.getGradedCandidateList(user);
 	}
 
+	/*
+	 * 给候选人评分
+	 */
 	@RequestMapping("/cydspx/gradeforcandidate")
 	@ResponseBody
 	public ResponseMessage gradeCandidate(HttpSession session,@RequestParam int candidateId,@RequestParam int score){
