@@ -333,28 +333,72 @@ $(document).ready(function(){
 				required:true,
 				maxlength:800
 			},
-			achievement:{
+			achievement1:{
 				required:true,
 				maxlength:200
 			},
-			prize_year:{
+			prize_year1:{
 				required:true,
 				year:true
 			},
-			prize_level:{
+			prize_level1:{
 				required:true,
 			},
-			project_name:{
+			achievement2:{
 				required:true,
 				maxlength:200
 			},
-			elect_year:{
+			prize_year2:{
 				required:true,
 				year:true
 			},
-			elect_level:{
+			prize_level2:{
+				required:true,
+			},
+			achievement3:{
+				required:true,
+				maxlength:200
+			},
+			prize_year3:{
+				required:true,
+				year:true
+			},
+			prize_level3:{
+				required:true,
+			},
+			project_name1:{
+				required:true,
+				maxlength:200
+			},
+			elect_year1:{
+				required:true,
+				year:true
+			},
+			elect_level1:{
 				required:true
-			}
+			},
+			project_name2:{
+				required:true,
+				maxlength:200
+			},
+			elect_year2:{
+				required:true,
+				year:true
+			},
+			elect_level2:{
+				required:true
+			},
+			project_name3:{
+				required:true,
+				maxlength:200
+			},
+			elect_year3:{
+				required:true,
+				year:true
+			},
+			elect_level3:{
+				required:true
+			},
         },
         messages:{
         	name:{
@@ -478,9 +522,8 @@ $(document).ready(function(){
         submitHandle:function(form){
             var param = ($("#applyForm").serialize());
         	$.ajax({
-        		url:"",
+        		url:"/cydspx/candidate/addCandidate",
         		type:"post",
-        		dataType:"json",
         		data:param,
         		success:function(){
         			alert("提交成功！");

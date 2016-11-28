@@ -243,7 +243,7 @@ nav ul li a:hover span{
 	color:#fff;
 }
 
-.container{
+.wrapper{
 	width:78%;
 	padding:20px 20px;
 	margin-top:30px;
@@ -251,7 +251,7 @@ nav ul li a:hover span{
 	margin-left:20%!important;
 	box-sizing:border-box;
 }
-.container .container-title{
+.wrapper .container-title{
 	width:100%;
 	height:40px;
 	background:#fff;
@@ -259,7 +259,7 @@ nav ul li a:hover span{
 	border-bottom:1px solid #BDE1EC;
 	margin-bottom:20px;
 }
-.container .content{
+.wrapper .content{
 	width:100%;
 	height:620px;
 	overflow-y:scroll;
