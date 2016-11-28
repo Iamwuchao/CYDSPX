@@ -230,10 +230,12 @@ nav ul li a{
 	font-size:20px;
 	display:block;
 	padding-left:15px;
+	text-decoration:none;
 }
 nav ul li a:hover{
 	color:#fff;
 	background:#53aad4;
+	text-decoration:none;
 }
 nav ul li a span{
 	margin-right:20px;
