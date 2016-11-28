@@ -49,4 +49,10 @@ public class PageController {
 		return "/schoolAdmin/addCandidate";
 	}
 	
+	@RequestMapping("/cydspx/schoolAdmin/checkCandidate")
+	public String checkCandidatePage()
+	{
+		return "/schoolAdmin/checkCandidate";
+	}
+	
 }
