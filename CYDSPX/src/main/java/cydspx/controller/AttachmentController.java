@@ -14,6 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import cydspx.handler.CandidateHandler;
+import cydspx.mode.ResponseMessage;
+
+
 
 
 /*
@@ -25,6 +33,10 @@ public class AttachmentController {
 	
 	@Autowired
 	private Environment env;
+	
+	//wl
+	@Autowired
+	private CandidateHandler candidateHandler;
 	
 	/*
 	 * 获取附件
@@ -45,5 +57,18 @@ public class AttachmentController {
 				log.warn("getOutputStream flush warn",e );
 			}
 	 }
-	 
+	 //wl
+	 @RequestMapping("/cydspx/uploadattachment")
+	 @ResponseBody
+	 public ResponseMessage getAttachement(@RequestParam("attachement_file") MultipartFile file) throws IOException {
+		 ResponseMessage response = new ResponseMessage();
+		 String fileName = file.getOriginalFilename();
+		 System.out.println("filename:::"+fileName);
+		//返回来的是存储的路径
+		String filename = candidateHandler.uploadFile(file, fileName);
+		String path = env.getProperty("rootPath") + filename;
+		response.setMessage(filename);
+		response.setHref(path);
+		return response;
+	}
 }
