@@ -33,58 +33,86 @@ $(document).ready(function(){
         $(this).find(".delete-btn").hide();
     });
     //上传头像
-    $(document).on("click", "#uploadPicBtn", function(){
-        var imgPath = $("#uploadPic").val();
-        if(imgPath === ""){
-            alert("请选择上传图片");
-            return;
-        }
-        var imgSuffix = imgPath.substr(imgPath.lastIndexOf(".") + 1).toLowerCase();
-        if(imgSuffix !== "jpg"){
-            alert("请选择JPG格式图片文件");
-            $("#uploadPic").val("");
-            return;
-        }
-        var img = new Image();
-        img.src = imgPath;
-        console.log(img.width);
-        console.log(img.height);
-        $.ajax({
-            type: "POST",
-            url: "",
-            data: {imgPath: imgPath},
-            cache: false,
-            success: function(data){
-                alert("上传成功");
-                $("#pic").attr("src", data);
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown){
-                alert("上传失败，请检查网络后重试");
-            }
-        });
-    });
+    $('#uploadPic').fileupload({  
+        url:"",  
+        dataType: 'json',
+        loadImageFileTypes:/(.jpg)$/,
+        loadImageMaxFileSize:80,
+        imageMinWidth:90,
+        imageMaxWidth:480,
+        imageMinHeight:100,
+        imageMaxHeight:640,
+        progressall: function (e, data) {  
+            var progress = parseInt(data.loaded / data.total * 100, 10);  
+            $('.up_progress .progress-bar').css(  
+                'width',  
+                progress + '%'  
+            );  
+        },   
+        done: function (e, data) {  
+            alert("aaaaaaa");  
+            $.each(data.result.files, function (index, file) {  
+                $('<p/>').text(file.name).appendTo(document.body);  
+            });  
+        },  
+        change : function (e, data) {  
+            $.each(data.files, function (index, file) {  
+                console.log('Selected file: ' + file.name);  
+            });  
+        }  
+    });  
+//    $(document).on("click", "#uploadPicBtn", function(){
+//        var imgPath = $("#uploadPic").val();
+//        if(imgPath === ""){
+//            alert("请选择上传图片");
+//            return;
+//        }
+//        var imgSuffix = imgPath.substr(imgPath.lastIndexOf(".") + 1).toLowerCase();
+//        if(imgSuffix !== "jpg"){
+//            alert("请选择JPG格式图片文件");
+//            $("#uploadPic").val("");
+//            return;
+//        }
+//        var img = new Image();
+//        img.src = imgPath;
+//        console.log(img.width);
+//        console.log(img.height);
+//        $.ajax({
+//            type: "POST",
+//            url: "",
+//            data: {imgPath: imgPath},
+//            cache: false,
+//            success: function(data){
+//                alert("上传成功");
+//                $("#pic").attr("src", data);
+//            },
+//            error: function(XMLHttpRequest, textStatus, errorThrown){
+//                alert("上传失败，请检查网络后重试");
+//            }
+//        });
+//    });
     //上传简历文件
-    $(document).on("click", "#uploadFileBtn", function(){
-        var filePath = $("#uploadFile").val();
-        if(filePath === ""){
-            alert("请选择上传文件");
-            return;
-        }
-        var fileSuffix = filePath.substr(filePath.lastIndexOf(".")+1).toLowerCase();
-        if(fileSuffix !== "word" && fileSuffix !== "pdf"){
-            alert("请选择word或pdf格式文件");
-            $("#uploadFile").val("");
-            return;
-        }
-        $.ajax({
-        	url:"",
-        	type:"post",
-        	data:{filePath:filePath},
-        	success:function(){
-        		alert("文件上传成功！");
-        	}
-        });
-    });
+//    $(document).on("click", "#uploadFileBtn", function(){
+//        var filePath = $("#uploadFile").val();
+//        if(filePath === ""){
+//            alert("请选择上传文件");
+//            return;
+//        }
+//        var fileSuffix = filePath.substr(filePath.lastIndexOf(".")+1).toLowerCase();
+//        if(fileSuffix !== "word" && fileSuffix !== "pdf"){
+//            alert("请选择word或pdf格式文件");
+//            $("#uploadFile").val("");
+//            return;
+//        }
+//        $.ajax({
+//        	url:"",
+//        	type:"post",
+//        	data:{filePath:filePath},
+//        	success:function(){
+//        		alert("文件上传成功！");
+//        	}
+//        });
+//    });
     
     var sexList = [
         {value:1,text:"男"},

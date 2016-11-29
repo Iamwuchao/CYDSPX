@@ -18,7 +18,9 @@
     	<script src="/cydspx/js/bootstrap.min.js"></script>
     	<script src="/cydspx/js/jquery.validate.min.js"></script>
     	<script src="/cydspx/js/vue.js"></script>
-		
+    	<script src="/cydspx/js/fileupload/jquery.ui.widget.js"></script>
+		<script src="/cydspx/js/fileupload/jquery.iframe-transport.js"></script>
+		<script src="/cydspx/js/fileupload/jquery.fileupload.js"></script>
 	</head>
 	<body  onload="onload()">
 	    <header class="navbar navbar-inverse navbar-fixed-top">
@@ -58,9 +60,16 @@
 				                <img src="/cydspx/image/candidate.jpg" alt="" id="pic"></img>
 				            </div>
 				            <div class="uploadpic">
-				            	<input type="file" id="uploadPic" name="photograph"></input>
-					            <input type="button" id="uploadPicBtn" value="上传头像"></input>
-					            <span class="required-span">*</span>
+				            	<button class="btn uploadPicBtn">
+				            		<span>选择头像并上传</span>
+				            		<input type="file" id="uploadPic" name="photograph" multiple="true"></input>
+				            		
+				            	</button>
+				            	<span class="required-span">*</span>
+<!-- 					            <input type="button" id="uploadPicBtn" value="上传头像"></input> -->
+					            <div class="up_progress">
+									<div class="progress-bar"></div>
+								</div>
 					            <br/>
 					            <span>
 					                <strong>注意:</strong><br/>1、请上传导师近期免冠正面彩色头像<br/>2、文件使用导师的证件号码命名

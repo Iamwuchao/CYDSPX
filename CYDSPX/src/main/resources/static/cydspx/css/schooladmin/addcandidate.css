@@ -24,6 +24,34 @@
 .upload .uploadpictrue, .upload .uploadpic, .upload .uploadfile{
 	float: left;
 }
+.uploadPicBtn{
+	color:#fff;
+	text-align:center;
+	font-size:18px;
+	font-weight:400;
+	cursor:pointer;
+	position:relative;
+	overflow:hidden;
+	background:#53AAD4;
+	display:inline-block;
+}
+.uploadPicBtn span{
+	font-size:14px!important;
+	color:#fff!important;
+}
+.uploadPicBtn input{
+	position:absolute;
+	top:0;
+	right:0;
+	border:none;
+}
+.progress-bar{
+	width:0%;
+	height:15px;
+	margin:3px 0;
+	border-radius:3px;
+	background:#6cd46c;
+}
 .upload span{
     font-size: 10px;
     color:#989595;
