@@ -98,9 +98,15 @@ public class AllocationHandler {
 		
 		Iterator<User> userIterator = userList.iterator();
 		for(int groupId=0;groupId<groupCount;groupId++){
-			for(int count=0;count<groupSize || groupId==(groupCount-1);count++){
-				User user = userIterator.next();
-				expertDBServer.addExpertGroupInfo(user.getUserId(), count);
+			for(int count=0;count<groupSize;count++){
+					User user = userIterator.next();
+					expertDBServer.addExpertGroupInfo(user.getUserId(), groupId);
+			}
+			if(groupId == (groupCount-1)){
+				while(userIterator.hasNext()){
+					User user = userIterator.next();
+					expertDBServer.addExpertGroupInfo(user.getUserId(),groupId );
+				}
 			}
 		}
 	}
@@ -109,9 +115,15 @@ public class AllocationHandler {
 
 		Iterator<CandidateAbstract> candidateIterator = candidateList.iterator();
 		for(int groupId=0;groupId<groupCount;groupId++){
-			for(int count=0;count<groupSize || groupId==(groupCount-1);count++){
+			for(int count=0;count<groupSize;count++){
 				CandidateAbstract candidate = candidateIterator.next();
-				expertDBServer.addExpertGroupInfo(candidate.getId(), count);
+				//candidateDBServer.(candidate.getId(), groupId);
+				
+				if(groupId==(groupCount-1)){
+					while(candidateIterator.hasNext()){
+						
+					}
+				}
 			}
 		}
 	}
