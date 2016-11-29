@@ -169,6 +169,12 @@ legend{
     position: static;
     color:red
 }
+.multiple-span{
+	top:-30px!important;
+}
+.multiple-tip{
+	color:#615d5d;
+}
 .special-fieldset .required-span{
 	left:2px;
 }

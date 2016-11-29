@@ -323,16 +323,15 @@
 				            </div>
 				        </div>
 				        <div class="row">
-				            <div class="col-md-6">
+				        	<div class="col-md-6">
 				                <div class="form-group">
 				                    <div class="input-group">
-				                        <span class="input-group-addon">行&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业</span>
-				                        <select class="select" name="vocation">
-				                            <option v-for="option in vocationList" v-bind:value="option">
+				                        <span class="input-group-addon">职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称</span>
+				                        <select class="select" name="title">
+				                            <option v-for="option in titleList" v-bind:value="option">
 				                                {{ option }}
 				                              </option>
 				                        </select>
-				                        <span class="required-span">*</span>
 				                    </div>
 				                </div>
 				            </div>
@@ -350,20 +349,17 @@
 				            <div class="col-md-6">
 				                <div class="form-group">
 				                    <div class="input-group">
-				                        <span class="input-group-addon">职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称</span>
-				                        <select class="select" name="title">
-				                            <option v-for="option in titleList" v-bind:value="option">
-				                                {{ option }}
-				                              </option>
-				                        </select>
+				                        <span class="input-group-addon">工作单位</span>
+				                        <input type="text" class="form-control" name="workunit"></input>
+				                        <span class="required-span">*</span>
 				                    </div>
 				                </div>
 				            </div>
 				            <div class="col-md-6">
 				                <div class="form-group">
 				                    <div class="input-group">
-				                        <span class="input-group-addon">工作单位</span>
-				                        <input type="text" class="form-control" name="workunit"></input>
+				                        <span class="input-group-addon">原始推荐单位</span>
+				                        <input type="text" class="form-control" name="origin_recommand" placeholder="推荐该导师的高校名称"></input>
 				                        <span class="required-span">*</span>
 				                    </div>
 				                </div>
@@ -373,9 +369,14 @@
 				            <div class="col-md-12">
 				                <div class="form-group">
 				                    <div class="input-group">
-				                        <span class="input-group-addon">原始推荐单位</span>
-				                        <input type="text" class="form-control" name="origin_recommand" placeholder="推荐该导师的高校名称"></input>
-				                        <span class="required-span">*</span>
+				                        <span class="input-group-addon">行&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业</span>
+				                        <select class="select" name="vocation" multiple="multiple" size="4">
+				                            <option v-for="option in vocationList" v-bind:value="option">
+				                                {{ option }}
+				                              </option>
+				                        </select>
+				                        <span class="required-span multiple-span">*</span>
+				                        <span class="multiple-tip">按住ctrl可多选</span>
 				                    </div>
 				                </div>
 				            </div>
