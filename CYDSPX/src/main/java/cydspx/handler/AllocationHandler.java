@@ -59,6 +59,9 @@ public class AllocationHandler {
 		
 		ResponseMessage response = new ResponseMessage();
 		
+		//清空之前的分组信息
+		allocationDBServer.clearTable();
+		
 		//先对专家进行分组
 		List<User> allExpert = userDBServer.getAllUsersByType(UserType.EXPERT.ordinal());
 		
@@ -83,7 +86,7 @@ public class AllocationHandler {
 		List<CandidateAbstract> allCandidateList= candidateDBServer.getAllCandidates();
 		
 		//将分组信息写入数据库
-		saveCandidateGroupInfo(allCandidateList,groupCount,groupSize);
+		saveCandidateGroupInfo(allCandidateList,groupCount);
 		
 		//将分组信息写入数据库
 		for(int i=0;i<groupCount;i++){
@@ -111,18 +114,20 @@ public class AllocationHandler {
 		}
 	}
 	
-	private void saveCandidateGroupInfo(List<CandidateAbstract> candidateList,int groupCount,int groupSize){
+	private void saveCandidateGroupInfo(List<CandidateAbstract> candidateList,int groupCount){
 
 		Iterator<CandidateAbstract> candidateIterator = candidateList.iterator();
+		int groupSize = candidateList.size()/groupCount;
 		for(int groupId=0;groupId<groupCount;groupId++){
 			for(int count=0;count<groupSize;count++){
 				CandidateAbstract candidate = candidateIterator.next();
 				//candidateDBServer.(candidate.getId(), groupId);
-				
-				if(groupId==(groupCount-1)){
-					while(candidateIterator.hasNext()){
-						
-					}
+				candidateDBServer.saveCandidateGroupInfo(groupId, candidate.getId());
+			}
+			if(groupId==(groupCount-1)){
+				while(candidateIterator.hasNext()){
+					CandidateAbstract candidate = candidateIterator.next();
+					candidateDBServer.saveCandidateGroupInfo(groupId, candidate.getId());
 				}
 			}
 		}

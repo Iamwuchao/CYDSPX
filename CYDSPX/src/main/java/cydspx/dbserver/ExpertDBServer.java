@@ -7,8 +7,6 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import cydspx.mapper.AllocateMapper;
 import cydspx.mapper.CandidateGroupMapper;
 import cydspx.mapper.ElectResultMapper;
 import cydspx.mapper.ExpertGroupMapper;
@@ -23,8 +21,8 @@ public class ExpertDBServer {
 	@Autowired
 	private CandidateGroupMapper candidateGroupMapper;
 	
-	@Autowired
-	private AllocateMapper allocateMapper;
+	//@Autowired
+	//private AllocateMapper allocateMapper;
 	
 	@Autowired
 	private ElectResultMapper electResultMapper;
@@ -33,7 +31,12 @@ public class ExpertDBServer {
 	 * 返回指定专家的已评分的候选人列表 
 	 */
 	public List<CandidateAbstract> getGradedCandidateList(int expertId){
-		return electResultMapper.getGradedCandidateList(expertId);
+		List<CandidateAbstract> candidateList =  electResultMapper.getGradedCandidateList(expertId);
+		for(CandidateAbstract candidate:candidateList){
+			int score = electResultMapper.getScore(candidate.getId(), expertId);
+			candidate.setScore(score);
+		}
+		return candidateList;
 	}
 	
 	/*
@@ -52,22 +55,33 @@ public class ExpertDBServer {
 	 * 返回指定专家的未评分的候选人列表
 	 */
 	public List<CandidateAbstract> getUngradedCandidateList(int expertId){
+		System.out.println("@@@@@@@@@@@@@@@");
 		List<CandidateAbstract> gradedList = electResultMapper.getGradedCandidateList(expertId);
 		Integer groupId = getExpertGroupId(expertId);
 		if(groupId == null) return new LinkedList<CandidateAbstract>();
 		List<CandidateAbstract> allList = candidateGroupMapper.getAllCandidateBygroupId(groupId);
 		
+		System.out.println("+++++++++++ allList size "+allList.size());
+		
 		Set<Integer> gradedIdSet = new HashSet<Integer>();
-		for(CandidateAbstract candidate : gradedList){
-			gradedIdSet.add(candidate.getId());
+		if(gradedList !=null){
+			for(CandidateAbstract candidate : gradedList){
+				gradedIdSet.add(candidate.getId());
+				System.out.println("&&&&&&&&&&&&&& "+candidate.getId());
+			}
 		}
+		System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 		List<CandidateAbstract> ungradedCandidateList = new LinkedList<CandidateAbstract>();
 		for(CandidateAbstract candidate : allList){
 			if(gradedIdSet.contains(candidate.getId()))
 				continue;
 			else
-				ungradedCandidateList.add(candidate);
+				{
+					System.out.println("未评分的候选人 "+candidate.getId());
+					ungradedCandidateList.add(candidate);
+				}
 		}
+		
 		return ungradedCandidateList;
 	}
 	

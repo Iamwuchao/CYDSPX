@@ -1,7 +1,7 @@
 var graded = "已评分";//已评价
 var notgraded = "未评分";//未评价
 var showCandidate;
-var candidateList = [{
+var originalCandidateList = [{
 	name:"name",
 	workunit:"dlut",
 	job:"job",
@@ -33,7 +33,7 @@ function getgradedcandidatetable(urlTable,urlList){
 		type : 'get',
 		dataType : 'text',
 		success : function(data) {
-			$("#candidateTable_div").html(data);
+			$("#candidateTable").html(data);
 			updateCandidateList(urlList);
 		}
 	});
@@ -51,7 +51,7 @@ function updateCandidateList(urlList){
 				showCandidate =   new Vue({
 	    			el:'#candidateTable',
 	    			data:{
-	    				candidateList:candidateList
+	    				candidateList:originalCandidateList
 	    			}
 	    		});
 				
@@ -64,7 +64,7 @@ function updateCandidateList(urlList){
 }
 
 function grade(object){
-	var cnadidateId = $(object).attr("id");
+	var candidateId = $(object).attr("id");
 	var score = $("#"+"score_"+candidateId).val();
 	$.ajax({
 		url:"/cydspx/gradeforcandidate",

@@ -24,11 +24,14 @@ public interface ElectResultMapper {
 		@Result(property="title",column="title",javaType=String.class,jdbcType=JdbcType.VARCHAR),
 		@Result(property="attachment",column="attachment",javaType=String.class,jdbcType=JdbcType.VARCHAR)
 	})
-	@Select("select id,`name`,workunit,photograph,job,title,`attachment` from candidate_table as a left join "
+	@Select("select id,`name`,workunit,photograph,job,title,`attachment` ,ret from candidate_table as a right join "
 			+ "(SELECT candidate_id,ret FROM cydspx.elect_result_table where expert_id=#{expertId}) as b "
 			+ "on a.id = b.candidate_id;")
 	public List<CandidateAbstract> getGradedCandidateList(@Param("expertId") int expertId);
 	
 	@Insert("INSERT INTO `cydspx`.`elect_result_table` (`candidate_id`, `expert_id`, `ret`) VALUES (#{candidateId}, #{expertId}, #{score});")
 	public int saveGradeInfo(@Param("candidateId") int candidateId,@Param("expertId") int expertId,@Param("score") int score);
+	
+	@Select("SELECT ret FROM cydspx.elect_result_table where candidate_id=#{candidateId} and expert_id=#{expertId};")
+	public int getScore(@Param("candidateId")int candidateId,@Param("expertId") int expertId);
 }
