@@ -1,0 +1,20 @@
+<div>
+	<table id="candidateTable" border="1" bordercolor="#000000" cellspacing="0" cellpadding="2" style="border-collapse:collapse;">
+			  <caption>全国万名优秀创新创业导师人才库推荐导师汇总表</caption>
+			  <thead>
+			    <tr>
+			      <th>序号</th>
+			      <th>姓名</th>
+			      <th>所在单位</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr  v-for="candidate in candidateList">
+			      <td>{{$index}}</td>
+			      <td>{{candidate.name}}</td>
+			      <td>{{candidate.workunit}}</td>
+			    </tr>
+			  </tbody>
+	</table>
+	
+</div>

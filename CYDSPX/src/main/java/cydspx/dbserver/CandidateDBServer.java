@@ -67,4 +67,11 @@ public class CandidateDBServer {
 		int count = candidateGroupMapper.containCandidateOfGroup(groupId, candidateId);
 		return count>0?true:false;
 	}
+	
+	public boolean saveCandidateGroupInfo(int groupId,int candidateId){
+		int rows =  candidateGroupMapper.insertCandidateGroupInfo(groupId, candidateId);
+		return rows>0?true:false;
+	}
+	
+	
 }

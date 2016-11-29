@@ -18,7 +18,7 @@ function candidateGrouping(){
 		success:function(data){
 			//$("#contains").html(data);
 			//getProjectList(kind);
-			alert(data.responseMessage);
+			alert(data.message);
 		}
 		
 	});
@@ -34,7 +34,8 @@ function setCandidateManageInfo(){
 		},
 		dataType:'json',
 		success:function(data){
-			alert(data.message);
+			//alert(data.message);
+			candidateGrouping();
 		}
 	});
 }

@@ -1,5 +1,6 @@
 package cydspx.mapper;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -16,4 +17,7 @@ public interface AllocateMapper {
 	
 	@Insert("INSERT INTO `cydspx`.`allocate_table` (`candidate_group_id`, `expert_group_id`) VALUES (#{candidateGroupId}, #{expertGroupId});")
 	public int saveGroupInfo(@Param("candidateGroupId") int candidateGroupId,@Param("expertGroupId") int expertGroupId);
+	
+	@Delete("TRUNCATE TABLE `cydspx`.`allocate_table`;")
+	void truncateTable();
 }
