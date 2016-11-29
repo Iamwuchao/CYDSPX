@@ -57,18 +57,15 @@
 				<form action="" method="post" id="fileuploadForm">
 					<fieldset class="upload">
 				    	<legend>文件上传</legend>
-				        <div class="uploadpictrue">
-				            <div class="showpictrue">
-				                <img src="/cydspx/image/candidate.jpg" alt="" id="pic"></img>
-				            </div>
-				            
+				        <div class="showpic">
+				        	<img v-bind:src="picpath" alt="" id="pic"></img>
 				        </div>
 				        <div class="uploadpic">
-				            	<input id="attachementId" type="hidden"/>
+				            	<input id="attachementPicId" type="hidden"/>
 				            	<button type="button" id="addpic" class="btn addBtn">添加照片</button>
 				            	<span class="required-span">*</span>
-				            	<div class="fileinput" id="fileinput">
-				            		<input type="file" class="" id="attachement_file" name="attachement_file" onchange=""/>
+				            	<div class="fileinput" id="picInput">
+				            		<input type="file" id="attachement_pic" name="attachement_pic"/>
 									<p class="help-block">图片只支持jpg格式.提交前先点击上传按钮</p>
 									<p class="helip-block" id="fileError"></p>
 				            	</div>
@@ -79,9 +76,14 @@
 					            </span>
 				            </div>
 				        <div class="uploadfile">
-				            <input type="file" id="uploadFile" name="file"></input>
-				            <input type="button" id="uploadFileBtn" value="上传导师个人简历"></input>
-				            <span class="required-span">*</span>
+				            <input id="attachementFileId" type="hidden"/>
+			            	<button type="button" id="addfile" class="btn addBtn">上传导师个人简历</button>
+			            	<span class="required-span">*</span>
+			            	<div class="fileinput" id="fileInput">
+			            		<input type="file" id="attachement_file" name="attachement_file"/>
+								<p class="help-block">附件只支持word和pdf格式.提交前先点击上传按钮</p>
+								<p class="helip-block" id="fileError"></p>
+			            	</div>
 				            <br/>
 				            <span>
 				                <strong>注意:</strong><br/>1、上传的简历文件用于给评审专家评审时查看

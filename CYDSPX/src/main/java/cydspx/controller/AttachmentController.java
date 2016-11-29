@@ -57,10 +57,10 @@ public class AttachmentController {
 				log.warn("getOutputStream flush warn",e );
 			}
 	 }
-	 //wl
-	 @RequestMapping("/cydspx/uploadattachment")
+	 //上传头像
+	 @RequestMapping("/cydspx/attachmentpic")
 	 @ResponseBody
-	 public ResponseMessage getAttachement(@RequestParam("attachement_file") MultipartFile file) throws IOException {
+	 public ResponseMessage getAttachementPic(@RequestParam("attachement_pic") MultipartFile file) throws IOException {
 		 ResponseMessage response = new ResponseMessage();
 		 String fileName = file.getOriginalFilename();
 		 System.out.println("filename:::"+fileName);
@@ -68,7 +68,20 @@ public class AttachmentController {
 		String filename = candidateHandler.uploadFile(file, fileName);
 		String path = env.getProperty("rootPath") + filename;
 		response.setMessage(filename);
-		response.setHref(path);
 		return response;
 	}
+	 //上传附加
+	 @RequestMapping("/cydspx/attachmentfile")
+	 @ResponseBody
+	 public ResponseMessage getAttachementFile(@RequestParam("attachement_file") MultipartFile file) throws IOException {
+		 ResponseMessage response = new ResponseMessage();
+		 String fileName = file.getOriginalFilename();
+		 System.out.println("filename:::"+fileName);
+		//返回来的是存储的路径
+		String filename = candidateHandler.uploadFile(file, fileName);
+		String path = env.getProperty("rootPath") + filename;
+		response.setMessage(filename);
+		return response;
+	}
+	 
 }

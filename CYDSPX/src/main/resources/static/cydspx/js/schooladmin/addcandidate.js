@@ -1,10 +1,37 @@
 $(document).ready(function(){
+    var vue = null;
+    var url = "/cydspx/attachment";
+    var imgpath = "/cydspx/image/candidate.jpg";
+    
+    //获取表单中的下拉列表数据
 	$.ajax({
 		url:"/cydspx/candidate/getFormChoices",
 		type: "get",
 		datatype:"json",
 		success:initFun
 	});
+	function initFun(data){
+	    vue = new Vue({
+	        el: ".content",
+	        data: {
+	        	picpath:imgpath,
+	            sexList: sexList,
+	            nationList:data.nations,
+	            politicsList:politicsList,
+	            stateList:[],
+	            cert_typeList:cert_typeList,
+	            edu_typeList:[],
+	            edu_hierarchyList:[],
+	            subject_categoryList:data.subject_categories,
+	            degree_typeList:data.degree_types,
+	            vocationList:data.vocations,
+	            titleList:data.titles,
+	            service_intentionList:data.services,
+	            prize_levelList:prize_levelList,
+	            elect_levelList:elect_levelList
+	        }
+	    });
+    }
     // 添加获奖信息和参评信息的按钮点击事件
     $(document).on("click", ".add-btn", function(){
         var $parent = $(this).parent();
@@ -40,12 +67,48 @@ $(document).ready(function(){
 			dataType : 'text',
 			success : function(data) {	
 				console.log("success");
-				$("#fileinput").show();
+				$("#picInput").show();
+				$("#attachement_pic").fileinput({
+					language : 'zh',
+					allowedFileExtensions : ["jpg"], 
+					uploadUrl : url+"pic",
+					uploadAsync : true,
+					browseClass:"btn btn-primary",
+					uploadClass:"btn btn-success",
+					removeClass:"btn btn-danger",
+					showPreview : false,
+					showUpload: true, //是否显示上传按钮
+					minFileSize:5.0,
+					maxFileSize:80.0,
+					minImageHeight:100,
+					maxImageHeight:640,
+					minImageWidth:90,
+					maxImageWidth:480
+				});
+				//绑定上传文件的事件回调
+				initPicInputEvent();
+			},
+			error : function(data){
+				console.log(00);
+			}
+		});
+    });
+    $("#addfile").click(function(){
+    	$.ajax({
+			url : '',
+			type : 'get',
+			dataType : 'text',
+			success : function(data) {	
+				console.log("success");
+				$("#fileInput").show();
 				$("#attachement_file").fileinput({
 					language : 'zh',
-					allowedFileExtensions : ["JPG"], 
-					uploadUrl : "/cydspx/uploadattachment",
+					allowedFileExtensions : ["word", "pdf"], 
+					uploadUrl : url+"file",
 					uploadAsync : true,
+					browseClass:"btn btn-primary",
+					uploadClass:"btn btn-success",
+					removeClass:"btn btn-danger",
 					showPreview : false,
 					showUpload: true, //是否显示上传按钮
 				});
@@ -57,24 +120,37 @@ $(document).ready(function(){
 			}
 		});
     });
+    function initPicInputEvent() {
+		$("#attachement_pic").on("fileuploaded", function(event, data, previewId, index) {
+			var rep = data.response;
+			if(rep == null || rep.code == "1") {
+				alert("头像上传失败，请重新尝试！");
+				return;
+			}
+			//设置附件ID隐藏表单域
+			$("#attachementPicId").val(rep.message);
+			alert("头像上传成功！");
+			var path = url + "/"+ rep.message + "/";
+			vue.picpath = path;
+		});
+		$("#attachement_pic").on("fileuploaderror", function(event, data, msg) {
+			$("#attachementPicId").val("");
+			alert("头像上传错误！"+msg);
+		} );
+	}
     function initFileInputEvent() {
 		$("#attachement_file").on("fileuploaded", function(event, data, previewId, index) {
 			var rep = data.response;
-			console.log("response  "+rep);
-			console.log("responseMessage  "+rep.message);
 			if(rep == null || rep.code == "1") {
 				alert("附件上传失败，请重新尝试！");
 				return;
 			}
 			//设置附件ID隐藏表单域
-			$("#attachementId").val(rep.message);
+			$("#attachementFileId").val(rep.message);
 			alert("附件上传成功！");
-			console.log(rep.message);
-			console.log(rep.href);
-			var img = new Image();
 		});
 		$("#attachement_file").on("fileuploaderror", function(event, data, msg) {
-			$("#attachementId").val("");
+			$("#attachementFileId").val("");
 			alert("附件上传错误！"+msg);
 		} );
 	}
@@ -121,27 +197,7 @@ $(document).ready(function(){
         {value:"province", text:"省级"},
         {value:"college", text:"校级"}
     ]; 
-    function initFun(data){
-	    var vue = new Vue({
-	        el: ".content",
-	        data: {
-	            sexList: sexList,
-	            nationList:data.nations,
-	            politicsList:politicsList,
-	            stateList:[],
-	            cert_typeList:cert_typeList,
-	            edu_typeList:[],
-	            edu_hierarchyList:[],
-	            subject_categoryList:data.subject_categories,
-	            degree_typeList:data.degree_types,
-	            vocationList:data.vocations,
-	            titleList:data.titles,
-	            service_intentionList:data.services,
-	            prize_levelList:prize_levelList,
-	            elect_levelList:elect_levelList
-	        }
-	    });
-    }
+    
     $(document).on("click", "#submitBtn", function(){
     	alert($("#applyForm").serialize());
     });

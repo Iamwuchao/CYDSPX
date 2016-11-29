@@ -8,31 +8,28 @@
 .upload > div{
     margin-bottom:20px;
 }
-.upload .showpictrue{
-	float:left;
-    width:120px;
+.upload .showpic{
+    width:200px;
     height:180px;
-    margin-right:50px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .upload img{
-    width:100px;
-    height:120px;
+    width:120px;
+    height:150px;
 }
 .addBtn{
 	color:#fff;
 	background:#53aad4;
+	margin-bottom:5px;
 }
-.upload .uploadpictrue, .upload .uploadpic, .upload .uploadfile{
+.upload .showpic, .upload .uploadpic, .upload .uploadfile{
 	float: left;
-}
-.upload .uploadpictrue{
-	width:200px;
 }
 .upload .uploadpic, .upload .uploadfile{
 	width:30%;
+	margin-right:20px;
 }
 .uploadPicBtn{
 	color:#fff;
