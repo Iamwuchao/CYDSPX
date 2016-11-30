@@ -55,3 +55,77 @@ function getPage(pageName)
 	      }
 	    });
 }
+
+var originalCandidateList = [{
+	name:"",
+	workunit:"",
+	job:"",
+	title:"",
+	attachment:""
+}];
+
+var showCandidate;
+
+function getCandidateList(){
+	var count =  $("#count").val();
+	console.log("count "+count);
+	if(count==null || count==""){
+		alert("请先设置导出个数");
+		return ;
+	}
+	$.ajax({
+		url:'/cydspx/superadmin/resultlist',
+		type:'post',
+		dataType:'json',
+		data:{
+			"count":count
+		},
+		success:function(data){
+			//showCandidate.mounted=generateDoc();
+			showCandidate.candidateList = data;
+			
+		}
+		});
+}
+
+function getResultPage(){
+	$.ajax({
+		url:'/cydspx/superadmin/resultpage',
+		type:'get',
+		dataType:'text',
+		success:function(page){
+			$("#candidateTable").html(page);
+			showCandidate =   new Vue({
+    			el:'#candidateTable',
+    			data:{
+    				candidateList:originalCandidateList
+    			}
+    		/*	methods:{
+    				push:function(){
+    					this.$nextTick(function(){
+    						generateDoc();
+    					});
+    				}
+    			}*/
+    		});
+		}
+	});
+}
+
+function generateDoc(){
+	console.log("###### generateDoc");
+	var htmlContent = $("#htmlContent").html();
+	$.ajax({
+		url:"/cydspx/superadmin/generatedoc",
+		type:'post',
+		dataType:'json',
+		data:{
+			"htmlContent":htmlContent
+		},
+		success:function(data){
+			//$('#download').attr('href',"/cydspx/attachment/"+data.message+"/");
+			window.location.href="/cydspx/attachment/"+data.message+"/";
+
+		}
+	});
+}

@@ -36,62 +36,62 @@ public class CandidateController {
 		private String[] nations;
 	}
 	
-	 	@Autowired
-	  	private CandidateHandler candidateHandler;
-	  	@Autowired
-	  	private CandidateRelationHandler relationHandler;
-	  	
-	  	@RequestMapping("/cydspx/candidate/addCandidate")
-	  	@ResponseBody
-	  	public ResponseMessage addCandidate(HttpServletRequest request, HttpSession session, CandidateForm form) {
-	  		
-	  		int candidate_id = candidateHandler.addCandidate(session, form);
-	  		
-	  		/*
-	  		 * 行业
-	  		 */
-	  		if (form.getVocations() != null) {
-	  			for (String vocation : form.getVocations()) {
-	  				relationHandler.addVocationItem(candidate_id, vocation);
-	  			}
-	  		}
-	  		
-	  		/*
-	  		 * 服务意向
-	  		 */
-	  		if (form.getService_intention() != null) {
-	  			for (String service : form.getService_intention()) {
-	  				relationHandler.addServiceItem(candidate_id, service);
-	  			}
-	  		}
-	  		
-	  		
-	  		/* 获奖和参评
-	  		 * so ugly, someone to refactor it
-	  		 */
-	  		if (form.getPrize_level1() != null) {
-	  			relationHandler.addPrizeItem(candidate_id, form.getAchievement1(), form.getPrize_year1(), form.getPrize_level1());
-	  		}
-	  		if (form.getElect_level1() != null) {
-	  			relationHandler.addElectJoinItem(candidate_id, form.getProject_name1(), form.getElect_year1(), form.getElect_level1());
-	  		}
-	  		
-	  		if (form.getPrize_level2() != null) {
-	  			relationHandler.addPrizeItem(candidate_id, form.getAchievement2(), form.getPrize_year2(), form.getPrize_level2());
-	  		}
-	  		if (form.getElect_level2() != null) {
-	  			relationHandler.addElectJoinItem(candidate_id, form.getProject_name2(), form.getElect_year2(), form.getElect_level2());
-	  		}
-	  		
-	  		if (form.getPrize_level3() != null) {
-	  			relationHandler.addPrizeItem(candidate_id, form.getAchievement3(), form.getPrize_year3(), form.getPrize_level3());
-	  		}
-	  		if (form.getElect_level3() != null) {
-	  			relationHandler.addElectJoinItem(candidate_id, form.getProject_name3(), form.getElect_year3(), form.getElect_level3());
-	  		}
-	  		ResponseMessage msg = new ResponseMessage();
-	  		return msg;
-	  	}
+ 	@Autowired
+  	private CandidateHandler candidateHandler;
+  	@Autowired
+  	private CandidateRelationHandler relationHandler;
+  	
+  	@RequestMapping("/cydspx/candidate/addCandidate")
+  	@ResponseBody
+  	public ResponseMessage addCandidate(HttpServletRequest request, HttpSession session, CandidateForm form) {
+  		
+  		int candidate_id = candidateHandler.addCandidate(session, form);
+  		
+  		/*
+  		 * 行业
+  		 */
+  		if (form.getVocations() != null) {
+  			for (String vocation : form.getVocations()) {
+  				relationHandler.addVocationItem(candidate_id, vocation);
+  			}
+  		}
+  		
+  		/*
+  		 * 服务意向
+  		 */
+  		if (form.getService_intention() != null) {
+  			for (String service : form.getService_intention()) {
+  				relationHandler.addServiceItem(candidate_id, service);
+  			}
+  		}
+  		
+  		
+  		/* 获奖和参评
+  		 * so ugly, someone to refactor it
+  		 */
+  		if (form.getPrize_level1() != null) {
+  			relationHandler.addPrizeItem(candidate_id, form.getAchievement1(), form.getPrize_year1(), form.getPrize_level1());
+  		}
+  		if (form.getElect_level1() != null) {
+  			relationHandler.addElectJoinItem(candidate_id, form.getProject_name1(), form.getElect_year1(), form.getElect_level1());
+  		}
+  		
+  		if (form.getPrize_level2() != null) {
+  			relationHandler.addPrizeItem(candidate_id, form.getAchievement2(), form.getPrize_year2(), form.getPrize_level2());
+  		}
+  		if (form.getElect_level2() != null) {
+  			relationHandler.addElectJoinItem(candidate_id, form.getProject_name2(), form.getElect_year2(), form.getElect_level2());
+  		}
+  		
+  		if (form.getPrize_level3() != null) {
+  			relationHandler.addPrizeItem(candidate_id, form.getAchievement3(), form.getPrize_year3(), form.getPrize_level3());
+  		}
+  		if (form.getElect_level3() != null) {
+  			relationHandler.addElectJoinItem(candidate_id, form.getProject_name3(), form.getElect_year3(), form.getElect_level3());
+  		}
+  		ResponseMessage msg = new ResponseMessage();
+  		return msg;
+  	}
 	
 	@RequestMapping("/cydspx/candidate/getFormChoices")
 	@ResponseBody

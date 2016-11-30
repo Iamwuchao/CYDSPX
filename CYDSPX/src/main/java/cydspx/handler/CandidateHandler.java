@@ -21,6 +21,11 @@ import cydspx.globalInfo.UserType;
 import cydspx.mode.ResponseMessage;
 import cydspx.mode.Candidate;
 import cydspx.mode.User;
+import cydspx.mode.CandidateAbstract;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 @Component
@@ -31,6 +36,8 @@ public class CandidateHandler {
 	
 	@Autowired
 	private CandidateDBServer candidateDBServer;
+	
+	private static final AtomicInteger finish= new AtomicInteger(0);//是否已经完成所有候选人分数的计算
 	
 	public int addCandidate(HttpSession session, Candidate candidate) {
 		return candidateDBServer.addCandidate(candidate);
@@ -72,7 +79,27 @@ public class CandidateHandler {
 			return new LinkedList<Candidate>();
 		String school = user.getSchool();
 		System.out.println("school::"+school);
-		return candidateDBServer.getCandidatesOfSchool(school); 
+		return candidateDBServer.getCandidatesOfSchool(school);
+	}
+	/*
+	 * 获取指定数量的候选人列表
+	 */
+	public List<CandidateAbstract> getCandidateAbstractList(int count){
+		
+		if(count<0) return new LinkedList<CandidateAbstract>();
+		computeCandidateScore();
+		return candidateDBServer.getCandidateGroupList(count);
+	}
+	
+	/*
+	 * 计算候选人的平均分
+	 */
+	private int computeCandidateScore(){
+		if(finish.compareAndSet(0, 1))
+		{
+			candidateDBServer.computeScore();
+		}
+		return 0;
 	}
 
 }

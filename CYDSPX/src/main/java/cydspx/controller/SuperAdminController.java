@@ -1,27 +1,39 @@
 package cydspx.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cydspx.globalInfo.ResponseCode;
 import cydspx.handler.AllocationHandler;
+import cydspx.handler.CandidateHandler;
 import cydspx.handler.SuperAdminHandler;
+import cydspx.mode.CandidateAbstract;
 import cydspx.mode.ResponseMessage;
 import cydspx.mode.User;
+import cydspx.myutil.HTMLToWord;
 
 @Controller
 public class SuperAdminController {
+	@Autowired
+	private Environment env;
+	
 	@Autowired
 	private SuperAdminHandler superAdminHandler;
 
 	@Autowired
 	private AllocationHandler allocationHandler;
+	
+	@Autowired
+	private CandidateHandler candidateHandler;
 	
 	@RequestMapping("/cydspx/superAdmin/addUser")
 	@ResponseBody
@@ -73,6 +85,37 @@ public class SuperAdminController {
 	public ResponseMessage setGroupInfo(@RequestParam int groupSize){
 		return allocationHandler.setGroupSize(groupSize);
 	}
+	
+	/*
+	 * 获取评分结果列表
+	 */
+	@RequestMapping("/cydspx/superadmin/resultlist")
+	@ResponseBody
+	public List<CandidateAbstract>  getResultList(@RequestParam int count){
+		return candidateHandler.getCandidateAbstractList(count);
+	}
+	
+	/*
+	 * 生成文档
+	 */
+	@RequestMapping("/cydspx/superadmin/generatedoc")
+	@ResponseBody
+	public ResponseMessage generateDoc(@RequestParam String htmlContent){
+		 ResponseMessage response = new ResponseMessage();
+			try {
+				String rootPath = env.getProperty("rootPath");
+				String fileName = System.currentTimeMillis()+".doc";
+				HTMLToWord.createWord(rootPath,fileName,htmlContent);
+				response.setCode(ResponseCode.SUCCESS.ordinal());
+				response.setMessage(fileName);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				response.setCode(ResponseCode.FAIL.ordinal());
+				response.setMessage("生成word文档失败");
+			}
+		return response;
+	}
+	
 }
 
 
