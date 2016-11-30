@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import cydspx.mapper.CandidateGroupMapper;
 import cydspx.mapper.CandidateMapper;
+import cydspx.mapper.ElectResultMapper;
 import cydspx.mode.Candidate;
 import cydspx.mode.CandidateAbstract;
 
@@ -19,6 +20,9 @@ public class CandidateDBServer {
 	
 	@Autowired
 	private CandidateMapper candidateMapper;
+	
+	@Autowired
+	private ElectResultMapper electResultMapper;
 	
 	@Autowired
 	private CandidateGroupMapper candidateGroupMapper;
@@ -73,5 +77,19 @@ public class CandidateDBServer {
 		return rows>0?true:false;
 	}
 	
+	public List<CandidateAbstract> getCandidateGroupList(int count){
+		return candidateMapper.getCateAbstractList(count);
+	}
 	
+	public void computeScore()
+	{
+		List<Integer> idlist = candidateMapper.getAllCandidateId();
+		for(int id:idlist){
+			int score = electResultMapper.getSumScore(id);
+			int count = electResultMapper.getCountJudgement(id);
+			if(count==0) count=1;
+			double avgScore = ((score*1.0)/count*1.0);
+			candidateMapper.updateCandidateScore(avgScore, id);
+		}
+	}
 }

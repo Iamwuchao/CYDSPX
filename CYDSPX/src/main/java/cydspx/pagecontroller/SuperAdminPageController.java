@@ -17,4 +17,12 @@ public class SuperAdminPageController {
 		return "/superadmin/allocate";
 	}
 	
+	/*
+	 * 获取结果导出页面
+	 */
+	@RequestMapping("/cydspx/superadmin/resultpage")
+	public String getResultpage(){
+		return "/superadmin/result";
+	}
+	
 }

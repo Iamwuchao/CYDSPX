@@ -33,4 +33,5 @@ public class Candidate {
 	private String origin_recommand;	//原始推荐单位	27
 	//private int prize_id;				//导师获奖信息
 	//private int elect_join_id;			//导师参评信息
+	private float score;//导师评分
 }

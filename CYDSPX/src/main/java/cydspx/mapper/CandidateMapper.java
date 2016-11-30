@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.type.JdbcType;
 
@@ -122,6 +123,28 @@ public interface CandidateMapper {
 	@Select("SELECT id,`name`,workunit,photograph,job,title,`attachment`  FROM cydspx.candidate_table;")
 	public List<CandidateAbstract> getAllCateAbstract();
 	
+	
+	/*
+	 * 查询全部候选导师的摘要信息
+	 */
+	@Results({
+		@Result(property="id",column="id",javaType=Integer.class,jdbcType=JdbcType.INTEGER),
+		@Result(property="name",column="name",javaType=String.class,jdbcType=JdbcType.VARCHAR),
+		@Result(property="workunit",column="workunit",javaType=String.class,jdbcType=JdbcType.VARCHAR),
+		@Result(property="photograph",column="photograph",javaType=String.class,jdbcType=JdbcType.VARCHAR),
+		@Result(property="job",column="job",javaType=String.class,jdbcType=JdbcType.VARCHAR),
+		@Result(property="title",column="title",javaType=String.class,jdbcType=JdbcType.VARCHAR),
+		@Result(property="attachment",column="attachment",javaType=String.class,jdbcType=JdbcType.VARCHAR)
+	})
+	@Select("SELECT id,`name`,workunit,photograph,job,title,`attachment`  FROM cydspx.candidate_table order by score limit #{number};")
+	public List<CandidateAbstract> getCateAbstractList(@Param("number") int number);
+	
+	
+	@Select("SELECT id FROM cydspx.candidate_table;")
+	public List<Integer> getAllCandidateId();
+	
+	@Update("UPDATE `cydspx`.`candidate_table` SET `score`=#{score} WHERE `id`=#{candidateId};")
+	public int updateCandidateScore(@Param("score") double score,@Param("candidateId") int candidateId);
 	
 	
 }

@@ -34,4 +34,10 @@ public interface ElectResultMapper {
 	
 	@Select("SELECT ret FROM cydspx.elect_result_table where candidate_id=#{candidateId} and expert_id=#{expertId};")
 	public int getScore(@Param("candidateId")int candidateId,@Param("expertId") int expertId);
+	
+	@Select("select ifnull(sum(ret),0) from cydspx.elect_result_table where candidate_id=#{candidateId};")
+	public int getSumScore(@Param("candidateId") int candidateId);
+	
+	@Select("select ifnull(count(id),1) from cydspx.elect_result_table where candidate_id=#{candidateId};")
+	public int getCountJudgement(@Param("candidateId") int candidateId);
 }
