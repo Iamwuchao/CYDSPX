@@ -12,15 +12,17 @@
 		<link rel="stylesheet" href="/cydspx/css/base.css"></link>
 		<link rel="stylesheet" href="/cydspx/css/dashboard.css"></link> 
 		<link rel="stylesheet" href="/cydspx/css/bootstrap-theme.min.css"></link>
+		<link rel="stylesheet" href="/cydspx/css/schooladmin/fileinput.min.css"></link>
+		<link rel="stylesheet" href="/cydspx/css/schooladmin/fileinput.css"></link>
 		<link rel="stylesheet" href="/cydspx/css/schooladmin/addcandidate.css"></link>
 		
 		<script src="/cydspx/js/jquery-3.1.0.min.js"></script>
     	<script src="/cydspx/js/bootstrap.min.js"></script>
     	<script src="/cydspx/js/jquery.validate.min.js"></script>
     	<script src="/cydspx/js/vue.js"></script>
-    	<script src="/cydspx/js/fileupload/jquery.ui.widget.js"></script>
-		<script src="/cydspx/js/fileupload/jquery.iframe-transport.js"></script>
-		<script src="/cydspx/js/fileupload/jquery.fileupload.js"></script>
+		<script src="/cydspx/js/fileinput/fileUpload.js"></script>
+		<script src="/cydspx/js/fileinput/fileinput.js"></script>
+		<script src="/cydspx/js/fileinput/locales/zh.js"></script>
 	</head>
 	<body  onload="onload()">
 	    <header class="navbar navbar-inverse navbar-fixed-top">
@@ -52,35 +54,36 @@
 				提交候选人信息
 			</header>
 			<div class="content">
-				<form action="" method="post" id="applyForm">
-				    <fieldset class="upload">
+				<form action="" method="post" id="fileuploadForm">
+					<fieldset class="upload">
 				    	<legend>文件上传</legend>
-				        <div class="uploadpictrue">
-				            <div class="showpictrue">
-				                <img src="/cydspx/image/candidate.jpg" alt="" id="pic"></img>
-				            </div>
-				            <div class="uploadpic">
-				            	<button class="btn uploadPicBtn">
-				            		<span>选择头像并上传</span>
-				            		<input type="file" id="uploadPic" name="photograph" multiple="true"></input>
-				            		
-				            	</button>
+				        <div class="showpic">
+				        	<img v-bind:src="picpath" alt="" id="pic"></img>
+				        </div>
+				        <div class="uploadpic">
+				            	<input id="attachementPicId" type="hidden"/>
+				            	<button type="button" id="addpic" class="btn addBtn">添加照片</button>
 				            	<span class="required-span">*</span>
-<!-- 					            <input type="button" id="uploadPicBtn" value="上传头像"></input> -->
-					            <div class="up_progress">
-									<div class="progress-bar"></div>
-								</div>
+				            	<div class="fileinput" id="picInput">
+				            		<input type="file" id="attachement_pic" name="attachement_pic"/>
+									<p class="help-block">图片只支持jpg格式.提交前先点击上传按钮</p>
+									<p class="helip-block" id="fileError"></p>
+				            	</div>
 					            <br/>
 					            <span>
 					                <strong>注意:</strong><br/>1、请上传导师近期免冠正面彩色头像<br/>2、文件使用导师的证件号码命名
 					                <br/>3、格式为JPG，大小在5-80K之间<br/>4、图像规格宽度在90-480像素之间<br/>5、高度在100-640像素之间
 					            </span>
 				            </div>
-				        </div>
 				        <div class="uploadfile">
-				            <input type="file" id="uploadFile" name="file"></input>
-				            <input type="button" id="uploadFileBtn" value="上传导师个人简历"></input>
-				            <span class="required-span">*</span>
+				            <input id="attachementFileId" type="hidden"/>
+			            	<button type="button" id="addfile" class="btn addBtn">上传导师个人简历</button>
+			            	<span class="required-span">*</span>
+			            	<div class="fileinput" id="fileInput">
+			            		<input type="file" id="attachement_file" name="attachement_file"/>
+								<p class="help-block">附件只支持word和pdf格式.提交前先点击上传按钮</p>
+								<p class="helip-block" id="fileError"></p>
+			            	</div>
 				            <br/>
 				            <span>
 				                <strong>注意:</strong><br/>1、上传的简历文件用于给评审专家评审时查看
@@ -88,6 +91,8 @@
 				            </span>
 				        </div>
 				    </fieldset>
+				</form>
+				<form action="" method="post" id="applyForm">
 				    <fieldset>
 				        <legend>基本信息</legend>
 				        <div class="row">
@@ -318,16 +323,15 @@
 				            </div>
 				        </div>
 				        <div class="row">
-				            <div class="col-md-6">
+				        	<div class="col-md-6">
 				                <div class="form-group">
 				                    <div class="input-group">
-				                        <span class="input-group-addon">行&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业</span>
-				                        <select class="select" name="vocation">
-				                            <option v-for="option in vocationList" v-bind:value="option">
+				                        <span class="input-group-addon">职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称</span>
+				                        <select class="select" name="title">
+				                            <option v-for="option in titleList" v-bind:value="option">
 				                                {{ option }}
 				                              </option>
 				                        </select>
-				                        <span class="required-span">*</span>
 				                    </div>
 				                </div>
 				            </div>
@@ -345,20 +349,17 @@
 				            <div class="col-md-6">
 				                <div class="form-group">
 				                    <div class="input-group">
-				                        <span class="input-group-addon">职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称</span>
-				                        <select class="select" name="title">
-				                            <option v-for="option in titleList" v-bind:value="option">
-				                                {{ option }}
-				                              </option>
-				                        </select>
+				                        <span class="input-group-addon">工作单位</span>
+				                        <input type="text" class="form-control" name="workunit"></input>
+				                        <span class="required-span">*</span>
 				                    </div>
 				                </div>
 				            </div>
 				            <div class="col-md-6">
 				                <div class="form-group">
 				                    <div class="input-group">
-				                        <span class="input-group-addon">工作单位</span>
-				                        <input type="text" class="form-control" name="workunit"></input>
+				                        <span class="input-group-addon">原始推荐单位</span>
+				                        <input type="text" class="form-control" name="origin_recommand" placeholder="推荐该导师的高校名称"></input>
 				                        <span class="required-span">*</span>
 				                    </div>
 				                </div>
@@ -368,9 +369,14 @@
 				            <div class="col-md-12">
 				                <div class="form-group">
 				                    <div class="input-group">
-				                        <span class="input-group-addon">原始推荐单位</span>
-				                        <input type="text" class="form-control" name="origin_recommand" placeholder="推荐该导师的高校名称"></input>
-				                        <span class="required-span">*</span>
+				                        <span class="input-group-addon">行&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业</span>
+				                        <select class="select" name="vocation" multiple="multiple" size="4">
+				                            <option v-for="option in vocationList" v-bind:value="option">
+				                                {{ option }}
+				                              </option>
+				                        </select>
+				                        <span class="required-span multiple-span">*</span>
+				                        <span class="multiple-tip">按住ctrl可多选</span>
 				                    </div>
 				                </div>
 				            </div>
@@ -643,7 +649,7 @@
 				            </div>
 				        </div>
 				    </fieldset>
-				    <input type="submit" id="submitBtn" value="确认提交"></input>
+				    <input type="button" id="submitBtn" value="确认提交"></input>
 				</form>			
 			</div>
 	    </div>

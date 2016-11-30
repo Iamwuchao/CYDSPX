@@ -1,10 +1,37 @@
 $(document).ready(function(){
+    var vue = null;
+    var url = "/cydspx/attachment";
+    var imgpath = "/cydspx/image/candidate.jpg";
+    
+    //获取表单中的下拉列表数据
 	$.ajax({
 		url:"/cydspx/candidate/getFormChoices",
 		type: "get",
 		datatype:"json",
 		success:initFun
 	});
+	function initFun(data){
+	    vue = new Vue({
+	        el: ".content",
+	        data: {
+	        	picpath:imgpath,
+	            sexList: sexList,
+	            nationList:data.nations,
+	            politicsList:politicsList,
+	            stateList:[],
+	            cert_typeList:cert_typeList,
+	            edu_typeList:[],
+	            edu_hierarchyList:[],
+	            subject_categoryList:data.subject_categories,
+	            degree_typeList:data.degree_types,
+	            vocationList:data.vocations,
+	            titleList:data.titles,
+	            service_intentionList:data.services,
+	            prize_levelList:prize_levelList,
+	            elect_levelList:elect_levelList
+	        }
+	    });
+    }
     // 添加获奖信息和参评信息的按钮点击事件
     $(document).on("click", ".add-btn", function(){
         var $parent = $(this).parent();
@@ -33,86 +60,101 @@ $(document).ready(function(){
         $(this).find(".delete-btn").hide();
     });
     //上传头像
-    $('#uploadPic').fileupload({  
-        url:"",  
-        dataType: 'json',
-        loadImageFileTypes:/(.jpg)$/,
-        loadImageMaxFileSize:80,
-        imageMinWidth:90,
-        imageMaxWidth:480,
-        imageMinHeight:100,
-        imageMaxHeight:640,
-        progressall: function (e, data) {  
-            var progress = parseInt(data.loaded / data.total * 100, 10);  
-            $('.up_progress .progress-bar').css(  
-                'width',  
-                progress + '%'  
-            );  
-        },   
-        done: function (e, data) {  
-            alert("aaaaaaa");  
-            $.each(data.result.files, function (index, file) {  
-                $('<p/>').text(file.name).appendTo(document.body);  
-            });  
-        },  
-        change : function (e, data) {  
-            $.each(data.files, function (index, file) {  
-                console.log('Selected file: ' + file.name);  
-            });  
-        }  
-    });  
-//    $(document).on("click", "#uploadPicBtn", function(){
-//        var imgPath = $("#uploadPic").val();
-//        if(imgPath === ""){
-//            alert("请选择上传图片");
-//            return;
-//        }
-//        var imgSuffix = imgPath.substr(imgPath.lastIndexOf(".") + 1).toLowerCase();
-//        if(imgSuffix !== "jpg"){
-//            alert("请选择JPG格式图片文件");
-//            $("#uploadPic").val("");
-//            return;
-//        }
-//        var img = new Image();
-//        img.src = imgPath;
-//        console.log(img.width);
-//        console.log(img.height);
-//        $.ajax({
-//            type: "POST",
-//            url: "",
-//            data: {imgPath: imgPath},
-//            cache: false,
-//            success: function(data){
-//                alert("上传成功");
-//                $("#pic").attr("src", data);
-//            },
-//            error: function(XMLHttpRequest, textStatus, errorThrown){
-//                alert("上传失败，请检查网络后重试");
-//            }
-//        });
-//    });
-    //上传简历文件
-//    $(document).on("click", "#uploadFileBtn", function(){
-//        var filePath = $("#uploadFile").val();
-//        if(filePath === ""){
-//            alert("请选择上传文件");
-//            return;
-//        }
-//        var fileSuffix = filePath.substr(filePath.lastIndexOf(".")+1).toLowerCase();
-//        if(fileSuffix !== "word" && fileSuffix !== "pdf"){
-//            alert("请选择word或pdf格式文件");
-//            $("#uploadFile").val("");
-//            return;
-//        }
-//        $.ajax({
-//        	url:"",
-//        	type:"post",
-//        	data:{filePath:filePath},
-//        	success:function(){
-//        		alert("文件上传成功！");
-//        	}
-//        });
-//    });
+    $("#addpic").click(function(){
+    	$.ajax({
+			url : '',
+			type : 'get',
+			dataType : 'text',
+			success : function(data) {	
+				console.log("success");
+				$("#picInput").show();
+				$("#attachement_pic").fileinput({
+					language : 'zh',
+					allowedFileExtensions : ["jpg"], 
+					uploadUrl : url+"pic",
+					uploadAsync : true,
+					browseClass:"btn btn-primary",
+					uploadClass:"btn btn-success",
+					removeClass:"btn btn-danger",
+					showPreview : false,
+					showUpload: true, //是否显示上传按钮
+					minFileSize:5.0,
+					maxFileSize:80.0,
+					minImageHeight:100,
+					maxImageHeight:640,
+					minImageWidth:90,
+					maxImageWidth:480
+				});
+				//绑定上传文件的事件回调
+				initPicInputEvent();
+			},
+			error : function(data){
+				console.log(00);
+			}
+		});
+    });
+    $("#addfile").click(function(){
+    	$.ajax({
+			url : '',
+			type : 'get',
+			dataType : 'text',
+			success : function(data) {	
+				console.log("success");
+				$("#fileInput").show();
+				$("#attachement_file").fileinput({
+					language : 'zh',
+					allowedFileExtensions : ["word", "pdf"], 
+					uploadUrl : url+"file",
+					uploadAsync : true,
+					browseClass:"btn btn-primary",
+					uploadClass:"btn btn-success",
+					removeClass:"btn btn-danger",
+					showPreview : false,
+					showUpload: true, //是否显示上传按钮
+				});
+				//绑定上传文件的事件回调
+				initFileInputEvent();
+			},
+			error : function(data){
+				console.log(00);
+			}
+		});
+    });
+    function initPicInputEvent() {
+		$("#attachement_pic").on("fileuploaded", function(event, data, previewId, index) {
+			var rep = data.response;
+			if(rep == null || rep.code == "1") {
+				alert("头像上传失败，请重新尝试！");
+				return;
+			}
+			//设置附件ID隐藏表单域
+			$("#attachementPicId").val(rep.message);
+			alert("头像上传成功！");
+			var path = url + "/"+ rep.message + "/";
+			vue.picpath = path;
+		});
+		$("#attachement_pic").on("fileuploaderror", function(event, data, msg) {
+			$("#attachementPicId").val("");
+			alert("头像上传错误！"+msg);
+		} );
+	}
+    function initFileInputEvent() {
+		$("#attachement_file").on("fileuploaded", function(event, data, previewId, index) {
+			var rep = data.response;
+			if(rep == null || rep.code == "1") {
+				alert("附件上传失败，请重新尝试！");
+				return;
+			}
+			//设置附件ID隐藏表单域
+			$("#attachementFileId").val(rep.message);
+			alert("附件上传成功！");
+		});
+		$("#attachement_file").on("fileuploaderror", function(event, data, msg) {
+			$("#attachementFileId").val("");
+			alert("附件上传错误！"+msg);
+		} );
+	}
+    
     
     var sexList = [
         {value:1,text:"男"},
@@ -155,27 +197,7 @@ $(document).ready(function(){
         {value:"province", text:"省级"},
         {value:"college", text:"校级"}
     ]; 
-    function initFun(data){
-	    var vue = new Vue({
-	        el: ".content",
-	        data: {
-	            sexList: sexList,
-	            nationList:data.nations,
-	            politicsList:politicsList,
-	            stateList:[],
-	            cert_typeList:cert_typeList,
-	            edu_typeList:[],
-	            edu_hierarchyList:[],
-	            subject_categoryList:data.subject_categories,
-	            degree_typeList:data.degree_types,
-	            vocationList:data.vocations,
-	            titleList:data.titles,
-	            service_intentionList:data.services,
-	            prize_levelList:prize_levelList,
-	            elect_levelList:elect_levelList
-	        }
-	    });
-    }
+    
     $(document).on("click", "#submitBtn", function(){
     	alert($("#applyForm").serialize());
     });

@@ -2,6 +2,7 @@ package cydspx.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -47,41 +48,14 @@ public interface CandidateMapper {
 		
 	})
 	
-	@Insert({"insert into candidate_table(name, sex, birthday, state, cert_type, cert_no, photograph, nation, " + 
+	@Insert("insert into candidate_table(name, sex, birthday, state, cert_type, cert_no, photograph, nation, " + 
 				"politics, edu_type, edu_hierarchy, subject_category, degree_type, academy_name, specialty_name, " + 
-				"job, title, workunit, address, postal_code, mobile_phone, tel_phone, email, resume, origin_recommand, " +
-				"attachment" ,
-			"values(#{name}, #{sex}, #{birthday}, #{state}, #{cert_type}, #{cert_no}, #{photograph}, #{nation}, " +
-				"#{politics}, #{edu_type}, #{edu_hierarchy}, #{subject_category}, #{degree_type}, #{academy_name}, #{specialty_name}, " +
-				"#{job}, #{title}, #{workunit}, #{address}, #{postal_code}, #{mobile_phone}, #{tel_phone}, #{email}, #{resume}, #{origin_recommand}, " +
-				"#{attachment}"})
-	public boolean addCandidate(
-			@Param("name") String name,
-			@Param("sex") int sex,
-			@Param("birthday") String birthday,
-			@Param("state") String state,
-			@Param("cert_type") String cert_type,
-			@Param("cert_no") String cert_no,
-			@Param("photograph") String photograph,
-			@Param("nation") String nation,
-			@Param("politics") String politics,
-			@Param("edu_type") String edu_type,
-			@Param("edu_hierarchy") String edu_hierarchy,
-			@Param("subject_category") String subject_category,
-			@Param("degree_type") String degree_type,
-			@Param("academy_name") String academy_name,
-			@Param("specialty_name") String specialty_name,
-			@Param("job") String job,
-			@Param("title") String title,
-			@Param("workunit") String workunit,
-			@Param("address") String address,
-			@Param("postal_code") String postal_code,
-			@Param("mobile_phone") String mobile_phone,
-			@Param("tel_phone") String tel_phone,
-			@Param("email") String email,
-			@Param("resume") String resume,
-			@Param("origin_recommand") String origin_recommand
-		);
+				"job, title, workunit, address, postal_code, mobile_phone, tel_phone, email, resume, origin_recommand, attachment) " + 
+			"values(#{candidate.name}, #{candidate.sex}, #{candidate.birthday}, #{candidate.state}, #{candidate.cert_type}, #{candidate.cert_no}, #{candidate.photograph}, #{candidate.nation}, " +
+				"#{candidate.politics}, #{candidate.edu_type}, #{candidate.edu_hierarchy}, #{candidate.subject_category}, #{candidate.degree_type}, #{candidate.academy_name}, #{candidate.specialty_name}, " +
+				"#{candidate.job}, #{candidate.title}, #{candidate.workunit}, #{candidate.address}, #{candidate.postal_code}, #{candidate.mobile_phone}, #{candidate.tel_phone}, #{candidate.email}, #{candidate.resume}, #{candidate.origin_recommand}, '');")
+	@Options(useGeneratedKeys=true, keyProperty="candidate.id",keyColumn="id")
+	public int addCandidate(@Param("candidate") Candidate candidate);
 	
 	@Select("select * from candidate_table where academy_name=#{academy_name};")
 	public List<Candidate> getCandidatesOfSchool(@Param("academy_name") String academy_name);

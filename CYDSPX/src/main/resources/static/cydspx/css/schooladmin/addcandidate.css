@@ -8,21 +8,28 @@
 .upload > div{
     margin-bottom:20px;
 }
-.upload .showpictrue{
-	float:left;
-    width:120px;
+.upload .showpic{
+    width:200px;
     height:180px;
-    margin-right:50px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .upload img{
-    width:100px;
-    height:120px;
+    width:120px;
+    height:150px;
 }
-.upload .uploadpictrue, .upload .uploadpic, .upload .uploadfile{
+.addBtn{
+	color:#fff;
+	background:#53aad4;
+	margin-bottom:5px;
+}
+.upload .showpic, .upload .uploadpic, .upload .uploadfile{
 	float: left;
+}
+.upload .uploadpic, .upload .uploadfile{
+	width:30%;
+	margin-right:20px;
 }
 .uploadPicBtn{
 	color:#fff;
@@ -39,19 +46,9 @@
 	font-size:14px!important;
 	color:#fff!important;
 }
-.uploadPicBtn input{
-	position:absolute;
-	top:0;
-	right:0;
-	border:none;
-}
-.progress-bar{
-	width:0%;
-	height:15px;
-	margin:3px 0;
-	border-radius:3px;
-	background:#6cd46c;
-}
+.fileinput{
+	display:none;
+} 
 .upload span{
     font-size: 10px;
     color:#989595;
@@ -171,6 +168,12 @@ legend{
 .upload .required-span{
     position: static;
     color:red
+}
+.multiple-span{
+	top:-30px!important;
+}
+.multiple-tip{
+	color:#615d5d;
 }
 .special-fieldset .required-span{
 	left:2px;

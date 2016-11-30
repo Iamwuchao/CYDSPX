@@ -7,6 +7,6 @@ public class Prize {
 	private int id;
 	private int candidate_id;
 	private String achievement;
-	private String prize_year;
+	private int prize_year;
 	private String prize_level;
 }
