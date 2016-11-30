@@ -3,11 +3,13 @@ package cydspx.controller;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -15,55 +17,14 @@ import lombok.Data;
 import cydspx.globalInfo.Const;
 import cydspx.globalInfo.SessionKey;
 import cydspx.handler.CandidateHandler;
+import cydspx.handler.CandidateRelationHandler;
 import cydspx.mode.Candidate;
+import cydspx.mode.CandidateForm;
 import cydspx.mode.ResponseMessage;
 import cydspx.mode.User;
 
 @Controller
 public class CandidateController {
-	
-	@Autowired
-	private CandidateHandler candidateHandler;
-
-	@RequestMapping("/cydspx/candidate/addCandidate")
-	@ResponseBody
-	public ResponseMessage addUserPage(HttpSession session,
-			@RequestParam String name,
-			@RequestParam int sex,
-			@RequestParam String birthday,
-			@RequestParam String state,
-			@RequestParam String cert_type,
-			@RequestParam String cert_no,
-			@RequestParam String photograph,
-			@RequestParam String nation,
-			@RequestParam String politics,
-			@RequestParam String edu_type,
-			@RequestParam String edu_hierarchy,
-			@RequestParam String subject_category,
-			@RequestParam String degree_type,
-			@RequestParam String academy_name,
-			@RequestParam String specialty_name,
-			@RequestParam List<String> vocations,
-			@RequestParam String job,
-			@RequestParam String title,
-			@RequestParam List<String> services,
-			@RequestParam String workunit,
-			@RequestParam String address,
-			@RequestParam String postal_code,
-			@RequestParam String mobile_phone,
-			@RequestParam String tel_phone,
-			@RequestParam String email,
-			@RequestParam String resume,
-			@RequestParam String origin_recommand
-			) 
-	{
-		System.out.println("haha");
-		return candidateHandler.addCandidate(session, name, sex, birthday, state, cert_type, cert_no, 
-										photograph, nation, politics, edu_type, edu_hierarchy,
-										subject_category, degree_type, academy_name, specialty_name,
-										job, title, workunit, address, postal_code, mobile_phone,
-										tel_phone, email, resume, origin_recommand);
-	}
 	
 	@Data
 	class FormChoicesRespMessage {
@@ -74,6 +35,63 @@ public class CandidateController {
 		private String[] vocations;
 		private String[] nations;
 	}
+	
+	 	@Autowired
+	  	private CandidateHandler candidateHandler;
+	  	@Autowired
+	  	private CandidateRelationHandler relationHandler;
+	  	
+	  	@RequestMapping("/cydspx/candidate/addCandidate")
+	  	@ResponseBody
+	  	public ResponseMessage addCandidate(HttpServletRequest request, HttpSession session, CandidateForm form) {
+	  		
+	  		int candidate_id = candidateHandler.addCandidate(session, form);
+	  		
+	  		/*
+	  		 * 行业
+	  		 */
+	  		if (form.getVocations() != null) {
+	  			for (String vocation : form.getVocations()) {
+	  				relationHandler.addVocationItem(candidate_id, vocation);
+	  			}
+	  		}
+	  		
+	  		/*
+	  		 * 服务意向
+	  		 */
+	  		if (form.getService_intention() != null) {
+	  			for (String service : form.getService_intention()) {
+	  				relationHandler.addServiceItem(candidate_id, service);
+	  			}
+	  		}
+	  		
+	  		
+	  		/* 获奖和参评
+	  		 * so ugly, someone to refactor it
+	  		 */
+	  		if (form.getPrize_level1() != null) {
+	  			relationHandler.addPrizeItem(candidate_id, form.getAchievement1(), form.getPrize_year1(), form.getPrize_level1());
+	  		}
+	  		if (form.getElect_level1() != null) {
+	  			relationHandler.addElectJoinItem(candidate_id, form.getProject_name1(), form.getElect_year1(), form.getElect_level1());
+	  		}
+	  		
+	  		if (form.getPrize_level2() != null) {
+	  			relationHandler.addPrizeItem(candidate_id, form.getAchievement2(), form.getPrize_year2(), form.getPrize_level2());
+	  		}
+	  		if (form.getElect_level2() != null) {
+	  			relationHandler.addElectJoinItem(candidate_id, form.getProject_name2(), form.getElect_year2(), form.getElect_level2());
+	  		}
+	  		
+	  		if (form.getPrize_level3() != null) {
+	  			relationHandler.addPrizeItem(candidate_id, form.getAchievement3(), form.getPrize_year3(), form.getPrize_level3());
+	  		}
+	  		if (form.getElect_level3() != null) {
+	  			relationHandler.addElectJoinItem(candidate_id, form.getProject_name3(), form.getElect_year3(), form.getElect_level3());
+	  		}
+	  		ResponseMessage msg = new ResponseMessage();
+	  		return msg;
+	  	}
 	
 	@RequestMapping("/cydspx/candidate/getFormChoices")
 	@ResponseBody
