@@ -1,5 +1,6 @@
 package cydspx.controller;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -11,14 +12,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.Data;
-
 import cydspx.globalInfo.Const;
-
+import cydspx.globalInfo.SessionKey;
 import cydspx.handler.CandidateHandler;
+import cydspx.mode.Candidate;
 import cydspx.mode.ResponseMessage;
+import cydspx.mode.User;
 
 @Controller
 public class CandidateController {
+	
 	@Autowired
 	private CandidateHandler candidateHandler;
 
@@ -85,5 +88,17 @@ public class CandidateController {
 		msg.vocations = Const.vocations;
 		msg.nations = Const.nations;
 		return msg;
+	}
+	
+	
+	//wl
+	@RequestMapping("/cydspx/getCandidateList")
+	@ResponseBody
+	public List<Candidate> getCandidateList(HttpSession session){
+		User user = (User) session.getAttribute(SessionKey.USER_INFO.name());
+		System.out.println("#####");
+		System.out.println(user);
+		if(user == null) return new LinkedList<Candidate>();
+		return candidateHandler.getCandidateList(user);
 	}
 }

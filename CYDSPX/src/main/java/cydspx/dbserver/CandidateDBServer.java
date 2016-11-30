@@ -56,6 +56,7 @@ public class CandidateDBServer {
 	}
 	
 	public List<Candidate> getCandidatesOfSchool(String academy_name) {
+		System.out.println(academy_name);
 		return candidateMapper.getCandidatesOfSchool(academy_name);
 	}
 	

@@ -26,7 +26,7 @@ public class PageController {
 			return "/expert/expert";
 		}
 		else if(user.getUserType()==UserType.SCHOOLADMIN.ordinal()){
-			return "";
+			return "/schooladmin/addCandidate";
 		}
 		else if(user.getUserType()==UserType.SUPERADMIN.ordinal()){
 			return "/superAdmin/superAdmin";

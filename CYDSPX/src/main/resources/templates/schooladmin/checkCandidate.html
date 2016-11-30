@@ -17,7 +17,7 @@
 		
 		<script type='text/javascript' src="/cydspx/js/jquery-3.1.0.min.js"></script>	
 		<script type='text/javascript' src="/cydspx/js/vue.js"></script>
-		<script type='text/javascript' src="/cydspx/js/expert.js"></script>
+		<script type='text/javascript' src="/cydspx/js/schooladmin/checkCandidate.js"></script>
     </head>   
 
 	<body  onload="onload()">
@@ -50,7 +50,7 @@
 				查看候选人
 			</header>
 			<div class="content" id="candidateTable">
-				<table class="table table-hover">
+				<table class="table table-hover" id="candidateTable">
 					<thead>
 						<tr>
 							<th>姓名</th>
@@ -58,64 +58,31 @@
 							<th>出生日期</th>
 							<th>移动电话</th>
 							<th>电子邮箱</th>
+							<th>院校名称</th>
 							<th>工作单位</th>
 							<th>原始推荐单位</th>
+				      		<th>职务</th>
+				      		<th>职称</th>
 							<th>操作</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>haha</td>
-							<td>男</td>
-							<td>20000101</td>
-							<td>12345678901</td>
-							<td>1@qq.com</td>
-							<td>大连理工大学</td>
-							<td>大连理工大学</td>
-							<td>
+						<tr v-for="candidate in candidateList">
+				      		<td>{{candidate.name}}</td>
+				      		<td>{{candidate.sex}}</td>
+				      		<td>{{candidate.birthday}}</td>
+				      		<td>{{candidate.mobile_phone}}</td>
+				      		<td>{{candidate.email}}</td>
+				      		<td>{{candidate.academy_name}}</td>
+				      		<td>{{candidate.workunit}}</td>
+				      		<td>{{candidate.origin_recommand}}</td>
+				     	 	<td>{{candidate.job}}</td>
+				      		<td>{{candidate.title}}</td>
+				      		<td>
 								<button type="button" class="btn btn-info">修改</button>
 								<button type="button" class="btn btn-danger">删除</button>
 							</td>
-						</tr>
-						<tr>
-							<td>haha</td>
-							<td>男</td>
-							<td>20000101</td>
-							<td>12345678901</td>
-							<td>1@qq.com</td>
-							<td>大连理工大学</td>
-							<td>大连理工大学</td>
-							<td>
-								<button type="button" class="btn btn-info">修改</button>
-								<button type="button" class="btn btn-danger">删除</button>
-							</td>
-						</tr>
-						<tr>
-							<td>haha</td>
-							<td>男</td>
-							<td>20000101</td>
-							<td>12345678901</td>
-							<td>1@qq.com</td>
-							<td>大连理工大学</td>
-							<td>大连理工大学</td>
-							<td>
-								<button type="button" class="btn btn-info">修改</button>
-								<button type="button" class="btn btn-danger">删除</button>
-							</td>
-						</tr>
-						<tr>
-							<td>haha</td>
-							<td>男</td>
-							<td>20000101</td>
-							<td>12345678901</td>
-							<td>1@qq.com</td>
-							<td>大连理工大学</td>
-							<td>大连理工大学</td>
-							<td>
-								<button type="button" class="btn btn-info">修改</button>
-								<button type="button" class="btn btn-danger">删除</button>
-							</td>
-						</tr>
+				    	</tr>
 					</tbody>
 				</table>
 			</div>
