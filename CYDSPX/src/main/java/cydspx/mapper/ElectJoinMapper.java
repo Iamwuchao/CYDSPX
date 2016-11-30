@@ -16,11 +16,11 @@ public interface ElectJoinMapper {
 	})
 	
 	
-	@Insert("INSERT INTO `cydspx`.`prize_table` (`candidate_id`,  `project_name`, `elect_year`, `level`) VALUES (#{candidate_id}, #{project_name}, #{elect_year}, #{level});")
-	public void addElectJoinItem(
-			@Param("candidate_id") String candidate_id,
+	@Insert("INSERT INTO `cydspx`.`elect_join_table` (`candidate_id`,  `project_name`, `elect_year`, `level`) VALUES (#{candidate_id}, #{project_name}, #{elect_year}, #{level});")
+	public int addElectJoinItem(
+			@Param("candidate_id") int candidate_id,
 			@Param("project_name") String project_name,
-			@Param("elect_year") int elect_year,
+			@Param("elect_year") String elect_year,
 			@Param("level") String level
 			);
 }

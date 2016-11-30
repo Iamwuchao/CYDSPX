@@ -17,10 +17,10 @@ public interface PrizeMapper {
 	
 	
 	@Insert("INSERT INTO `cydspx`.`prize_table` (`candidate_id`,  `achievement`, `prize_year`, `level`) VALUES (#{candidate_id}, #{achievement}, #{prize_year}, #{level});")
-	public void addPrizeItem(
-			@Param("candidate_id") String candidate_id,
+	public int addPrizeItem(
+			@Param("candidate_id") int candidate_id,
 			@Param("achievement") String achievement,
-			@Param("prize_year") int prize_year,
+			@Param("prize_year") String prize_year,
 			@Param("level") String level
 			);
 }
