@@ -123,6 +123,22 @@ public class SuperAdminHandler {
 		}
 		return response;
 	}
+
+
+	public ResponseMessage changePassword(int userId, String newPassword) {
+		ResponseMessage response = new ResponseMessage();	
+		try
+		{
+			userDBServer.setUserPassword(userId, newPassword);
+			response.setMessage("");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			response.setMessage("数据库发生错误");
+		}
+		return response;
+	}
 	
 	
 	

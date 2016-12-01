@@ -19,6 +19,7 @@ import cydspx.globalInfo.Const;
 import cydspx.globalInfo.SessionKey;
 import cydspx.handler.CandidateHandler;
 import cydspx.handler.CandidateRelationHandler;
+import cydspx.handler.SuperAdminHandler;
 import cydspx.mode.Candidate;
 import cydspx.mode.CandidateForm;
 import cydspx.mode.ResponseMessage;
@@ -36,6 +37,9 @@ public class CandidateController {
 		private String[] vocations;
 		private String[] nations;
 	}
+	
+	@Autowired
+	private SuperAdminHandler superAdminHandler;
 	
  	@Autowired
   	private CandidateHandler candidateHandler;
@@ -134,4 +138,21 @@ public class CandidateController {
 		
 		return response;
 	}
+
+	//xiugaimima
+	@RequestMapping("/cydspx/candidate/changePassword")
+	@ResponseBody
+	public ResponseMessage changePassword(HttpSession session, @RequestParam String newPassword)
+	{
+		User user = (User) session.getAttribute(SessionKey.USER_INFO.name());
+		if(user==null){
+			ResponseMessage response = new ResponseMessage();	
+			response.setMessage("请先登录！");
+			return response;
+			
+		}
+		int id=user.getUserId();
+		return superAdminHandler.changePassword(id, newPassword);
+	}
+	
 }

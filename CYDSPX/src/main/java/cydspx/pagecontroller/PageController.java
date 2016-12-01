@@ -55,4 +55,12 @@ public class PageController {
 		return "/schoolAdmin/checkCandidate";
 	}
 	
+	
+	
+	@RequestMapping("/cydspx/schoolAdmin/passwordChange")
+	public String passwordChange()
+	{
+		return "/schoolAdmin/passwordChange";
+	}
+	
 }
