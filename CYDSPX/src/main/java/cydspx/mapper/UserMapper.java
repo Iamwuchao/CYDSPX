@@ -76,6 +76,8 @@ public interface UserMapper {
 			);
 	
 	
+	@Update("UPDATE user_table set dir=#{fileDir} where id=#{userId};")
+	public boolean updateSummarizeByUserId(@Param("fileDir") String fileDir, @Param("userId") int userId);
 }
 
 

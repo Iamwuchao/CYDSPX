@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cydspx.globalInfo.ResponseCode;
 import lombok.Data;
 import cydspx.globalInfo.Const;
 import cydspx.globalInfo.SessionKey;
@@ -114,9 +115,23 @@ public class CandidateController {
 	@ResponseBody
 	public List<Candidate> getCandidateList(HttpSession session){
 		User user = (User) session.getAttribute(SessionKey.USER_INFO.name());
-		System.out.println("#####");
-		System.out.println(user);
 		if(user == null) return new LinkedList<Candidate>();
 		return candidateHandler.getCandidateList(user);
+	}
+	
+	//上传汇总表
+	@RequestMapping(value = "/cydspx/saveSummarize", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseMessage saveSummarize(HttpSession session, @RequestParam("fileDir") String fileDir ){
+		User user = (User)session.getAttribute(SessionKey.USER_INFO.name());
+		ResponseMessage response = new ResponseMessage();
+		if(user == null){
+			//没有登录的时候不能进行上传操作
+			response.setCode(ResponseCode.FAIL.ordinal());
+			return response;
+		}
+		response = candidateHandler.saveSummarize(user.getUserId(), fileDir);
+		
+		return response;
 	}
 }

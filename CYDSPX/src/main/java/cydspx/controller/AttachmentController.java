@@ -91,7 +91,7 @@ public class AttachmentController {
 		response.setMessage(filename);
 		return response;
 	}
-	 //上传附加
+	 //上传附件
 	 @RequestMapping("/cydspx/attachmentfile")
 	 @ResponseBody
 	 public ResponseMessage getAttachementFile(@RequestParam("attachement_file") MultipartFile file) throws IOException {

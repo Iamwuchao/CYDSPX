@@ -103,7 +103,7 @@ $(document).ready(function(){
 				$("#fileInput").show();
 				$("#attachement_file").fileinput({
 					language : 'zh',
-					allowedFileExtensions : ["word", "pdf"], 
+					allowedFileExtensions : ["pdf"], 
 					uploadUrl : url+"file",
 					uploadAsync : true,
 					browseClass:"btn btn-primary",

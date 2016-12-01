@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import cydspx.myutil.UUIGenerator;
 import cydspx.dbserver.CandidateDBServer;
+import cydspx.dbserver.SchoolAdminDBServer;
 import cydspx.globalInfo.UserType;
 import cydspx.mode.ResponseMessage;
 import cydspx.mode.Candidate;
@@ -36,6 +37,9 @@ public class CandidateHandler {
 	
 	@Autowired
 	private CandidateDBServer candidateDBServer;
+	
+	@Autowired
+	private SchoolAdminDBServer schoolAdminDBServer;
 	
 	private static final AtomicInteger finish= new AtomicInteger(0);//是否已经完成所有候选人分数的计算
 	
@@ -78,7 +82,6 @@ public class CandidateHandler {
 		if(user.getUserType()!= UserType.SCHOOLADMIN.ordinal())
 			return new LinkedList<Candidate>();
 		String school = user.getSchool();
-		System.out.println("school::"+school);
 		return candidateDBServer.getCandidatesOfSchool(school);
 	}
 	/*
@@ -100,6 +103,13 @@ public class CandidateHandler {
 			candidateDBServer.computeScore();
 		}
 		return 0;
+	}
+	
+	//上传汇总表
+	public ResponseMessage saveSummarize(int userId, String fileDir){
+		ResponseMessage response = new ResponseMessage();
+		response = schoolAdminDBServer.saveSummarize(userId, fileDir);
+		return response;
 	}
 
 }
