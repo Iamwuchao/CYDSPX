@@ -53,7 +53,7 @@ public interface CandidateMapper {
 				"job, title, workunit, address, postal_code, mobile_phone, tel_phone, email, resume, origin_recommand, attachment) " + 
 			"values(#{candidate.name}, #{candidate.sex}, #{candidate.birthday}, #{candidate.state}, #{candidate.cert_type}, #{candidate.cert_no}, #{candidate.photograph}, #{candidate.nation}, " +
 				"#{candidate.politics}, #{candidate.edu_type}, #{candidate.edu_hierarchy}, #{candidate.subject_category}, #{candidate.degree_type}, #{candidate.academy_name}, #{candidate.specialty_name}, " +
-				"#{candidate.job}, #{candidate.title}, #{candidate.workunit}, #{candidate.address}, #{candidate.postal_code}, #{candidate.mobile_phone}, #{candidate.tel_phone}, #{candidate.email}, #{candidate.resume}, #{candidate.origin_recommand}, '');")
+				"#{candidate.job}, #{candidate.title}, #{candidate.workunit}, #{candidate.address}, #{candidate.postal_code}, #{candidate.mobile_phone}, #{candidate.tel_phone}, #{candidate.email}, #{candidate.resume}, #{candidate.origin_recommand}, #{candidate.attachment});")
 	@Options(useGeneratedKeys=true, keyProperty="candidate.id",keyColumn="id")
 	public int addCandidate(@Param("candidate") Candidate candidate);
 	

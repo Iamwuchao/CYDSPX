@@ -27,6 +27,4 @@ public class CandidateForm extends Candidate{
 	private String project_name3;
 	private String elect_year3;
 	private String elect_level3;
-		
-	
 }

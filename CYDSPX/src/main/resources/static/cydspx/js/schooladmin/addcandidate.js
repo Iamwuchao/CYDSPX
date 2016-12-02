@@ -18,10 +18,10 @@ $(document).ready(function(){
 	            sexList: sexList,
 	            nationList:data.nations,
 	            politicsList:politicsList,
-	            stateList:[],
+	            stateList:data.stateList,
 	            cert_typeList:cert_typeList,
-	            edu_typeList:[],
-	            edu_hierarchyList:[],
+	            edu_typeList:data.edu_typeList,
+	            edu_hierarchyList:data.edu_hierarchyList,
 	            subject_categoryList:data.subject_categories,
 	            degree_typeList:data.degree_types,
 	            vocationList:data.vocations,
@@ -199,7 +199,15 @@ $(document).ready(function(){
     ]; 
     
     $(document).on("click", "#submitBtn", function(){
-    	alert($("#applyForm").serialize());
+    	var param = ($("#applyForm").serialize());
+    	$.ajax({
+    		url:"/cydspx/candidate/addCandidate",
+    		type:"post",
+    		data:param,
+    		success:function(){
+    			alert("提交成功！");
+    		}
+    	});
     });
     
     //表单验证
@@ -487,17 +495,17 @@ $(document).ready(function(){
         	error.appendTo(element.parent());
         	error.addClass("errormessage");
         },
-        submitHandle:function(form){
-            var param = ($("#applyForm").serialize());
-        	$.ajax({
-        		url:"/cydspx/candidate/addCandidate",
-        		type:"post",
-        		data:param,
-        		success:function(){
-        			alert("提交成功！");
-        		}
-        	});
-        }
+//        submitHandle:function(form){
+//            var param = ($("#applyForm").serialize());
+//        	$.ajax({
+//        		url:"/cydspx/candidate/addCandidate",
+//        		type:"post",
+//        		data:param,
+//        		success:function(){
+//        			alert("提交成功！");
+//        		}
+//        	});
+//        }
     });
     $.validator.addMethod("postcode", function(value, ele, params){
         var postcode = /^[0-9]{6}$/;

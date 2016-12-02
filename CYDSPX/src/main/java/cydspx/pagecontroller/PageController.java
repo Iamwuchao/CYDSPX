@@ -39,6 +39,7 @@ public class PageController {
 	@RequestMapping("/cydspx/superAdmin/getPage")
 	public String getSuperAdminPage( @RequestParam String pageName)
 	{
+		System.out.println("hhhhhhhhhhh");
 		return "/superAdmin/" + pageName;
 	}
 	
@@ -53,6 +54,14 @@ public class PageController {
 	public String checkCandidatePage()
 	{
 		return "/schoolAdmin/checkCandidate";
+	}
+	
+	
+	
+	@RequestMapping("/cydspx/schoolAdmin/passwordChange")
+	public String passwordChange()
+	{
+		return "/schoolAdmin/passwordChange";
 	}
 	
 }
