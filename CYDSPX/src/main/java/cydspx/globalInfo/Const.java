@@ -31,6 +31,18 @@ public class Const {
 			"初级专业技术职务"
 	};
 	
+	public static final String[] stateList = new String[] {
+			"中国",
+	};
+	
+	public static final String[] edu_typeList = new String[] {
+			"测试学历类别"
+	};
+	
+	public static final String[] edu_hierarchyList = new String[] {
+			"测试层次"
+	};
+	
 	public static final String[] vocations = new String[] {
 			"农、林、牧、渔业",
 			"采矿业",

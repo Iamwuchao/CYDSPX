@@ -19,6 +19,7 @@ import cydspx.globalInfo.Const;
 import cydspx.globalInfo.SessionKey;
 import cydspx.handler.CandidateHandler;
 import cydspx.handler.CandidateRelationHandler;
+import cydspx.handler.SuperAdminHandler;
 import cydspx.mode.Candidate;
 import cydspx.mode.CandidateForm;
 import cydspx.mode.ResponseMessage;
@@ -35,7 +36,13 @@ public class CandidateController {
 		private String[] titles;
 		private String[] vocations;
 		private String[] nations;
+		private String[] stateList;
+		private String[] edu_typeList;
+		private String[] edu_hierarchyList;
 	}
+	
+	@Autowired
+	private SuperAdminHandler superAdminHandler;
 	
  	@Autowired
   	private CandidateHandler candidateHandler;
@@ -45,7 +52,8 @@ public class CandidateController {
   	@RequestMapping("/cydspx/candidate/addCandidate")
   	@ResponseBody
   	public ResponseMessage addCandidate(HttpServletRequest request, HttpSession session, CandidateForm form) {
-  		
+  		System.out.println("photo "+form.getPhotograph());
+  		System.out.println("attach "+form.getAttachment());
   		int candidate_id = candidateHandler.addCandidate(session, form);
   		
   		/*
@@ -65,6 +73,7 @@ public class CandidateController {
   				relationHandler.addServiceItem(candidate_id, service);
   			}
   		}
+  		
   		
   		
   		/* 获奖和参评
@@ -106,6 +115,9 @@ public class CandidateController {
 		msg.titles = Const.titles;
 		msg.vocations = Const.vocations;
 		msg.nations = Const.nations;
+		msg.stateList = Const.stateList;
+		msg.edu_typeList = Const.edu_typeList;
+		msg.edu_hierarchyList = Const.edu_hierarchyList;
 		return msg;
 	}
 	
@@ -134,4 +146,21 @@ public class CandidateController {
 		
 		return response;
 	}
+
+	//xiugaimima
+	@RequestMapping("/cydspx/candidate/changePassword")
+	@ResponseBody
+	public ResponseMessage changePassword(HttpSession session, @RequestParam String newPassword)
+	{
+		User user = (User) session.getAttribute(SessionKey.USER_INFO.name());
+		if(user==null){
+			ResponseMessage response = new ResponseMessage();	
+			response.setMessage("请先登录！");
+			return response;
+			
+		}
+		int id=user.getUserId();
+		return superAdminHandler.changePassword(id, newPassword);
+	}
+	
 }

@@ -46,7 +46,7 @@
 	            <li>
 	                <a href="/cydspx/schoolAdmin/checkCandidate"><span class="glyphicon glyphicon-th-large"></span>提交汇总表</a>
 	            </li>
-	            <li><a href="#"><span class="glyphicon glyphicon-th-large"></span>修改密码</a></li>
+	            <li><a href="/cydspx/schoolAdmin/passwordChange"><span class="glyphicon glyphicon-th-large"></span>修改密码</a></li>
 	        </ul>
 	    </nav>
 	    <div class="wrapper">
@@ -61,7 +61,6 @@
 				        	<img v-bind:src="picpath" alt="" id="pic"></img>
 				        </div>
 				        <div class="uploadpic">
-				            	<input id="attachementPicId" type="hidden"/>
 				            	<button type="button" id="addpic" class="btn addBtn">添加照片</button>
 				            	<span class="required-span">*</span>
 				            	<div class="fileinput" id="picInput">
@@ -76,8 +75,7 @@
 					            </span>
 				            </div>
 				        <div class="uploadfile">
-				            <input id="attachementFileId" type="hidden"/>
-			            	<button type="button" id="addfile" class="btn addBtn">优秀创新创业导师人才库推荐表</button>
+			            	<button type="button" id="addfile" class="btn addBtn">优秀创新创业导师人才库导师推荐表</button>
 			            	<span class="required-span">*</span>
 			            	<div class="fileinput" id="fileInput">
 			            		<input type="file" id="attachement_file" name="attachement_file"/>
@@ -93,6 +91,8 @@
 				    </fieldset>
 				</form>
 				<form action="" method="post" id="applyForm">
+				    <input id="attachementPicId" name="photograph" type="hidden"/>
+				    <input id="attachementFileId" name="attachment" type="hidden"/>
 				    <fieldset>
 				        <legend>基本信息</legend>
 				        <div class="row">
@@ -163,7 +163,7 @@
 				                        <span class="input-group-addon">国家/地区</span>
 			                        	<select class="select" name="state">
 				                            <option v-for="option in stateList" v-bind:value="option.value">
-				                                {{ option.text }}
+				                                {{ option }}
 				                              </option>
 				                        </select>
 				                        <span class="required-span">*</span>
@@ -270,7 +270,7 @@
 				                        <span class="input-group-addon">层&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;次</span>
 				                    	<select class="select" name="edu_hierarchy">
 				                            <option v-for="option in edu_hierarchyList" v-bind:value="option.value">
-				                                {{ option.text }}
+				                                {{ option }}
 				                              </option>
 				                        </select>
 				                    </div>
