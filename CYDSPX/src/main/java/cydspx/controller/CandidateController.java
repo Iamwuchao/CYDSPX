@@ -54,7 +54,12 @@ public class CandidateController {
   	public ResponseMessage addCandidate(HttpServletRequest request, HttpSession session, CandidateForm form) {
   		System.out.println("photo "+form.getPhotograph());
   		System.out.println("attach "+form.getAttachment());
-  		int candidate_id = candidateHandler.addCandidate(session, form);
+  		
+  		User user = (User)session.getAttribute(SessionKey.USER_INFO.name());
+  		
+  		int userId = user.getUserId();
+  		
+  		int candidate_id = candidateHandler.addCandidate(session, form,userId);
   		
   		/*
   		 * 行业

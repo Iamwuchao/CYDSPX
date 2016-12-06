@@ -50,15 +50,15 @@ public interface CandidateMapper {
 	
 	@Insert("insert into candidate_table(name, sex, birthday, state, cert_type, cert_no, photograph, nation, " + 
 				"politics, edu_type, edu_hierarchy, subject_category, degree_type, academy_name, specialty_name, " + 
-				"job, title, workunit, address, postal_code, mobile_phone, tel_phone, email, resume, origin_recommand, attachment) " + 
+				"job, title, workunit, address, postal_code, mobile_phone, tel_phone, email, resume, origin_recommand, attachment,userid) " + 
 			"values(#{candidate.name}, #{candidate.sex}, #{candidate.birthday}, #{candidate.state}, #{candidate.cert_type}, #{candidate.cert_no}, #{candidate.photograph}, #{candidate.nation}, " +
 				"#{candidate.politics}, #{candidate.edu_type}, #{candidate.edu_hierarchy}, #{candidate.subject_category}, #{candidate.degree_type}, #{candidate.academy_name}, #{candidate.specialty_name}, " +
-				"#{candidate.job}, #{candidate.title}, #{candidate.workunit}, #{candidate.address}, #{candidate.postal_code}, #{candidate.mobile_phone}, #{candidate.tel_phone}, #{candidate.email}, #{candidate.resume}, #{candidate.origin_recommand}, #{candidate.attachment});")
+				"#{candidate.job}, #{candidate.title}, #{candidate.workunit}, #{candidate.address}, #{candidate.postal_code}, #{candidate.mobile_phone}, #{candidate.tel_phone}, #{candidate.email}, #{candidate.resume}, #{candidate.origin_recommand}, #{candidate.attachment},#{userId});")
 	@Options(useGeneratedKeys=true, keyProperty="candidate.id",keyColumn="id")
-	public int addCandidate(@Param("candidate") Candidate candidate);
+	public int addCandidate(@Param("candidate") Candidate candidate,@Param("userId") int userId);
 	
-	@Select("select * from candidate_table where academy_name=#{academy_name};")
-	public List<Candidate> getCandidatesOfSchool(@Param("academy_name") String academy_name);
+	@Select("select * from candidate_table where userid=#{userId};")
+	public List<Candidate> getCandidatesOfSchool(@Param("userId") int userId);
 	
 	@Select("select * from candidate_table where name=#{name};")
 	public List<Candidate> getCandidateByName(@Param("name") String name);

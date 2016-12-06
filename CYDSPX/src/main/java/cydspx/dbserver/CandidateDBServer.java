@@ -27,14 +27,14 @@ public class CandidateDBServer {
 	@Autowired
 	private CandidateGroupMapper candidateGroupMapper;
 	
-	public int addCandidate(Candidate candidate) {
-		candidateMapper.addCandidate(candidate);
+	public int addCandidate(Candidate candidate,int userId) {
+		candidateMapper.addCandidate(candidate,userId);
 		return candidate.getId();
 	}
 	
-	public List<Candidate> getCandidatesOfSchool(String academy_name) {
-		System.out.println(academy_name);
-		return candidateMapper.getCandidatesOfSchool(academy_name);
+	public List<Candidate> getCandidatesOfSchool(int userId) {
+		System.out.println(userId);
+		return candidateMapper.getCandidatesOfSchool(userId);
 	}
 	
 	public List<CandidateAbstract> getAllCandidates(){

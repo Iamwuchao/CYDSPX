@@ -43,8 +43,8 @@ public class CandidateHandler {
 	
 	private static final AtomicInteger finish= new AtomicInteger(0);//是否已经完成所有候选人分数的计算
 	
-	public int addCandidate(HttpSession session, Candidate candidate) {
-		return candidateDBServer.addCandidate(candidate);
+	public int addCandidate(HttpSession session, Candidate candidate,int userId) {
+		return candidateDBServer.addCandidate(candidate,userId);
 	}
 	
 	
@@ -81,8 +81,8 @@ public class CandidateHandler {
 	public List<Candidate> getCandidateList(User user){
 		if(user.getUserType()!= UserType.SCHOOLADMIN.ordinal())
 			return new LinkedList<Candidate>();
-		String school = user.getSchool();
-		return candidateDBServer.getCandidatesOfSchool(school);
+		int userId = user.getUserId();
+		return candidateDBServer.getCandidatesOfSchool(userId);
 	}
 	/*
 	 * 获取指定数量的候选人列表
