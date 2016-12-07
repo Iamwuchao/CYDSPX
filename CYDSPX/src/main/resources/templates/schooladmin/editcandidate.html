@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	    <meta name="renderer" content="webkit"/>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	    <meta name="keywords" content="" />
+	    <meta name="author" content="" />
+		<title>辽宁省创业导师评选</title>
+		<link rel="stylesheet" href="/cydspx/css/bootstrap.min.css"></link>
+		<link rel="stylesheet" href="/cydspx/css/base.css"></link>
+		<link rel="stylesheet" href="/cydspx/css/dashboard.css"></link> 
+		<link rel="stylesheet" href="/cydspx/css/bootstrap-theme.min.css"></link>
+		<link rel="stylesheet" href="/cydspx/css/schooladmin/fileinput.min.css"></link>
+		<link rel="stylesheet" href="/cydspx/css/schooladmin/fileinput.css"></link>
+		<link rel="stylesheet" href="/cydspx/css/schooladmin/addcandidate.css"></link>
+		
+		<script src="/cydspx/js/jquery-3.1.0.min.js"></script>
+    	<script src="/cydspx/js/bootstrap.min.js"></script>
+    	<script src="/cydspx/js/jquery.validate.min.js"></script>
+    	<script src="/cydspx/js/vue.js"></script>
+		<script src="/cydspx/js/fileinput/fileUpload.js"></script>
+		<script src="/cydspx/js/fileinput/fileinput.js"></script>
+		<script src="/cydspx/js/fileinput/locales/zh.js"></script>
+	</head>
+	<body  onload="onload()">
+	    <header class="navbar navbar-inverse navbar-fixed-top">
+	        <div class="container-fluid">
+	            <div class="navbar-header">
+	                <a class="navbar-brand" href="/cydspx"><b>辽宁省创业导师评选</b></a>
+	            </div>
+	            <div id="navbar" class="navbar-collapse collapse">
+	              	<ul class="nav navbar-nav navbar-right">
+	              		<li><a id="userName" href="#"></a></li>
+	                	<li><a href="/logout">退出</a></li>
+	              	</ul>
+	            </div>
+	        </div>
+	    </header>
+	    <nav>
+	        <ul>
+	            <li>
+	                <a href="/cydspx/schoolAdmin/addCandidate"><span class="glyphicon glyphicon-th-large"></span>提交候选人信息</a>
+	            </li>
+	            <li>
+	                <a href="/cydspx/schoolAdmin/checkCandidate"><span class="glyphicon glyphicon-th-large"></span>提交汇总表</a>
+	            </li>
+	            <li><a href="/cydspx/schoolAdmin/managecandidate"><span class="glyphicon glyphicon-th-large"></span>管理候选人信息</a></li>
+	            <li><a href="/cydspx/schoolAdmin/passwordChange"><span class="glyphicon glyphicon-th-large"></span>修改密码</a></li>
+	        </ul>
+	    </nav>
+	    <div class="wrapper">
+			<header class="container-title">
+				提交候选人信息
+			</header>
+			<div class="content">
+				<form action="" method="post" id="fileuploadForm">
+					<fieldset class="upload">
+				    	<legend>文件上传</legend>
+				        <div class="showpic">
+				        	<img v-bind:src="picpath" alt="" id="pic"></img>
+				        </div>
+				        <div class="uploadpic">
+				            	<button type="button" id="addpic" class="btn addBtn">添加照片</button>
+				            	<span class="required-span">*</span>
+				            	<div class="fileinput" id="picInput">
+				            		<input type="file" id="attachement_pic" name="attachement_pic"/>
+									<p class="help-block">图片只支持jpg格式.</p>
+									<p class="helip-block" id="fileError"></p>
+				            	</div>
+					            <br/>
+					            <span>
+					                <strong>注意:</strong><br/>1、请上传导师近期免冠正面彩色头像<br/>2、文件使用导师的证件号码命名
+					                <br/>3、格式为JPG，大小在5-80K之间<br/>4、图像规格宽度在90-480像素之间<br/>5、高度在100-640像素之间
+					            </span>
+				            </div>
+				        <div class="uploadfile">
+			            	<button type="button" id="addfile" class="btn addBtn">优秀创新创业导师人才库导师推荐表</button>
+			            	<span class="required-span">*</span>
+			            	<div class="fileinput" id="fileInput">
+			            		<input type="file" id="attachement_file" name="attachement_file"/>
+								<p class="help-block">附件只支持pdf格式.</p>
+								<p class="helip-block" id="fileError"></p>
+			            	</div>
+				            <br/>
+				            <span>
+				                <strong>注意:</strong><br/>1、上传的简历文件用于给评审专家评审时查看
+				                <br/>2、建议简历中包含左侧表单中包含的所有项<br/>3、文件格式为pdf
+				            </span>
+				        </div>
+				    </fieldset>
+				</form>
+				<form action="" method="post" id="applyForm">
+				    <input id="attachementPicId" name="photograph" type="hidden"/>
+				    <input id="attachementFileId" name="attachment" type="hidden"/>
+				    <fieldset>
+				        <legend>基本信息</legend>
+				        <div class="row">
+				            <div class="col-md-6">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</span>
+				                        <input type="text" class="form-control" name="name"></input>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-6">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</span>
+				                        <select class="select" name="sex">
+				                            <option v-for="option in sexList" v-bind:value="option.value">
+				                                {{ option.text }}
+				                              </option>
+				                        </select>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				        <div class="row">
+				            <div class="col-md-6">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族</span>
+										<select class="select" name="nation">
+			                            	<option v-for="option in nationList" v-bind:value="option">
+			                                	{{ option }}
+			                              	</option>
+			                        	</select>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-6">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">出生日期</span>
+				                        <input type="text" class="form-control" name="birthday" placeholder="格式如：20161007"></input>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				        <div class="row">
+				            <div class="col-md-6">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">政治面貌</span>
+				                        <select class="select" name="politics">
+				                            <option v-for="option in politicsList" v-bind:value="option.value">
+				                                {{ option.text }}
+				                              </option>
+				                        </select>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-6">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">国家/地区</span>
+			                        	<!--<select class="select" name="state">
+				                            <option v-for="option in stateList" v-bind:value="option.value">
+				                                {{ option }}
+				                              </option>
+				                        </select>  -->
+				                        <input type="text" class="form-control" name="state"></input>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				        <div class="row">
+				            <div class="col-md-6">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">证件类型</span>
+				                        <select class="select" name="cert_type">
+				                            <option v-for="option in cert_typeList" v-bind:value="option.value">
+				                                {{ option.text }}
+				                              </option>
+				                        </select>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-6">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">证件号码</span>
+				                        <input type="text" class="form-control" name="cert_no"></input>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				    </fieldset>
+				    <fieldset>
+				        <legend>联系方式</legend>
+				        <div class="row">
+				            <div class="col-md-6">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">联系地址</span>
+				                        <input type="text" class="form-control" name="address"></input>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-6">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">邮政编码</span>
+				                        <input type="text" class="form-control" name="postal_code"></input>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				        <div class="row">
+				            <div class="col-md-6">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">移动电话</span>
+				                        <input type="text" class="form-control" name="mobile_phone"></input>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-6">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">固定电话</span>
+				                        <input type="text" class="form-control" name="tel_phone" placeholder="区号-电话号码"></input>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				        <div class="row">
+				            <div class="col-md-6">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">电子邮箱</span>
+				                        <input type="email" class="form-control" name="email"></input>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				
+				        </div>
+				    </fieldset>
+				    <fieldset>
+				        <legend>学历信息</legend>
+				        <div class="row">
+				            <div class="col-md-6">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">学历类别</span>
+				                    	<select class="select" name="edu_type">
+				                            <option v-for="option in edu_typeList" v-bind:value="option">
+				                                {{ option }}
+				                              </option>
+				                        </select>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-6">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">层&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;次</span>
+				                    <!--  	<select class="select" name="edu_hierarchy">
+				                            <option v-for="option in edu_hierarchyList" v-bind:value="option.value">
+				                                {{ option }}
+				                              </option>
+				                        </select>-->
+				                        <input type="text" class="form-control" name="edu_hierarchy"></input>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				        <div class="row">
+				            <div class="col-md-6">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">学科门类</span>
+<!-- 				                        <input type="text" class="form-control"></input> -->
+				                    	<select class="select" name="subject_category">
+				                            <option v-for="option in subject_categoryList" v-bind:value="option">
+				                                {{ option }}
+				                              </option>
+				                        </select>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-6">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">学位类别</span>
+				                        <select class="select" name="degree_type">
+				                            <option v-for="option in degree_typeList" v-bind:value="option">
+				                                {{ option }}
+				                              </option>
+				                        </select>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				        <div class="row">
+				            <div class="col-md-6">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">院校名称</span>
+				                        <input type="text" class="form-control" name="academy_name"></input>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-6">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">专业名称</span>
+				                        <input type="text" class="form-control" name="specialty_name"></input>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				        <div class="row">
+				        	<div class="col-md-6">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称</span>
+				                        <select class="select" name="title">
+				                            <option v-for="option in titleList" v-bind:value="option">
+				                                {{ option }}
+				                              </option>
+				                        </select>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-6">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;务</span>
+				                        <input type="text" class="form-control" name="job"></input>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				        <div class="row">
+				            <div class="col-md-6">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">工作单位</span>
+				                        <input type="text" class="form-control" name="workunit"></input>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-6">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">原始推荐单位</span>
+				                        <input type="text" class="form-control" name="origin_recommand" placeholder="推荐该导师的高校名称"></input>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				        <div class="row">
+				            <div class="col-md-12">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">行&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业</span>
+				                        <select class="select" name="vocation" multiple="multiple" size="4">
+				                            <option v-for="option in vocationList" v-bind:value="option">
+				                                {{ option }}
+				                              </option>
+				                        </select>
+				                        <span class="required-span multiple-span">*</span>
+				                        <span class="multiple-tip">按住ctrl可多选</span>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				        <div class="row">
+				        	<div class="col-md-12">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">服务意向</span>
+				                        <div class="select">
+				                            <span v-for="option in service_intentionList">
+				                                <input type="checkbox" name="service_intention" v-bind:value="option"></input>
+				                                {{option}}
+				                            </span>
+				                        </div>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+			           	</div>
+				    </fieldset>
+				    <fieldset class="resume">
+				        <legend>工作简历</legend>
+				        <textarea class="form-control experience" name="resume" rows="8" cols="50" placeholder="参加创新创业教育工作或从事创新创业工作简历,400字以内"></textarea>
+				    </fieldset>
+				    <fieldset class="special-fieldset" id="prize-info">
+				        <legend>获奖信息<span>近五年以来在(含指导)创新创业教育方面所获成果和奖励，点击右边加号添加新项，最多填写三项，没有可以不填</span></legend>
+				        <span class="add-btn" id="add-prize-btn">+</span>
+				        <div class="row first-row">
+				            <div class="col-md-11 col-md-offset-1">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">成果名称</span>
+				                        <input type="text" class="form-control" name="achievement1"></input>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				        <div class="row first-row">
+				            <div class="col-md-3 col-md-offset-1">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">获奖年份</span>
+				                        <input type="text" class="form-control" name="prize_year1" placeholder="格式如:2016"></input>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-7">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</span>
+				                        <div class="select">
+				                            <span v-for="option in prize_levelList">
+				                                <input type="radio" name="prize_level1" v-bind:value="option.value"></input>
+				                                <label>{{option.text}}</label>
+				                            </span>
+				                        </div>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-1">
+				            	<span class="delete-btn">-</span>
+				            </div>
+				            
+				        </div>
+				        <div class="row first-row">
+				            <div class="col-md-11 col-md-offset-1" >
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">成果名称</span>
+				                        <input type="text" class="form-control" name="achievement2"></input>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				        <div class="row first-row">
+				            <div class="col-md-3 col-md-offset-1">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">获奖年份</span>
+				                        <input type="text" class="form-control" name="prize_year2" placeholder="格式如:2016"></input>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-7">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</span>
+				                        <div class="select">
+				                            <span v-for="option in prize_levelList">
+				                                <input type="radio" name="prize_level2" v-bind:value="option.value"></input>
+				                                <label>{{option.text}}</label>
+				                            </span>
+				                        </div>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-1">
+				                <span class="delete-btn">-</span>
+				            </div>
+				            
+				        </div>
+				        <div class="row first-row">
+				            <div class="col-md-11 col-md-offset-1">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">成果名称</span>
+				                        <input type="text" class="form-control" name="achievement3"></input>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				        <div class="row first-row">
+				            <div class="col-md-3 col-md-offset-1">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">获奖年份</span>
+				                        <input type="text" class="form-control" name="prize_year3" placeholder="格式如:2016"></input>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-7">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</span>
+				                        <div class="select">
+				                            <span v-for="option in prize_levelList">
+				                                <input type="radio" name="prize_level3" v-bind:value="option.value"></input>
+				                                <label>{{option.text}}</label>
+				                            </span>
+				                        </div>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-1">
+				                <span class="delete-btn">-</span>
+				            </div>
+				            
+				        </div>
+				    </fieldset>
+				    <fieldset class="special-fieldset" id="elect-info">
+				        <legend>参评信息<span>近五年以来担任创新创业教育方面项目评审专家、社会兼职情况，点击右边加号添加新项，最多填写三项，没有可以不填</span></legend>
+				        <span class="add-btn" id="add-elect-btn">+</span>
+				        <div class="row first-row">
+				            <div class="col-md-11 col-md-offset-1">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">评审项目名称</span>
+				                        <input type="text" class="form-control" name="project_name1"></input>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				        <div class="row first-row">
+				            <div class="col-md-3 col-md-offset-1">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">参与评审年份</span>
+				                        <input type="text" class="form-control" name="elect_year1" placeholder="格式如:2016"></input>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-7">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</span>
+				                        <div class="select">
+				                            <span v-for="option in elect_levelList">
+				                                <input type="radio" name="elect_level1" v-bind:value="option.value"></input>
+				                                <label>{{option.text}}</label>
+				                            </span>
+				                        </div>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-1">
+				                <span class="delete-btn">-</span>
+				            </div>
+				            
+				        </div>
+				        <div class="row first-row">
+				            <div class="col-md-11 col-md-offset-1">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">评审项目名称</span>
+				                        <input type="text" class="form-control" name="project_name2"></input>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				        <div class="row first-row">
+				            <div class="col-md-3 col-md-offset-1">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">参与评审年份</span>
+				                        <input type="text" class="form-control" name="elect_year2" placeholder="格式如:2016"></input>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-7">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</span>
+				                        <div class="select">
+				                            <span v-for="option in elect_levelList">
+				                                <input type="radio" name="elect_level2" v-bind:value="option.value"></input>
+				                                <label>{{option.text}}</label>
+				                            </span>
+				                        </div>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-1">
+				                <span class="delete-btn">-</span>
+				            </div>
+				            
+				        </div>
+				        <div class="row first-row">
+				            <div class="col-md-11 col-md-offset-1">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">评审项目名称</span>
+				                        <input type="text" class="form-control" name="project_name3"></input>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				        <div class="row first-row">
+				            <div class="col-md-3 col-md-offset-1">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">参与评审年份</span>
+				                        <input type="text" class="form-control" name="elect_year3" placeholder="格式如:2016"></input>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-7">
+				                <div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon">级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</span>
+				                        <div class="select">
+				                            <span v-for="option in elect_levelList">
+				                                <input type="radio" name="elect_level3" v-bind:value="option.value"></input>
+				                                <label>{{option.text}}</label>
+				                            </span>
+				                        </div>
+				                        <span class="required-span">*</span>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-1">
+				                <span class="delete-btn">-</span>
+				            </div>
+				        </div>
+				    </fieldset>
+				    <input type="button" id="submitBtn" value="确认提交"></input>
+				</form>			
+			</div>
+	    </div>
+		
+		
+		
+    	<script src="/cydspx/js/schooladmin/addcandidate.js"></script>
+    	<script>
+			function onload(){
+				$.ajax({
+					url: '/cydspx/getuserinfo',
+					type: 'get',
+				  	dataType: 'json',
+				  	success: function(data){
+					  	$("#userName").html(data.userName+" 欢迎您");
+				  	}
+				});
+			}
+		</script>
+	</body>
+</html>

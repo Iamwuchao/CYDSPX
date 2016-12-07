@@ -84,7 +84,7 @@ public class CandidateDBServer {
 			candidateMapper.updateCandidateScore(avgScore, id);
 		}
 	}
-	
+
 	/*
 	 * 删除指定候选人
 	 */
@@ -97,4 +97,11 @@ public class CandidateDBServer {
 		prizeMapper.removePrize(candidateId);
 		return rows1+rows2+rows3+rows4;//毫无道理的代码
 	}
+
+	public Candidate getCandidate(int candidate_id) {
+		return candidateMapper.getCandidateByID(candidate_id);
+	
+	}
+
+	
 }

@@ -1,11 +1,18 @@
 package cydspx.mapper;
 
+
 import org.apache.ibatis.annotations.Delete;
+
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.type.JdbcType;
+
+import cydspx.mode.ElectJoin;
 
 public interface ElectJoinMapper {
 	@Results({
@@ -22,7 +29,7 @@ public interface ElectJoinMapper {
 			@Param("elect_year") String elect_year,
 			@Param("level") String level
 			);
-	
+
 	@Delete("DELETE FROM `elect_join_table` where candidate_id=#{candidateId}")
 	public int removeElectJoinItem(@Param("candidateId") int candidateId);
 	
@@ -30,5 +37,11 @@ public interface ElectJoinMapper {
 	public int removeOneElectJoinItem(@Param("candidateId") int candidateId,@Param("id") int id);
 	
 	
+
+	@Select("select id from elect_join_table where candidate_id=#{candidate_id};")
+	public List<Integer> getElectJoinIds(@Param("candidate_id") int candidate_id);
 	
+	@Select("select * from elect_join_table where id in #{electjoin_ids};")
+	public List<ElectJoin> getElectJoinByIds(@Param("electjoin_ids") List<Integer> electjoin_ids);
+
 }

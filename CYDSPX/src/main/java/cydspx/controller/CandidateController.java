@@ -22,6 +22,8 @@ import cydspx.handler.CandidateRelationHandler;
 import cydspx.handler.SuperAdminHandler;
 import cydspx.mode.Candidate;
 import cydspx.mode.CandidateForm;
+import cydspx.mode.ElectJoin;
+import cydspx.mode.Prize;
 import cydspx.mode.ResponseMessage;
 import cydspx.mode.User;
 
@@ -134,6 +136,39 @@ public class CandidateController {
 		User user = (User) session.getAttribute(SessionKey.USER_INFO.name());
 		if(user == null) return new LinkedList<Candidate>();
 		return candidateHandler.getCandidateList(user);
+	}
+	
+	@Data
+	class CandidateDataMessage {
+		private Candidate candidate;
+		private List<Integer> electjoin_ids;
+		private List<Integer> prize_ids;
+		private List<String> services;
+		private List<String> vocations;
+	}
+	
+	@RequestMapping("/cydspx/getCandidate")
+	@ResponseBody
+	public CandidateDataMessage getCandidateList(HttpSession session, int candidate_id){
+		CandidateDataMessage msg = new CandidateDataMessage();
+		msg.candidate = candidateHandler.getCandidate(candidate_id);
+		msg.electjoin_ids = relationHandler.getElectJoinIds(candidate_id);
+		msg.prize_ids = relationHandler.getPrizeIds(candidate_id);
+		msg.services = relationHandler.getServices(candidate_id);
+		msg.vocations = relationHandler.getVocations(candidate_id);
+		return msg;
+	}
+	
+	@RequestMapping("/cydspx/getPrizesByIds")
+	@ResponseBody
+	public List<Prize> getPrizesByIds(HttpSession session, List<Integer> prize_ids) {
+		return relationHandler.getPrizesByIds(prize_ids);
+	}
+	
+	@RequestMapping("/cydspx/getElectJoinsByids")
+	@ResponseBody
+	public List<ElectJoin> getElectJoinsByids(HttpSession session, List<Integer> electjoin_ids) {
+		return relationHandler.getElectJoinsByIds(electjoin_ids);
 	}
 	
 	//上传汇总表

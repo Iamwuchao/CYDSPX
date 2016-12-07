@@ -1,5 +1,7 @@
 package cydspx.dbserver;
 
+import java.util.List;
+
 import lombok.Data;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,8 @@ import cydspx.mapper.ElectJoinMapper;
 import cydspx.mapper.PrizeMapper;
 import cydspx.mapper.relation.CandidateServiceRelationMapper;
 import cydspx.mapper.relation.CandidateVocationRelationMapper;
+import cydspx.mode.ElectJoin;
+import cydspx.mode.Prize;
 
 @Data
 @Service
@@ -21,11 +25,19 @@ public class CandidateRelationDBServer {
 		return candidateserviceMapper.addServiceItem(candidate_id, service);
 	}
 	
+	public List<String> getServices(int candidate_id) {
+		return candidateserviceMapper.getElectJoin(candidate_id);
+	}
+	
 	@Autowired
 	private CandidateVocationRelationMapper candidatevocationMapper;
 	
 	public int addVocationItem(int candidate_id, String vocation) {
 		return candidatevocationMapper.addVocationItem(candidate_id, vocation);
+	}
+	
+	public List<String> getVocations(int candidate_id) {
+		return candidatevocationMapper.getElectJoin(candidate_id);
 	}
 	
 	@Autowired
@@ -35,10 +47,19 @@ public class CandidateRelationDBServer {
 		return prizeMapper.addPrizeItem(candidate_id, achievement, prize_year, level);
 	}
 	
+
 	public int deletePrizeItem(int candidateId,int id){
 		return prizeMapper.removeOnePrize(candidateId, id);
 	}
 	
+
+	public List<Integer> getPrizeIds(int candidate_id) {
+		return prizeMapper.getPrizeIds(candidate_id);
+	}
+	
+	public List<Prize> getPrizesByIds(List<Integer> prize_ids) {
+		return prizeMapper.getPrizesByIds(prize_ids);
+	}
 	
 	@Autowired
 	private ElectJoinMapper electJoinMapper;
@@ -47,7 +68,16 @@ public class CandidateRelationDBServer {
 		return electJoinMapper.addElectJoinItem(candidate_id, project_name, elect_year, level);
 	}
 	
+
 	public int deleteElectJoin(int candidateId,int id){
 		return electJoinMapper.removeOneElectJoinItem(candidateId, id);
+	}
+
+	public List<Integer> getElectJoins(int candidate_id) {
+		return electJoinMapper.getElectJoinIds(candidate_id);
+	}
+	
+	public List<ElectJoin> getElectJoinByIds(List<Integer> electjoin_ids) {
+		return electJoinMapper.getElectJoinByIds(electjoin_ids);
 	}
 }

@@ -64,6 +64,8 @@ public interface CandidateMapper {
 	@Select("select * from candidate_table where name=#{name};")
 	public List<Candidate> getCandidateByName(@Param("name") String name);
 	
+	@Select("select * from candidate_table where id=#{candidate_id};")
+	public Candidate getCandidateByID(@Param("candidate_id") int candidate_id);
 	
 	/*
 	 * 查询候选导师的摘要信息
