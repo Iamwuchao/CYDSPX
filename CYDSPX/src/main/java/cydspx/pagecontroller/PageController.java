@@ -68,4 +68,10 @@ public class PageController {
 	public String manageCandidatePage(){
 		return "/schooladmin/managecandidate";
 	}
+	
+	@RequestMapping("/cydspx/schoolAdmin/editcandidate")
+	public String editCandidatePage(){
+		return "/schooladmin/editcandidate";
+	}
+	
 }

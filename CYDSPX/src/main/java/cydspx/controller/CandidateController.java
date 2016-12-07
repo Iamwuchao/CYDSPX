@@ -149,7 +149,7 @@ public class CandidateController {
 	
 	@RequestMapping("/cydspx/getCandidate")
 	@ResponseBody
-	public CandidateDataMessage getCandidateList(HttpSession session, int candidate_id){
+	public CandidateDataMessage getCandidateList(HttpSession session,@RequestParam int candidate_id){
 		CandidateDataMessage msg = new CandidateDataMessage();
 		msg.candidate = candidateHandler.getCandidate(candidate_id);
 		msg.electjoin_ids = relationHandler.getElectJoinIds(candidate_id);
