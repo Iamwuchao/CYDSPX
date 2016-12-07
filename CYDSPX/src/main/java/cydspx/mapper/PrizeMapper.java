@@ -1,10 +1,16 @@
 package cydspx.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.type.JdbcType;
+
+import cydspx.mode.ElectJoin;
+import cydspx.mode.Prize;
 
 public interface PrizeMapper {
 	@Results({
@@ -23,4 +29,10 @@ public interface PrizeMapper {
 			@Param("prize_year") String prize_year,
 			@Param("level") String level
 			);
+	
+	@Select("select id from prize_table where candidate_id=#{candidate_id};")
+	public List<Integer> getPrizeIds(@Param("candidate_id") int candidate_id);
+	
+	@Select("select * from prize_table where id in #{prize_ids};")
+	public List<Prize> getPrizesByIds(@Param("prize_ids") List<Integer> prize_ids);
 }

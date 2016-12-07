@@ -66,4 +66,8 @@ public class CandidateDBServer {
 			candidateMapper.updateCandidateScore(avgScore, id);
 		}
 	}
+	
+	public Candidate getCandidate(int candidate_id) {
+		return candidateMapper.getCandidateByID(candidate_id);
+	}
 }

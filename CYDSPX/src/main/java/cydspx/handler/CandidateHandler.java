@@ -111,5 +111,9 @@ public class CandidateHandler {
 		response = schoolAdminDBServer.saveSummarize(userId, fileDir);
 		return response;
 	}
+	
+	public Candidate getCandidate(int candidate_id) {
+		return candidateDBServer.getCandidate(candidate_id);
+	}
 
 }
