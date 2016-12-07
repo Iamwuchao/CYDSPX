@@ -16,6 +16,7 @@ public class CandidateRelationDBServer {
 	@Autowired
 	private CandidateServiceRelationMapper candidateserviceMapper;
 	
+	
 	public int addServiceItem(int candidate_id, String service) {
 		return candidateserviceMapper.addServiceItem(candidate_id, service);
 	}
@@ -34,10 +35,19 @@ public class CandidateRelationDBServer {
 		return prizeMapper.addPrizeItem(candidate_id, achievement, prize_year, level);
 	}
 	
+	public int deletePrizeItem(int candidateId,int id){
+		return prizeMapper.removeOnePrize(candidateId, id);
+	}
+	
+	
 	@Autowired
 	private ElectJoinMapper electJoinMapper;
 	
 	public int addElectJoin(int candidate_id, String project_name, String elect_year, String level) {
 		return electJoinMapper.addElectJoinItem(candidate_id, project_name, elect_year, level);
+	}
+	
+	public int deleteElectJoin(int candidateId,int id){
+		return electJoinMapper.removeOneElectJoinItem(candidateId, id);
 	}
 }

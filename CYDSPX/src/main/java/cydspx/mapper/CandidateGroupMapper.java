@@ -32,7 +32,7 @@ public interface CandidateGroupMapper {
 	@Select("SELECT count(id) FROM cydspx.candidate_group_table where group_id=#{groupId} and candidate_id=#{candidateId};")
 	int containCandidateOfGroup(@Param("groupId") int groupId,@Param("candidateId") int candidateId);
 	
-	@Insert("INSERT INTO `cydspx`.`candidate_group_table` (`group_id`, `candidate_id`) VALUES (#{groupId}, #{candidateId});")
+	@Insert("INSERT INTO  `candidate_group_table` (`group_id`, `candidate_id`) VALUES (#{groupId}, #{candidateId});")
 	int insertCandidateGroupInfo(@Param("groupId") int groupId,@Param("candidateId") int candidateId);
 	
 	@Delete(" TRUNCATE table cydspx.candidate_group_table;")

@@ -1,12 +1,10 @@
 package cydspx.handler;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import cydspx.dbserver.CandidateRelationDBServer;
-import cydspx.mode.ResponseMessage;
+
 
 @Component
 public class CandidateRelationHandler {
@@ -27,6 +25,16 @@ public class CandidateRelationHandler {
 	
 	public boolean addElectJoinItem(int candidate_id, String project_name, String elect_year, String level) {
 		return server.addElectJoin(candidate_id, project_name, elect_year, level) >= 1;
+	}
+	
+	public boolean deletePrizeJoinItem(int candidateId,int id){
+		int rows = server.deletePrizeItem(candidateId, id);
+		return rows>=1;
+	}
+	
+	public boolean deleteElectJoinItem(int candidateId,int id){
+		int rows = server.deleteElectJoin(candidateId, id);
+		return rows>=1;
 	}
 	
 }

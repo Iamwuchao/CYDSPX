@@ -168,4 +168,84 @@ public class CandidateController {
 		return superAdminHandler.changePassword(id, newPassword);
 	}
 	
+	//删除指定用户
+	@RequestMapping("/cydspx/candidate/removecandidate")
+	@ResponseBody
+	public ResponseMessage removeCandidate(@RequestParam int candidateId){
+		return candidateHandler.removeCandidate(candidateId);
+	}
+	
+	//更新用户信息
+/*	@RequestMapping("/cydspx/candidate/editcandidate")
+	@ResponseBody
+	public ResponseMessage editCandidate(CandidateForm form){
+		
+	}*/
+	
+	//更新用户获奖信息
+	@RequestMapping("/cydspx/candidate/addoneprize")
+	@ResponseBody
+	public ResponseMessage addPrize(@RequestParam int candidateId,@RequestParam String achievement,@RequestParam String year,@RequestParam String level){
+		boolean result = relationHandler.addPrizeItem(candidateId, achievement, year, level);
+		ResponseMessage response = new ResponseMessage();
+		if(result){
+			response.setCode(ResponseCode.FAIL.ordinal());
+			response.setMessage("fail");
+		}
+		else{
+			response.setCode(ResponseCode.SUCCESS.ordinal());
+			response.setMessage("success");
+		}
+		return response;
+	}
+	
+	@RequestMapping("/cydspx/candidate/deleteprize")
+	@ResponseBody
+	public ResponseMessage deletePrize(@RequestParam int candidateId,@RequestParam int id){
+		boolean result = relationHandler.deletePrizeJoinItem(candidateId, id);
+		ResponseMessage response = new ResponseMessage();
+		if(result){
+			response.setCode(ResponseCode.FAIL.ordinal());
+			response.setMessage("fail");
+		}
+		else{
+			response.setCode(ResponseCode.SUCCESS.ordinal());
+			response.setMessage("success");
+		}
+		return response;
+	}
+	
+	@RequestMapping("/cydspx/candidate/addoneelectjoin")
+	@ResponseBody
+	public ResponseMessage addOneelectJoin(@RequestParam int candidateId,@RequestParam String projectName,@RequestParam String electYear,String level){
+		boolean result = relationHandler.addElectJoinItem(candidateId, projectName, electYear, level);
+		ResponseMessage response = new ResponseMessage();
+		if(result){
+			response.setCode(ResponseCode.FAIL.ordinal());
+			response.setMessage("fail");
+		}
+		else{
+			response.setCode(ResponseCode.SUCCESS.ordinal());
+			response.setMessage("success");
+		}
+		return response;
+	}
+	
+	@RequestMapping("/cydspx/candidate/deleteelectjoin")
+	@ResponseBody
+	public ResponseMessage deleteelectJoin(@RequestParam int candidateId,@RequestParam int id){
+		boolean result = relationHandler.deleteElectJoinItem(candidateId, id);
+		ResponseMessage response = new ResponseMessage();
+		if(result){
+			response.setCode(ResponseCode.FAIL.ordinal());
+			response.setMessage("fail");
+		}
+		else{
+			response.setCode(ResponseCode.SUCCESS.ordinal());
+			response.setMessage("success");
+		}
+		return response;
+	}
+	
+	
 }

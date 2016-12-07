@@ -27,7 +27,7 @@ public interface UserMapper {
 	public User getUserByUserName(@Param("userName") String userName);
 	
 	
-	@Insert("INSERT INTO `cydspx`.`user_table` (`user_name`,  `password`, `user_type`) VALUES (#{username}, #{password}, #{type});")
+	@Insert("INSERT INTO  `user_table` (`user_name`,  `password`, `user_type`) VALUES (#{username}, #{password}, #{type});")
 	public void insertUser(
 			@Param("username") String username,
 			@Param("password") String password,
@@ -63,13 +63,13 @@ public interface UserMapper {
 	@Select("SELECT * FROM user_table")
 	public List<User> getAllUserList();
 	
-	@Delete("DELETE FROM `cydspx`.`user_table` WHERE id=#{userId};")
+	@Delete("DELETE FROM  `user_table` WHERE id=#{userId};")
 	public void deleteUser(
 			@Param("userId") int userId
 			);
 	
 	 
-	@Update("UPDATE `cydspx`.`user_table` SET `password`=#{password} WHERE `id`=#{userId};")
+	@Update("UPDATE  `user_table` SET `password`=#{password} WHERE `id`=#{userId};")
 	public void setUserPassword(
 			@Param("userId") int userId,
 			@Param("password") String password

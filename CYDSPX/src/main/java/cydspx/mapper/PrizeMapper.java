@@ -1,5 +1,6 @@
 package cydspx.mapper;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
@@ -16,11 +17,17 @@ public interface PrizeMapper {
 	})
 	
 	
-	@Insert("INSERT INTO `cydspx`.`prize_table` (`candidate_id`,  `achievement`, `prize_year`, `level`) VALUES (#{candidate_id}, #{achievement}, #{prize_year}, #{level});")
+	@Insert("INSERT INTO  `prize_table` (`candidate_id`,  `achievement`, `prize_year`, `level`) VALUES (#{candidate_id}, #{achievement}, #{prize_year}, #{level});")
 	public int addPrizeItem(
 			@Param("candidate_id") int candidate_id,
 			@Param("achievement") String achievement,
 			@Param("prize_year") String prize_year,
 			@Param("level") String level
 			);
+	
+	@Delete("DELETE FROM  `prize_table` where candidate_id=#{candidateId}")
+	public int removePrize(@Param("candidateId") int candidateId);
+	
+	@Delete("DELETE FROM  `prize_table` where candidate_id=#{candidateId} and id=#{id}")
+	public int removeOnePrize(@Param("candidateId") int candidateId,@Param("id") int id);
 }

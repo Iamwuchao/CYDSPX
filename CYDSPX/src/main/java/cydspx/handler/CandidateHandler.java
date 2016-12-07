@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import cydspx.myutil.UUIGenerator;
 import cydspx.dbserver.CandidateDBServer;
 import cydspx.dbserver.SchoolAdminDBServer;
+import cydspx.globalInfo.ResponseCode;
 import cydspx.globalInfo.UserType;
 import cydspx.mode.ResponseMessage;
 import cydspx.mode.Candidate;
@@ -112,4 +113,28 @@ public class CandidateHandler {
 		return response;
 	}
 
+	/*
+	 * 删除指定候选人
+	 */
+	public ResponseMessage removeCandidate(int candidateId){
+		try{
+			int rows = candidateDBServer.removeCandidate(candidateId);
+			ResponseMessage response = new ResponseMessage();
+			if(rows>0){
+				response.setCode(ResponseCode.SUCCESS.ordinal());
+				response.setMessage("删除成功");
+			}
+			else
+			{
+				response.setCode(ResponseCode.FAIL.ordinal());
+				response.setMessage("删除失败");
+			}
+			return response;
+		}catch(Exception e){
+			ResponseMessage response = new ResponseMessage();
+			response.setCode(ResponseCode.FAIL.ordinal());
+			response.setMessage("删除失败");
+			return response;
+		}
+	}
 }
