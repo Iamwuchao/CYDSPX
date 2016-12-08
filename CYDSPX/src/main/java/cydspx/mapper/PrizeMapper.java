@@ -42,7 +42,19 @@ public interface PrizeMapper {
 	@Select("select id from prize_table where candidate_id=#{candidate_id};")
 	public List<Integer> getPrizeIds(@Param("candidate_id") int candidate_id);
 	
+	@Results({
+		@Result(property="candidate_id",column="candidate_id",javaType=Integer.class,jdbcType=JdbcType.INTEGER),
+		@Result(property="achievement",column="achievement",javaType=String.class,jdbcType=JdbcType.VARCHAR),
+		@Result(property="prize_year",column="prize_year",javaType=String.class,jdbcType=JdbcType.VARCHAR),
+		@Result(property="prize_level",column="level",javaType=String.class,jdbcType=JdbcType.VARCHAR)
+		
+	})
+	@Select("select * from prize_table where id=#{prize_id};")
+	public Prize getPrizeById(@Param("prize_id") int prize_id);
+	
+	/*
 	@Select("select * from prize_table where id in #{prize_ids};")
 	public List<Prize> getPrizesByIds(@Param("prize_ids") List<Integer> prize_ids);
+	*/
 
 }

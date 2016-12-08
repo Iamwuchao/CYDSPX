@@ -19,7 +19,7 @@ public interface CandidateMapper {
 	@Results({
 		@Result(property="id",column="id",javaType=Integer.class,jdbcType=JdbcType.INTEGER),
 		@Result(property="name",column="name",javaType=String.class,jdbcType=JdbcType.VARCHAR),
-		@Result(property="sex",column="sex",javaType=Integer.class,jdbcType=JdbcType.INTEGER),
+		@Result(property="sex",column="sex",javaType=String.class,jdbcType=JdbcType.VARCHAR),
 		@Result(property="birthday",column="birthday",javaType=String.class,jdbcType=JdbcType.VARCHAR),
 		@Result(property="state",column="state",javaType = String.class,jdbcType=JdbcType.VARCHAR),
 		@Result(property="cert_type",column="cert_type",javaType=String.class,jdbcType=JdbcType.VARCHAR),
@@ -134,7 +134,7 @@ public interface CandidateMapper {
 	 */
 	@Results({
 	@Result(property="name",column="name",javaType=String.class,jdbcType=JdbcType.VARCHAR),
-	@Result(property="sex",column="sex",javaType=Integer.class,jdbcType=JdbcType.INTEGER),
+	@Result(property="sex",column="sex",javaType=String.class,jdbcType=JdbcType.VARCHAR),
 	@Result(property="birthday",column="birthday",javaType=String.class,jdbcType=JdbcType.VARCHAR),
 	@Result(property="state",column="state",javaType = String.class,jdbcType=JdbcType.VARCHAR),
 	@Result(property="cert_type",column="cert_type",javaType=String.class,jdbcType=JdbcType.VARCHAR),
@@ -160,7 +160,7 @@ public interface CandidateMapper {
 	@Result(property="origin_recommand",column="origin_recommand",javaType=String.class,jdbcType=JdbcType.VARCHAR)})
 	@Update("UPDATE  `candidate_table` SET `name`=#{candidate.name}, `sex`=#{candidate.sex}, `birthday`=#{candidate.birthday}, `state`=#{candidate.state}, `cert_type`=#{candidate.cert_type}, `cert_no`=#{candidate.cert_no}, `photograph`=#{candidate.photograph}, `nation`=#{candidate.nation}, " + 
 				"`politics`=#{candidate.politics}, `edu_type`=#{candidate.edu_type}, `edu_hierarchy`=#{candidate.edu_hierarchy}, `subject_category`=#{candidate.subject_category}, `degree_type`=#{candidate.degree_type}, `academy_name`=#{candidate.academy_name}, `specialty_name`=#{candidate.specialty_name}, " + 
-				"`job`=#{candidate.job}, `title`=#{candidate.title}, `workunit`=#{candidate.workunit}, `address`=#{candidate.address}, `postal_code`=#{candidate.}, `mobile_phone`=#{candidate.mobile_phone}, `tel_phone`=#{candidate.tel_phone}, `email`=#{candidate.email}, `resume`=#{candidate.resume}, `origin_recommand`=#{candidate.origin_recommand}, `attachment`=#{candidate.attachment},`userid`=#{candidate.userid} WHERE `id`=#{candidate.id};")
+				"`job`=#{candidate.job}, `title`=#{candidate.title}, `workunit`=#{candidate.workunit}, `address`=#{candidate.address}, `postal_code`=#{candidate.postal_code}, `mobile_phone`=#{candidate.mobile_phone}, `tel_phone`=#{candidate.tel_phone}, `email`=#{candidate.email}, `resume`=#{candidate.resume}, `origin_recommand`=#{candidate.origin_recommand}, `attachment`=#{candidate.attachment} WHERE `id`=#{candidate.id};")
 	public int updateCandidate(@Param("candidate") Candidate candidate);
 	
 	/*
@@ -169,7 +169,7 @@ public interface CandidateMapper {
 	@Results({
 		@Result(property="id",column="id",javaType=Integer.class,jdbcType=JdbcType.INTEGER),
 		@Result(property="name",column="name",javaType=String.class,jdbcType=JdbcType.VARCHAR),
-		@Result(property="sex",column="sex",javaType=Integer.class,jdbcType=JdbcType.INTEGER),
+		@Result(property="sex",column="sex",javaType=String.class,jdbcType=JdbcType.VARCHAR),
 		@Result(property="birthday",column="birthday",javaType=String.class,jdbcType=JdbcType.VARCHAR),
 		@Result(property="state",column="state",javaType = String.class,jdbcType=JdbcType.VARCHAR),
 		@Result(property="cert_type",column="cert_type",javaType=String.class,jdbcType=JdbcType.VARCHAR),

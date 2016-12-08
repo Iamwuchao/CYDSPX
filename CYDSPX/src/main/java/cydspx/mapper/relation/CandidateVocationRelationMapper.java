@@ -18,7 +18,7 @@ public interface CandidateVocationRelationMapper {
 	@Delete("delete from `candidate_vocation_relation_table` where candidate_id = #{candidateId}")
 	public int deleteVocationItem(@Param("candidateId") int candidateId);
 
-	@Select("select * from candidate_vocation_relation_table where candidate_id=#{candidate_id};")
+	@Select("select vocation from candidate_vocation_relation_table where candidate_id=#{candidate_id};")
 	public List<String> getElectJoin(@Param("candidate_id") int candidate_id);
 
 }

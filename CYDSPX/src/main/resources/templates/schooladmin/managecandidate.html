@@ -16,11 +16,12 @@
 		<link href="/cydspx/css/bootstrap.min.css" rel="stylesheet"></link> 
 		<link rel="stylesheet" href="/cydspx/css/schooladmin/fileinput.min.css"></link>
 		<link rel="stylesheet" href="/cydspx/css/schooladmin/fileinput.css"></link>
-		
+		<link rel="stylesheet" href="/cydspx/css/schooladmin/addcandidate.css"></link>
 		<script type='text/javascript' src="/cydspx/js/jquery-3.1.0.min.js"></script>	
 		<script type='text/javascript' src="/cydspx/js/vue.js"></script>
-		<script type='text/javascript' src="/cydspx/js/schooladmin/checkCandidate.js"></script>
+		<!--    <script type='text/javascript' src="/cydspx/js/schooladmin/checkCandidate.js"></script> -->
 		<script type='text/javascript' src="/cydspx/js/schooladmin/manageCandidate.js"></script>
+		<script type='text/javascript' src="/cydspx/js/schooladmin/editcandidate.js"></script>
     	<script src="/cydspx/js/fileinput/fileUpload.js"></script>
 		<script src="/cydspx/js/fileinput/fileinput.js"></script>
 		<script src="/cydspx/js/fileinput/locales/zh.js"></script>
@@ -61,7 +62,7 @@
 	            <li>
 	                <a href="/cydspx/schoolAdmin/checkCandidate"><span class="glyphicon glyphicon-th-large"></span>提交汇总表</a>
 	            </li>
-	             <li><a href="/cydspx/schoolAdmin/managecandidate"><span class="glyphicon glyphicon-th-large"></span>管理候选人信息</a></li>
+	          <!--    <li><a href="/cydspx/schoolAdmin/managecandidate"><span class="glyphicon glyphicon-th-large"></span>管理候选人信息</a></li>--> 
 	            <li><a href="/cydspx/schoolAdmin/passwordChange"><span class="glyphicon glyphicon-th-large"></span>修改密码</a></li>
 	        </ul>
 	    </nav>
@@ -78,7 +79,7 @@
 					<p class="help-block">附件只支持pdf格式.提交前先点击上传按钮</p>
 					<p class="helip-block" id="fileError"></p>
             	</div>-->
-				<table class="table table-hover" id="candidateTable">
+				<table class="table table-hover" id="mycandidateTable">
 					<thead>
 						<tr>
 							<th>姓名</th>
@@ -91,11 +92,12 @@
 							<th>原始推荐单位</th>
 				      		<th>职务</th>
 				      		<th>职称</th>
-<!-- 							<th>操作</th> -->
+ 							<th>修改</th>
+ 							<th>删除</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for="candidate in candidateList">
+						<tr v-for="candidate in candidateList1">
 				      		<td>{{candidate.name}}</td>
 				      		<td>{{candidate.sex}}</td>
 				      		<td>{{candidate.birthday}}</td>
@@ -128,6 +130,33 @@
 			  	success: function(data){
 				  	$("#userName").html(data.userName+" 欢迎您");
 			  	}
+			});
+			
+			var originCandidateList = [{
+				name:"name",
+				sex:"sex",
+				birthday:"birthday",
+				mobile_phone:"mobile_phone",
+				email:"email",
+				workunit:"workunit",
+				origin_recommand:"origin_recommand",
+				job:"job",
+				title:"title"
+			}];
+			
+			$.ajax({
+				url:"/cydspx/getCandidateList",
+				type:"get",
+				dataType:"json",
+				success:function(data){
+					var showCandidate1 = new Vue({
+						el:"#mycandidateTable",
+						data:{
+							candidateList1:originCandidateList
+						}
+					});
+					showCandidate1.candidateList1 = data;
+				}
 			});
 		}
 	</script>

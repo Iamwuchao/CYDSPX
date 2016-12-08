@@ -18,9 +18,8 @@ public interface ElectJoinMapper {
 	@Results({
 		@Result(property="candidate_id",column="candidate_id",javaType=Integer.class,jdbcType=JdbcType.INTEGER),
 		@Result(property="project_name",column="project_name",javaType=String.class,jdbcType=JdbcType.VARCHAR),
-		@Result(property="prize_year",column="prize_year",javaType=String.class,jdbcType=JdbcType.VARCHAR),
+		@Result(property="elect_year",column="elect_year",javaType=String.class,jdbcType=JdbcType.VARCHAR),
 		@Result(property="level",column="level",javaType=String.class,jdbcType=JdbcType.VARCHAR)
-		
 	})
 	@Insert("INSERT INTO  `elect_join_table` (`candidate_id`,  `project_name`, `elect_year`, `level`) VALUES (#{candidate_id}, #{project_name}, #{elect_year}, #{level});")
 	public int addElectJoinItem(
@@ -41,7 +40,13 @@ public interface ElectJoinMapper {
 	@Select("select id from elect_join_table where candidate_id=#{candidate_id};")
 	public List<Integer> getElectJoinIds(@Param("candidate_id") int candidate_id);
 	
-	@Select("select * from elect_join_table where id in #{electjoin_ids};")
-	public List<ElectJoin> getElectJoinByIds(@Param("electjoin_ids") List<Integer> electjoin_ids);
+	@Results({
+		@Result(property="candidate_id",column="candidate_id",javaType=Integer.class,jdbcType=JdbcType.INTEGER),
+		@Result(property="project_name",column="project_name",javaType=String.class,jdbcType=JdbcType.VARCHAR),
+		@Result(property="elect_year",column="elect_year",javaType=String.class,jdbcType=JdbcType.VARCHAR),
+		@Result(property="elect_level",column="level",javaType=String.class,jdbcType=JdbcType.VARCHAR)
+	})
+	@Select("select * from elect_join_table where id = #{electjoin_id};")
+	public ElectJoin getElectJoinById(@Param("electjoin_id") int electjoin_id);
 
 }

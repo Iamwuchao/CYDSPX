@@ -1,11 +1,3 @@
-function editCandidate(object){
-	
-	var candidateId = $(object).attr("id");
-	
-	
-	
-}
-
 
 function removeCandidate(object){
 	var candidateId = $(object).attr("id");
@@ -24,3 +16,5 @@ function removeCandidate(object){
 		
 	});
 }
+
+

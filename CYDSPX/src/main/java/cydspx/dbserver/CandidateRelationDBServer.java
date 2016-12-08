@@ -1,5 +1,6 @@
 package cydspx.dbserver;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import lombok.Data;
@@ -58,7 +59,12 @@ public class CandidateRelationDBServer {
 	}
 	
 	public List<Prize> getPrizesByIds(List<Integer> prize_ids) {
-		return prizeMapper.getPrizesByIds(prize_ids);
+		List<Prize> list = new LinkedList<Prize>();
+		for(int id:prize_ids){
+			Prize prize =  prizeMapper.getPrizeById(id);
+			list.add(prize);
+		}
+		return list;
 	}
 	
 	@Autowired
@@ -78,6 +84,11 @@ public class CandidateRelationDBServer {
 	}
 	
 	public List<ElectJoin> getElectJoinByIds(List<Integer> electjoin_ids) {
-		return electJoinMapper.getElectJoinByIds(electjoin_ids);
+		 List<ElectJoin> list = new LinkedList<ElectJoin>();
+		 for(int id:electjoin_ids){
+			 ElectJoin electJoin =  electJoinMapper.getElectJoinById(id);
+			 list.add(electJoin);
+		 }
+		 return list;
 	}
 }

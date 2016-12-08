@@ -198,35 +198,35 @@ $(document).ready(function(){
     var stateList = [{text:"中国"},{text:"美国"}];
     var edu_typeList = ["硕士","博士"];
     var edu_hierarchyList = [{text:"高级"},{text:"中级"}];
-    function initFun(data){
-	    var vue = new Vue({
-	        el: ".content",
-	        data: {
-	            sexList: sexList,
-	            nationList:data.nations,
-	            politicsList:politicsList,
-	            stateList:stateList,
-	            cert_typeList:cert_typeList,
-	            edu_typeList:edu_typeList,
-	            edu_hierarchyList:edu_hierarchyList,
-	            subject_categoryList:data.subject_categories,
-	            degree_typeList:data.degree_types,
-	            vocationList:data.vocations,
-	            titleList:data.titles,
-	            service_intentionList:data.services,
-	            prize_levelList:prize_levelList,
-	            elect_levelList:elect_levelList
-	        }
-	    });
-    }
+//    function initFun(data){
+//	    var vue = new Vue({
+//	        el: ".content",
+//	        data: {
+//	            sexList: sexList,
+//	            nationList:data.nations,
+//	            politicsList:politicsList,
+//	            stateList:stateList,
+//	            cert_typeList:cert_typeList,
+//	            edu_typeList:edu_typeList,
+//	            edu_hierarchyList:edu_hierarchyList,
+//	            subject_categoryList:data.subject_categories,
+//	            degree_typeList:data.degree_types,
+//	            vocationList:data.vocations,
+//	            titleList:data.titles,
+//	            service_intentionList:data.services,
+//	            prize_levelList:prize_levelList,
+//	            elect_levelList:elect_levelList
+//	        }
+//	    });
+//    }
     $(document).on("click", "#submitBtn", function(){
     	var param = ($("#applyForm").serialize());
     	$.ajax({
     		url:"/cydspx/candidate/addCandidate",
     		type:"get",
     		data:param,
-    		success:function(){
-    			alert("提交成功！");
+    		success:function(data){
+    			alert(data.message);
     		}
     	});
     });

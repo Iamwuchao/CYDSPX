@@ -1,34 +1,40 @@
+
+
 $(document).ready(function(){
-	var originCandidateList = [{
-		name:"name",
-		sex:"sex",
-		birthday:"birthday",
-		mobile_phone:"mobile_phone",
-		email:"email",
-		workunit:"workunit",
-		origin_recommand:"origin_recommand",
-		job:"job",
-		title:"title"
-	}];
+	
 	
 	var showCandidate = null;
-	getCandidate();
+	var originCandidateList = [{
+			id:"1",
+			name:"name",
+			sex:"sex",
+			birthday:"birthday",
+			mobile_phone:"mobile_phone",
+			email:"email",
+			workunit:"workunit",
+			origin_recommand:"origin_recommand",
+			job:"job",
+			title:"title"
+		}];
+
 	function getCandidate(){
-		$.ajax({
-			url:"/cydspx/getCandidateList",
-			type:"get",
-			dataType:"json",
-			success:function(data){
-				showCandidate = new Vue({
-					el:"#candidateTable",
-					data:{
-						candidateList:originCandidateList
-					}
-				});
-				showCandidate.candidateList = data;
-			}
-		});
-	}
+			$.ajax({
+				url:"/cydspx/getCandidateList",
+				type:"get",
+				dataType:"json",
+				success:function(data){
+					showCandidate = new Vue({
+						el:"#candidateTable",
+						data:{
+							candidateList:originCandidateList
+						}
+					});
+					showCandidate.candidateList = data;
+				}
+			});
+		}
+	getCandidate();
+	
 	
 	$("#addfile").click(function(){
     	$.ajax({

@@ -21,6 +21,7 @@ import cydspx.handler.CandidateHandler;
 import cydspx.handler.CandidateRelationHandler;
 import cydspx.handler.SuperAdminHandler;
 import cydspx.mode.Candidate;
+import cydspx.mode.CandidateDataMessage;
 import cydspx.mode.CandidateForm;
 import cydspx.mode.ElectJoin;
 import cydspx.mode.Prize;
@@ -48,6 +49,7 @@ public class CandidateController {
 	
  	@Autowired
   	private CandidateHandler candidateHandler;
+ 	
   	@Autowired
   	private CandidateRelationHandler relationHandler;
   	
@@ -56,6 +58,14 @@ public class CandidateController {
   	public ResponseMessage addCandidate(HttpServletRequest request, HttpSession session, CandidateForm form) {
   		System.out.println("photo "+form.getPhotograph());
   		System.out.println("attach "+form.getAttachment());
+  		List<String> notInputFileds = form.check();
+  		if(!notInputFileds.isEmpty())
+  		{
+  			ResponseMessage msg = new ResponseMessage();
+  			msg.setCode(ResponseCode.FAIL.ordinal());
+  			msg.setMessage("有必填项" + notInputFileds + " 未填写，请继续填写");
+  			return msg;
+  		}
   		
   		User user = (User)session.getAttribute(SessionKey.USER_INFO.name());
   		
@@ -138,24 +148,35 @@ public class CandidateController {
 		return candidateHandler.getCandidateList(user);
 	}
 	
-	@Data
-	class CandidateDataMessage {
-		private Candidate candidate;
-		private List<Integer> electjoin_ids;
-		private List<Integer> prize_ids;
-		private List<String> services;
-		private List<String> vocations;
-	}
+	
+	
 	
 	@RequestMapping("/cydspx/getCandidate")
 	@ResponseBody
 	public CandidateDataMessage getCandidateList(HttpSession session,@RequestParam int candidate_id){
 		CandidateDataMessage msg = new CandidateDataMessage();
 		msg.candidate = candidateHandler.getCandidate(candidate_id);
-		msg.electjoin_ids = relationHandler.getElectJoinIds(candidate_id);
-		msg.prize_ids = relationHandler.getPrizeIds(candidate_id);
+		List<Integer> electjoin_ids = relationHandler.getElectJoinIds(candidate_id);
+		List<Integer> prize_ids = relationHandler.getPrizeIds(candidate_id);
+		msg.prizes = new LinkedList<Prize>();
+		msg.electjoins = new LinkedList<ElectJoin>();
+		if(prize_ids!=null && prize_ids.size()>0)
+			msg.prizes = getPrizesByIds(session,prize_ids);
+		if(electjoin_ids!=null && electjoin_ids.size()>0)
+			msg.electjoins = getElectJoinsByids(session,electjoin_ids);
+		
+		while(msg.prizes.size()<3){
+			msg.prizes.add(new Prize());
+		}
+		
+		while(msg.electjoins.size()<3){
+			msg.electjoins.add(new ElectJoin());
+		}
+		
 		msg.services = relationHandler.getServices(candidate_id);
 		msg.vocations = relationHandler.getVocations(candidate_id);
+		System.out.println("################################");
+		System.out.println(msg);
 		return msg;
 	}
 	
@@ -280,6 +301,62 @@ public class CandidateController {
 			response.setMessage("success");
 		}
 		return response;
+	}
+	
+	@RequestMapping("/cydspx/candidate/updatecandidate")
+	@ResponseBody
+	public ResponseMessage updateCandidate(HttpServletRequest request, HttpSession session, CandidateForm form){
+		candidateHandler.updateCandidate(form);
+		
+		int candidate_id = form.getId();
+		
+		
+		/*
+  		 * 行业
+  		 */
+  		if (form.getVocations() != null) {
+  			for (String vocation : form.getVocations()) {
+  				relationHandler.addVocationItem(candidate_id, vocation);
+  			}
+  		}
+  		
+  		/*
+  		 * 服务意向
+  		 */
+  		if (form.getService_intention() != null) {
+  			for (String service : form.getService_intention()) {
+  				relationHandler.addServiceItem(candidate_id, service);
+  			}
+  		}
+  		
+  		
+  		
+  		/* 获奖和参评
+  		 * so ugly, someone to refactor it
+  		 */
+  		if (form.getPrize_level1() != null) {
+  			relationHandler.addPrizeItem(candidate_id, form.getAchievement1(), form.getPrize_year1(), form.getPrize_level1());
+  		}
+  		if (form.getElect_level1() != null) {
+  			relationHandler.addElectJoinItem(candidate_id, form.getProject_name1(), form.getElect_year1(), form.getElect_level1());
+  		}
+  		
+  		if (form.getPrize_level2() != null) {
+  			relationHandler.addPrizeItem(candidate_id, form.getAchievement2(), form.getPrize_year2(), form.getPrize_level2());
+  		}
+  		if (form.getElect_level2() != null) {
+  			relationHandler.addElectJoinItem(candidate_id, form.getProject_name2(), form.getElect_year2(), form.getElect_level2());
+  		}
+  		
+  		if (form.getPrize_level3() != null) {
+  			relationHandler.addPrizeItem(candidate_id, form.getAchievement3(), form.getPrize_year3(), form.getPrize_level3());
+  		}
+  		if (form.getElect_level3() != null) {
+  			relationHandler.addElectJoinItem(candidate_id, form.getProject_name3(), form.getElect_year3(), form.getElect_level3());
+  		}
+  		ResponseMessage msg = new ResponseMessage();
+  		return msg;
+		
 	}
 	
 	

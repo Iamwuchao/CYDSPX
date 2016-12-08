@@ -141,4 +141,9 @@ public class CandidateHandler {
 			return response;
 		}
 	}
+	
+	public void updateCandidate(Candidate candidate){
+		candidateDBServer.updateCandidate(candidate);
+		candidateDBServer.clearCandidaterelation(candidate.getId());
+	}
 }

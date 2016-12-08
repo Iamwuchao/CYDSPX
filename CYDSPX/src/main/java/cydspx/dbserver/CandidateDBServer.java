@@ -17,6 +17,7 @@ import cydspx.mapper.relation.CandidateServiceRelationMapper;
 import cydspx.mapper.relation.CandidateVocationRelationMapper;
 import cydspx.mode.Candidate;
 import cydspx.mode.CandidateAbstract;
+import cydspx.mode.CandidateDataMessage;
 
 
 @Data
@@ -102,6 +103,18 @@ public class CandidateDBServer {
 		return candidateMapper.getCandidateByID(candidate_id);
 	
 	}
-
+	
+	
+	public void updateCandidate(Candidate candidate){
+		System.out.println("####### NAME ### "+candidate.getName()+"   $$$$  "+candidate.getId());
+		candidateMapper.updateCandidate(candidate);
+	}
+	
+	public void clearCandidaterelation(int candidateId){
+		
+		int rows2 = electJoinMapper.removeElectJoinItem(candidateId);
+		int rows3 = candidateVocationRelationMapper.deleteVocationItem(candidateId);
+		int rows4 = candidateServiceRelatioinMapper.deleteCandidateServiceRelation(candidateId);
+	}
 	
 }
