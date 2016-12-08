@@ -263,7 +263,8 @@ function getCandidateData(candidateId){
 		            electShow1:electShow1,
 		            electShow2:electShow2,
 		            prizeList:data.prizes,
-		            electList:data.electjoins
+		            electList:data.electjoins,
+		            resume:candidate.resume
 				}
 			});
 		}
