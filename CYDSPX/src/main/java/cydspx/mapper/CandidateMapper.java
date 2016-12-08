@@ -58,7 +58,7 @@ public interface CandidateMapper {
 	@Options(useGeneratedKeys=true, keyProperty="candidate.id",keyColumn="id")
 	public int addCandidate(@Param("candidate") Candidate candidate,@Param("userId") int userId);
 	
-	@Select("select * from candidate_table where userid=#{userId};")
+	@Select("select * from candidate_table where userid=#{userId} order by id;")
 	public List<Candidate> getCandidatesOfSchool(@Param("userId") int userId);
 	
 	@Select("select * from candidate_table where name=#{name};")

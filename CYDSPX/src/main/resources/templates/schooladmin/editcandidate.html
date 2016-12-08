@@ -1,6 +1,7 @@
 
 <div>
 	<form action="" method="post" id="fileuploadForm">
+	
 		<fieldset class="upload">
 	    	<legend>文件上传</legend>
 	        <div class="showpic">
@@ -39,6 +40,7 @@
 	<form action="" method="post" id="applyForm">
 	    <input id="attachementPicId" name="photograph" type="hidden" v-model="photograph"/>
 	    <input id="attachementFileId" name="attachment" type="hidden" v-model="attachment"/>
+	    <input type="hidden" value="" id="candidateId" name="id" ></input>
 	    <fieldset>
 	        <legend>基本信息</legend>
 	        <div class="row">
@@ -476,7 +478,7 @@
 	    <fieldset class="special-fieldset" id="elect-info">
 	        <legend>参评信息<span>近五年以来担任创新创业教育方面项目评审专家、社会兼职情况，点击右边加号添加新项，最多填写三项，没有可以不填</span></legend>
 	        <span class="add-btn" id="add-elect-btn">+</span>
-	        <div class="row" v-if="electShow[0]">
+	        <div class="row" v-if="electShow0">
 	            <div class="col-md-11 col-md-offset-1">
 	                <div class="form-group">
 	                    <div class="input-group">
@@ -487,7 +489,7 @@
 	                </div>
 	            </div>
 	        </div>
-	        <div class="row" v-if="electShow[0]">
+	        <div class="row" v-if="electShow0">
 	            <div class="col-md-3 col-md-offset-1">
 	                <div class="form-group">
 	                    <div class="input-group">
@@ -516,7 +518,7 @@
 	            </div>
 	            
 	        </div>    
-	        <div class="row" v-if="electShow[1]">
+	        <div class="row" v-if="electShow1">
 	            <div class="col-md-11 col-md-offset-1">
 	                <div class="form-group">
 	                    <div class="input-group">
@@ -527,7 +529,7 @@
 	                </div>
 	            </div>
 	        </div>
-	        <div class="row" v-if="electShow[1]">
+	        <div class="row" v-if="electShow1">
 	            <div class="col-md-3 col-md-offset-1">
 	                <div class="form-group">
 	                    <div class="input-group">
@@ -556,7 +558,7 @@
 	            </div>
 	            
 	        </div>
-	        <div class="row" v-if="electShow[2]">
+	        <div class="row" v-if="electShow2">
 	            <div class="col-md-11 col-md-offset-1">
 	                <div class="form-group">
 	                    <div class="input-group">
@@ -567,7 +569,7 @@
 	                </div>
 	            </div>
 	        </div>
-	        <div class="row" v-if="electShow[2]">
+	        <div class="row" v-if="electShow2">
 	            <div class="col-md-3 col-md-offset-1">
 	                <div class="form-group">
 	                    <div class="input-group">
