@@ -34,11 +34,14 @@
 				<div class="form-group">
 					<button type="button" class="btn btn-primary" id="login">登录</button>
 				</div>
+				<div>
+					<a href="#">请尽量使用Chrome浏览器，或者高版本的IE浏览器</a>
+				</div>
 			</div>	
 		</form>
 	</div>
 	<footer class="container">
-		<p>Copyright © 1986 - 2016 All rights reserved | <a href="http://chuangxin.dlut.edu.cn">大连理工大学创新创业学院版权所有</a> | GPLv3 <a href="http://gplv3.fsf.org/">Terms</a></p>
+		<p>Copyright © 1986 - 2016 All rights reserved | <a href="#">请尽量使用Chrome浏览器，或者IE 11 浏览器</a> | GPLv3 <a href="http://gplv3.fsf.org/">Terms</a></p>
 	</footer>
 </body>
 <script type="text/javascript">
@@ -90,7 +93,8 @@ function loginCallback(data)
 	{    		
 		//alert("登陆成功");
 		window.location.href = "/cydspx/homepage";
-		
+		window.event.returnValue=false;
+
 	}
 	else if(data.code == "1")
 		{

@@ -8,4 +8,8 @@ public class CandidateDataMessage {
 	public List<Prize> prizes;
 	public List<String> services;
 	public List<String> vocations;
+
+
+
 }
+
