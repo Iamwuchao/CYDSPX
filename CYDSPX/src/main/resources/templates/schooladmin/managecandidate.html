@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>   	
+        <meta charset="utf-8"/>
+       	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="renderer" content="webkit"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
+        
+        <title>后台管理</title>
+        
+		<link href="/cydspx/css/base.css" rel="stylesheet"></link> 
+		<link href="/cydspx/css/dashboard.css" rel="stylesheet"></link> 
+		<link href="/cydspx/css/bootstrap-theme.min.css" rel="stylesheet"></link> 
+		<link href="/cydspx/css/bootstrap.min.css" rel="stylesheet"></link> 
+		<link rel="stylesheet" href="/cydspx/css/schooladmin/fileinput.min.css"></link>
+		<link rel="stylesheet" href="/cydspx/css/schooladmin/fileinput.css"></link>
+		<link rel="stylesheet" href="/cydspx/css/schooladmin/addcandidate.css"></link>
+		<script type='text/javascript' src="/cydspx/js/jquery-3.1.0.min.js"></script>	
+		<script type='text/javascript' src="/cydspx/js/vue.js"></script>
+		<!--    <script type='text/javascript' src="/cydspx/js/schooladmin/checkCandidate.js"></script> -->
+		<script type='text/javascript' src="/cydspx/js/schooladmin/manageCandidate.js"></script>
+		<script type='text/javascript' src="/cydspx/js/schooladmin/editcandidate.js"></script>
+    	<script src="/cydspx/js/fileinput/fileUpload.js"></script>
+		<script src="/cydspx/js/fileinput/fileinput.js"></script>
+		<script src="/cydspx/js/fileinput/locales/zh.js"></script>
+		<style>
+			.addBtn{
+				color:#fff;
+				background:#53aad4;
+				margin-bottom:5px;
+			}
+			.fileinput{
+				display:none;
+			}
+			#submitBtn{
+				margin-top:5px;
+			}
+		</style>
+    </head>   
+
+	<body  onload="onload()">
+	    <header class="navbar navbar-inverse navbar-fixed-top">
+	        <div class="container-fluid">
+	            <div class="navbar-header">
+	                <a class="navbar-brand" href="/cydspx"><b>辽宁省创业导师评选</b></a>
+	            </div>
+	            <div id="navbar" class="navbar-collapse collapse">
+	              	<ul class="nav navbar-nav navbar-right">
+	              		<li><a id="userName" href="#"></a></li>
+	                	<li><a href="/cydspx/homepage">退出</a></li>
+	              	</ul>
+	            </div>
+	        </div>
+	    </header>
+	    <nav>
+	        <ul>
+	            <li>
+	                <a href="/cydspx/schoolAdmin/addCandidate"><span class="glyphicon glyphicon-th-large"></span>提交候选人信息</a>
+	            </li>
+	            <li>
+	                <a href="/cydspx/schoolAdmin/checkCandidate"><span class="glyphicon glyphicon-th-large"></span>提交汇总表</a>
+	            </li>
+	          <!--    <li><a href="/cydspx/schoolAdmin/managecandidate"><span class="glyphicon glyphicon-th-large"></span>管理候选人信息</a></li>--> 
+	            <li><a href="/cydspx/schoolAdmin/passwordChange"><span class="glyphicon glyphicon-th-large"></span>修改密码</a></li>
+	        </ul>
+	    </nav>
+	    <div class="wrapper">
+			<!--<header class="container-title">
+				提交候选人汇总表
+			</header>  -->
+			<div class="content" id="candidateTable">
+				<!--  <input id="attachementFileId" type="hidden"/>
+            	<button type="button" id="addfile" class="btn addBtn">添加汇总表</button>
+            	<div class="fileinput" id="fileInput">
+            		<input type="file" id="attachement_file" name="attachement_file"/>
+            		<input type="button" id="submitBtn" class="btn btn-success" name="submit" value="提交汇总表"/>
+					<p class="help-block">附件只支持pdf格式.提交前先点击上传按钮</p>
+					<p class="helip-block" id="fileError"></p>
+            	</div>-->
+				<table class="table table-hover" id="mycandidateTable">
+					<thead>
+						<tr>
+							<th>姓名</th>
+							<th>性别</th>
+							<th>出生日期</th>
+							<th>移动电话</th>
+							<th>电子邮箱</th>
+							<th>院校名称</th>
+							<th>工作单位</th>
+							<th>原始推荐单位</th>
+				      		<th>职务</th>
+				      		<th>职称</th>
+ 							<th>修改</th>
+ 							<th>删除</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="candidate in candidateList1">
+				      		<td>{{candidate.name}}</td>
+				      		<td>{{candidate.sex}}</td>
+				      		<td>{{candidate.birthday}}</td>
+				      		<td>{{candidate.mobile_phone}}</td>
+				      		<td>{{candidate.email}}</td>
+				      		<td>{{candidate.academy_name}}</td>
+				      		<td>{{candidate.workunit}}</td>
+				      		<td>{{candidate.origin_recommand}}</td>
+				     	 	<td>{{candidate.job}}</td>
+				      		<td>{{candidate.title}}</td>
+ 				      		<td> 
+ 								<button id="{{candidate.id}}" type="button" class="btn btn-info" onclick="editCandidate(this)">修改</button>
+ 								<button id="{{candidate.id}}" type="button" class="btn btn-danger" onclick="removeCandidate(this)">删除</button>
+ 							</td> 
+				    	</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+	
+
+
+	<script>
+		function onload(){
+			$.ajax({
+				url: '/cydspx/getuserinfo',
+				type: 'get',
+			  	dataType: 'json',
+			  	success: function(data){
+				  	$("#userName").html(data.userName+" 欢迎您");
+			  	}
+			});
+			
+			var originCandidateList = [{
+				name:"name",
+				sex:"sex",
+				birthday:"birthday",
+				mobile_phone:"mobile_phone",
+				email:"email",
+				workunit:"workunit",
+				origin_recommand:"origin_recommand",
+				job:"job",
+				title:"title"
+			}];
+			
+			$.ajax({
+				url:"/cydspx/getCandidateList",
+				type:"get",
+				dataType:"json",
+				success:function(data){
+					var showCandidate1 = new Vue({
+						el:"#mycandidateTable",
+						data:{
+							candidateList1:originCandidateList
+						}
+					});
+					showCandidate1.candidateList1 = data;
+				}
+			});
+		}
+	</script>
+</html>

@@ -21,7 +21,10 @@ import cydspx.handler.CandidateHandler;
 import cydspx.handler.CandidateRelationHandler;
 import cydspx.handler.SuperAdminHandler;
 import cydspx.mode.Candidate;
+import cydspx.mode.CandidateDataMessage;
 import cydspx.mode.CandidateForm;
+import cydspx.mode.ElectJoin;
+import cydspx.mode.Prize;
 import cydspx.mode.ResponseMessage;
 import cydspx.mode.User;
 
@@ -46,6 +49,7 @@ public class CandidateController {
 	
  	@Autowired
   	private CandidateHandler candidateHandler;
+ 	
   	@Autowired
   	private CandidateRelationHandler relationHandler;
   	
@@ -54,6 +58,14 @@ public class CandidateController {
   	public ResponseMessage addCandidate(HttpServletRequest request, HttpSession session, CandidateForm form) {
   		System.out.println("photo "+form.getPhotograph());
   		System.out.println("attach "+form.getAttachment());
+  		List<String> notInputFileds = form.check();
+  		if(!notInputFileds.isEmpty())
+  		{
+  			ResponseMessage msg = new ResponseMessage();
+  			msg.setCode(ResponseCode.FAIL.ordinal());
+  			msg.setMessage("有必填项" + notInputFileds + " 未填写，请继续填写");
+  			return msg;
+  		}
   		
   		User user = (User)session.getAttribute(SessionKey.USER_INFO.name());
   		
@@ -136,6 +148,50 @@ public class CandidateController {
 		return candidateHandler.getCandidateList(user);
 	}
 	
+	
+	
+	
+	@RequestMapping("/cydspx/getCandidate")
+	@ResponseBody
+	public CandidateDataMessage getCandidateList(HttpSession session,@RequestParam int candidate_id){
+		CandidateDataMessage msg = new CandidateDataMessage();
+		msg.candidate = candidateHandler.getCandidate(candidate_id);
+		List<Integer> electjoin_ids = relationHandler.getElectJoinIds(candidate_id);
+		List<Integer> prize_ids = relationHandler.getPrizeIds(candidate_id);
+		msg.prizes = new LinkedList<Prize>();
+		msg.electjoins = new LinkedList<ElectJoin>();
+		if(prize_ids!=null && prize_ids.size()>0)
+			msg.prizes = getPrizesByIds(session,prize_ids);
+		if(electjoin_ids!=null && electjoin_ids.size()>0)
+			msg.electjoins = getElectJoinsByids(session,electjoin_ids);
+		
+		while(msg.prizes.size()<3){
+			msg.prizes.add(new Prize());
+		}
+		
+		while(msg.electjoins.size()<3){
+			msg.electjoins.add(new ElectJoin());
+		}
+		
+		msg.services = relationHandler.getServices(candidate_id);
+		msg.vocations = relationHandler.getVocations(candidate_id);
+		System.out.println("################################");
+		System.out.println(msg);
+		return msg;
+	}
+	
+	@RequestMapping("/cydspx/getPrizesByIds")
+	@ResponseBody
+	public List<Prize> getPrizesByIds(HttpSession session, List<Integer> prize_ids) {
+		return relationHandler.getPrizesByIds(prize_ids);
+	}
+	
+	@RequestMapping("/cydspx/getElectJoinsByids")
+	@ResponseBody
+	public List<ElectJoin> getElectJoinsByids(HttpSession session, List<Integer> electjoin_ids) {
+		return relationHandler.getElectJoinsByIds(electjoin_ids);
+	}
+	
 	//上传汇总表
 	@RequestMapping(value = "/cydspx/saveSummarize", method = RequestMethod.POST)
 	@ResponseBody
@@ -167,5 +223,141 @@ public class CandidateController {
 		int id=user.getUserId();
 		return superAdminHandler.changePassword(id, newPassword);
 	}
+	
+	//删除指定用户
+	@RequestMapping("/cydspx/candidate/removecandidate")
+	@ResponseBody
+	public ResponseMessage removeCandidate(@RequestParam int candidateId){
+		return candidateHandler.removeCandidate(candidateId);
+	}
+	
+	//更新用户信息
+/*	@RequestMapping("/cydspx/candidate/editcandidate")
+	@ResponseBody
+	public ResponseMessage editCandidate(CandidateForm form){
+		
+	}*/
+	
+	//更新用户获奖信息
+	@RequestMapping("/cydspx/candidate/addoneprize")
+	@ResponseBody
+	public ResponseMessage addPrize(@RequestParam int candidateId,@RequestParam String achievement,@RequestParam String year,@RequestParam String level){
+		boolean result = relationHandler.addPrizeItem(candidateId, achievement, year, level);
+		ResponseMessage response = new ResponseMessage();
+		if(result){
+			response.setCode(ResponseCode.FAIL.ordinal());
+			response.setMessage("fail");
+		}
+		else{
+			response.setCode(ResponseCode.SUCCESS.ordinal());
+			response.setMessage("success");
+		}
+		return response;
+	}
+	
+	@RequestMapping("/cydspx/candidate/deleteprize")
+	@ResponseBody
+	public ResponseMessage deletePrize(@RequestParam int candidateId,@RequestParam int id){
+		boolean result = relationHandler.deletePrizeJoinItem(candidateId, id);
+		ResponseMessage response = new ResponseMessage();
+		if(result){
+			response.setCode(ResponseCode.FAIL.ordinal());
+			response.setMessage("fail");
+		}
+		else{
+			response.setCode(ResponseCode.SUCCESS.ordinal());
+			response.setMessage("success");
+		}
+		return response;
+	}
+	
+	@RequestMapping("/cydspx/candidate/addoneelectjoin")
+	@ResponseBody
+	public ResponseMessage addOneelectJoin(@RequestParam int candidateId,@RequestParam String projectName,@RequestParam String electYear,String level){
+		boolean result = relationHandler.addElectJoinItem(candidateId, projectName, electYear, level);
+		ResponseMessage response = new ResponseMessage();
+		if(result){
+			response.setCode(ResponseCode.FAIL.ordinal());
+			response.setMessage("fail");
+		}
+		else{
+			response.setCode(ResponseCode.SUCCESS.ordinal());
+			response.setMessage("success");
+		}
+		return response;
+	}
+	
+	@RequestMapping("/cydspx/candidate/deleteelectjoin")
+	@ResponseBody
+	public ResponseMessage deleteelectJoin(@RequestParam int candidateId,@RequestParam int id){
+		boolean result = relationHandler.deleteElectJoinItem(candidateId, id);
+		ResponseMessage response = new ResponseMessage();
+		if(result){
+			response.setCode(ResponseCode.FAIL.ordinal());
+			response.setMessage("fail");
+		}
+		else{
+			response.setCode(ResponseCode.SUCCESS.ordinal());
+			response.setMessage("success");
+		}
+		return response;
+	}
+	
+	@RequestMapping("/cydspx/candidate/updatecandidate")
+	@ResponseBody
+	public ResponseMessage updateCandidate(HttpServletRequest request, HttpSession session, CandidateForm form){
+		candidateHandler.updateCandidate(form);
+		
+		int candidate_id = form.getId();
+		
+		
+		/*
+  		 * 行业
+  		 */
+  		if (form.getVocations() != null) {
+  			for (String vocation : form.getVocations()) {
+  				relationHandler.addVocationItem(candidate_id, vocation);
+  			}
+  		}
+  		
+  		/*
+  		 * 服务意向
+  		 */
+  		if (form.getService_intention() != null) {
+  			for (String service : form.getService_intention()) {
+  				relationHandler.addServiceItem(candidate_id, service);
+  			}
+  		}
+  		
+  		
+  		
+  		/* 获奖和参评
+  		 * so ugly, someone to refactor it
+  		 */
+  		if (form.getPrize_level1() != null) {
+  			relationHandler.addPrizeItem(candidate_id, form.getAchievement1(), form.getPrize_year1(), form.getPrize_level1());
+  		}
+  		if (form.getElect_level1() != null) {
+  			relationHandler.addElectJoinItem(candidate_id, form.getProject_name1(), form.getElect_year1(), form.getElect_level1());
+  		}
+  		
+  		if (form.getPrize_level2() != null) {
+  			relationHandler.addPrizeItem(candidate_id, form.getAchievement2(), form.getPrize_year2(), form.getPrize_level2());
+  		}
+  		if (form.getElect_level2() != null) {
+  			relationHandler.addElectJoinItem(candidate_id, form.getProject_name2(), form.getElect_year2(), form.getElect_level2());
+  		}
+  		
+  		if (form.getPrize_level3() != null) {
+  			relationHandler.addPrizeItem(candidate_id, form.getAchievement3(), form.getPrize_year3(), form.getPrize_level3());
+  		}
+  		if (form.getElect_level3() != null) {
+  			relationHandler.addElectJoinItem(candidate_id, form.getProject_name3(), form.getElect_year3(), form.getElect_level3());
+  		}
+  		ResponseMessage msg = new ResponseMessage();
+  		return msg;
+		
+	}
+	
 	
 }

@@ -64,4 +64,14 @@ public class PageController {
 		return "/schoolAdmin/passwordChange";
 	}
 	
+	@RequestMapping("/cydspx/schoolAdmin/managecandidate")
+	public String manageCandidatePage(){
+		return "/schooladmin/managecandidate";
+	}
+	
+	@RequestMapping("/cydspx/schoolAdmin/editcandidate")
+	public String editCandidatePage(){
+		return "/schooladmin/editcandidate";
+	}
+	
 }

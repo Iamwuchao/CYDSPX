@@ -15,9 +15,9 @@ public interface AllocateMapper {
 	@Select("SELECT candidate_group_id FROM cydspx.allocate_table where expert_group_id=#{expertGroupId};")
 	public int getCandidateGroupId(@Param("expertGroupId") int expertGroupId);
 	
-	@Insert("INSERT INTO `cydspx`.`allocate_table` (`candidate_group_id`, `expert_group_id`) VALUES (#{candidateGroupId}, #{expertGroupId});")
+	@Insert("INSERT INTO  `allocate_table` (`candidate_group_id`, `expert_group_id`) VALUES (#{candidateGroupId}, #{expertGroupId});")
 	public int saveGroupInfo(@Param("candidateGroupId") int candidateGroupId,@Param("expertGroupId") int expertGroupId);
 	
-	@Delete("TRUNCATE TABLE `cydspx`.`allocate_table`;")
+	@Delete("TRUNCATE TABLE  `allocate_table`;")
 	void truncateTable();
 }

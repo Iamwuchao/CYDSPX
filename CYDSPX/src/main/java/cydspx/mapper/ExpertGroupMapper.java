@@ -16,12 +16,12 @@ public interface ExpertGroupMapper {
 	/*
 	 * 保存专家分组信息
 	 */
-	@Insert("INSERT INTO `cydspx`.`expert_group_table` (`group_id`, `user_id`) VALUES (#{groupId}, #{userId});")
+	@Insert("INSERT INTO  `expert_group_table` (`group_id`, `user_id`) VALUES (#{groupId}, #{userId});")
 	public int saveExpertGroupInfo(@Param("groupId") int groupId,@Param("userId") int userId);
 	
 	/*
 	 * 清空表数据
 	 */
-	@Delete("truncate table `cydspx`.`expert_group_table`;")
+	@Delete("truncate table  `expert_group_table`;")
 	void truncateTable();
 }

@@ -6,7 +6,7 @@ import lombok.Data;
 public class Candidate {
 	protected int id = 0;
 	protected String name = "";	//姓名							1
-	protected int sex = 0;		//性别							2
+	protected String sex = "男";		//性别							2
 	protected	String birthday = "";	//出生日期				3
 	protected String state = "";		//国家/地区				4
 	protected String cert_type = "";		//证件类型			5

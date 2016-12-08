@@ -5,6 +5,7 @@ function showCandidateManagepage(){
 		dataType:'text',
 		success:function(data){
 			$("#candidateTable").html(data);
+			
 		}
 		
 	});

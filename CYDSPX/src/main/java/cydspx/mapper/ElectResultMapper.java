@@ -29,7 +29,7 @@ public interface ElectResultMapper {
 			+ "on a.id = b.candidate_id;")
 	public List<CandidateAbstract> getGradedCandidateList(@Param("expertId") int expertId);
 	
-	@Insert("INSERT INTO `cydspx`.`elect_result_table` (`candidate_id`, `expert_id`, `ret`) VALUES (#{candidateId}, #{expertId}, #{score});")
+	@Insert("INSERT INTO  `elect_result_table` (`candidate_id`, `expert_id`, `ret`) VALUES (#{candidateId}, #{expertId}, #{score});")
 	public int saveGradeInfo(@Param("candidateId") int candidateId,@Param("expertId") int expertId,@Param("score") int score);
 	
 	@Select("SELECT ret FROM cydspx.elect_result_table where candidate_id=#{candidateId} and expert_id=#{expertId};")
