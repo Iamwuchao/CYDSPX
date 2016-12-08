@@ -164,6 +164,7 @@ public class CandidateController {
 			photograph+="/";
 			msg.candidate.setPhotograph(photograph);
 		}
+		
 		List<Integer> electjoin_ids = relationHandler.getElectJoinIds(candidate_id);
 		List<Integer> prize_ids = relationHandler.getPrizeIds(candidate_id);
 		msg.prizes = new LinkedList<Prize>();
