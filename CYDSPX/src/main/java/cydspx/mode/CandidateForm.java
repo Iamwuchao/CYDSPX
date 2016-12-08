@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=false)
 public class CandidateForm extends Candidate{
 	private String[] service_intention;			//服务意向
-	private String[] vocations;					//行业
+	private String[] vocation;					//行业
 	private String achievement1;
 	private String prize_year1;
 	private String prize_level1;
@@ -64,7 +64,7 @@ public class CandidateForm extends Candidate{
 		if(!check(this.workunit)) res.add("工作单位");
 		if(!check(this.origin_recommand)) res.add("原始推荐单位");
 		if(!check(this.service_intention)) res.add("服务意向");
-		if(!check(this.vocations)) res.add("行业");
+		if(!check(this.vocation)) res.add("行业");
 		
 		return res;
 	}

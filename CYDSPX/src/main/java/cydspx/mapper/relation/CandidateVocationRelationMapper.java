@@ -11,8 +11,8 @@ public interface CandidateVocationRelationMapper {
 	
 	@Insert("INSERT INTO `candidate_vocation_relation_table` (`candidate_id`,  `vocation`) VALUES (#{candidate_id}, #{vocation});")
 	public int addVocationItem(
-			@Param("password") int candidate_id,
-			@Param("type") String vocation
+			@Param("candidate_id") int candidate_id,
+			@Param("vocation") String vocation
 			);
 
 	@Delete("delete from `candidate_vocation_relation_table` where candidate_id = #{candidateId}")

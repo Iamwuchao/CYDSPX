@@ -533,7 +533,7 @@ $(document).ready(function(){
         return this.optional(ele) || (postcode.test(value));
     }, "请填写正确的邮编！");
     $.validator.addMethod("birthday", function(value, ele, params){
-        var birthday = /^[1-2][0-9]{3}(0[1-9]|1[0-2])(0[1-9]|[1-2][1-9]|3[0-1])$/;
+        var birthday = /^[1-2][0-9]{3}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
         return this.optional(ele) || (birthday.test(value));
     }, "格式必须如20161007");
     $.validator.addMethod("year", function(value, ele, params){

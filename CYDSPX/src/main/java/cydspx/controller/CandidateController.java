@@ -76,8 +76,8 @@ public class CandidateController {
   		/*
   		 * 行业
   		 */
-  		if (form.getVocations() != null) {
-  			for (String vocation : form.getVocations()) {
+  		if (form.getVocation() != null) {
+  			for (String vocation : form.getVocation()) {
   				relationHandler.addVocationItem(candidate_id, vocation);
   			}
   		}
@@ -117,6 +117,8 @@ public class CandidateController {
   			relationHandler.addElectJoinItem(candidate_id, form.getProject_name3(), form.getElect_year3(), form.getElect_level3());
   		}
   		ResponseMessage msg = new ResponseMessage();
+  		msg.setCode(ResponseCode.SUCCESS.ordinal());
+  		msg.setMessage("提交成功");
   		return msg;
   	}
 	
@@ -314,8 +316,8 @@ public class CandidateController {
 		/*
   		 * 行业
   		 */
-  		if (form.getVocations() != null) {
-  			for (String vocation : form.getVocations()) {
+  		if (form.getVocation() != null) {
+  			for (String vocation : form.getVocation()) {
   				relationHandler.addVocationItem(candidate_id, vocation);
   			}
   		}
