@@ -36,11 +36,18 @@ public class Const {
 	};
 	
 	public static final String[] edu_typeList = new String[] {
-			"测试学历类别"
+			"普通（统招）",
+			"普通专升本",
+			"成人高考",
+			"自考",
+			"电大",
+			"网络教育"
 	};
 	
 	public static final String[] edu_hierarchyList = new String[] {
-			"测试层次"
+			"本科",
+			"硕士研究生",
+			"博士研究生"
 	};
 	
 	public static final String[] vocations = new String[] {

@@ -76,8 +76,8 @@ public class CandidateController {
   		/*
   		 * 行业
   		 */
-  		if (form.getVocations() != null) {
-  			for (String vocation : form.getVocations()) {
+  		if (form.getVocation() != null) {
+  			for (String vocation : form.getVocation()) {
   				relationHandler.addVocationItem(candidate_id, vocation);
   			}
   		}
@@ -117,6 +117,8 @@ public class CandidateController {
   			relationHandler.addElectJoinItem(candidate_id, form.getProject_name3(), form.getElect_year3(), form.getElect_level3());
   		}
   		ResponseMessage msg = new ResponseMessage();
+  		msg.setCode(ResponseCode.SUCCESS.ordinal());
+  		msg.setMessage("提交成功");
   		return msg;
   	}
 	
@@ -306,6 +308,17 @@ public class CandidateController {
 	@RequestMapping("/cydspx/candidate/updatecandidate")
 	@ResponseBody
 	public ResponseMessage updateCandidate(HttpServletRequest request, HttpSession session, CandidateForm form){
+		System.out.println("photo "+form.getPhotograph());
+  		System.out.println("attach "+form.getAttachment());
+		List<String> notInputFileds = form.check();
+  		if(!notInputFileds.isEmpty())
+  		{
+  			ResponseMessage msg = new ResponseMessage();
+  			msg.setCode(ResponseCode.FAIL.ordinal());
+  			msg.setMessage("有必填项" + notInputFileds + " 未填写，请继续填写");
+  			return msg;
+  		}
+		
 		candidateHandler.updateCandidate(form);
 		
 		int candidate_id = form.getId();
@@ -314,8 +327,8 @@ public class CandidateController {
 		/*
   		 * 行业
   		 */
-  		if (form.getVocations() != null) {
-  			for (String vocation : form.getVocations()) {
+  		if (form.getVocation() != null) {
+  			for (String vocation : form.getVocation()) {
   				relationHandler.addVocationItem(candidate_id, vocation);
   			}
   		}
@@ -355,6 +368,8 @@ public class CandidateController {
   			relationHandler.addElectJoinItem(candidate_id, form.getProject_name3(), form.getElect_year3(), form.getElect_level3());
   		}
   		ResponseMessage msg = new ResponseMessage();
+  		msg.setCode(ResponseCode.SUCCESS.ordinal());
+  		msg.setMessage("提交成功");
   		return msg;
 		
 	}
