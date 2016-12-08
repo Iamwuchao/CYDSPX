@@ -345,7 +345,7 @@ function removeCandidate(object){
 		success:function(response){
 			alert(response.message);
 			window.location="/cydspx/schoolAdmin/managecandidate";
-			alert("####");
+			
 		}
 		
 	});

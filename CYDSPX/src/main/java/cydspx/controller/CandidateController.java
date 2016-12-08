@@ -369,7 +369,7 @@ public class CandidateController {
   		}
   		ResponseMessage msg = new ResponseMessage();
   		msg.setCode(ResponseCode.SUCCESS.ordinal());
-  		msg.setMessage("提交成功");
+  		msg.setMessage("修改成功");
   		return msg;
 		
 	}
