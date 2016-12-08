@@ -381,7 +381,7 @@
 	                        <span class="input-group-addon">级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</span>
 	                        <div class="select">
 	                            <span v-for="option in prize_levelList">
-	                                <input type="radio" name="prize_level1" v-bind:value="option.value" v-model="prizeList[0].level"></input>
+	                                <input type="radio" name="prize_level1" v-bind:value="option.value" v-model="prizeList[0].prize_level"></input>
 	                                <label>{{option.text}}</label>
 	                            </span>
 	                        </div>
@@ -421,7 +421,7 @@
 	                        <span class="input-group-addon">级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</span>
 	                        <div class="select">
 	                            <span v-for="option in prize_levelList">
-	                                <input type="radio" name="prize_level2" v-bind:value="option.value" v-model="prizeList[1].level"></input>
+	                                <input type="radio" name="prize_level2" v-bind:value="option.value" v-model="prizeList[1].prize_level"></input>
 	                                <label>{{option.text}}</label>
 	                            </span>
 	                        </div>
@@ -461,7 +461,7 @@
 	                        <span class="input-group-addon">级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</span>
 	                        <div class="select">
 	                            <span v-for="option in prize_levelList">
-	                                <input type="radio" name="prize_level3" v-bind:value="option.value" v-model="prizeList[2].level"></input>
+	                                <input type="radio" name="prize_level3" v-bind:value="option.value" v-model="prizeList[2].prize_level"></input>
 	                                <label>{{option.text}}</label>
 	                            </span>
 	                        </div>
@@ -505,7 +505,7 @@
 	                        <span class="input-group-addon">级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</span>
 	                        <div class="select">
 	                            <span v-for="elect in elect_levelList">
-	                                <input type="radio" name="elect_level1" v-bind:value="elect.value" v-model="electList[0].level"></input>
+	                                <input type="radio" name="elect_level1" v-bind:value="elect.value" v-model="electList[0].elect_level"></input>
 	                                <label>{{elect.text}}</label>
 	                            </span>
 	                        </div>
@@ -545,7 +545,7 @@
 	                        <span class="input-group-addon">级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</span>
 	                        <div class="select">
 	                            <span v-for="option in elect_levelList">
-	                                <input type="radio" name="elect_level2" v-bind:value="option.value" v-model="electList[1].level"></input>
+	                                <input type="radio" name="elect_level2" v-bind:value="option.value" v-model="electList[1].elect_level"></input>
 	                                <label>{{option.text}}</label>
 	                            </span>
 	                        </div>
@@ -585,7 +585,7 @@
 	                        <span class="input-group-addon">级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</span>
 	                        <div class="select">
 	                            <span v-for="option in elect_levelList">
-	                                <input type="radio" name="elect_level3" v-bind:value="option.value" v-model="electList[2].level"></input>
+	                                <input type="radio" name="elect_level3" v-bind:value="option.value" v-model="electList[2].elect_level"></input>
 	                                <label>{{option.text}}</label>
 	                            </span>
 	                        </div>

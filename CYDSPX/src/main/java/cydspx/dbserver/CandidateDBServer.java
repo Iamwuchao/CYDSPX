@@ -115,6 +115,7 @@ public class CandidateDBServer {
 		int rows2 = electJoinMapper.removeElectJoinItem(candidateId);
 		int rows3 = candidateVocationRelationMapper.deleteVocationItem(candidateId);
 		int rows4 = candidateServiceRelatioinMapper.deleteCandidateServiceRelation(candidateId);
+		prizeMapper.removePrize(candidateId);
 	}
 	
 }

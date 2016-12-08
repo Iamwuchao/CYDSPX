@@ -158,6 +158,12 @@ public class CandidateController {
 	public CandidateDataMessage getCandidateList(HttpSession session,@RequestParam int candidate_id){
 		CandidateDataMessage msg = new CandidateDataMessage();
 		msg.candidate = candidateHandler.getCandidate(candidate_id);
+		String photograph = msg.candidate.getPhotograph();
+		if(!photograph.endsWith("/"))
+		{
+			photograph+="/";
+			msg.candidate.setPhotograph(photograph);
+		}
 		List<Integer> electjoin_ids = relationHandler.getElectJoinIds(candidate_id);
 		List<Integer> prize_ids = relationHandler.getPrizeIds(candidate_id);
 		msg.prizes = new LinkedList<Prize>();

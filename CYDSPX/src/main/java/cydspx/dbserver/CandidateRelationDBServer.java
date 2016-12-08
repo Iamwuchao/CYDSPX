@@ -60,6 +60,7 @@ public class CandidateRelationDBServer {
 	
 	public List<Prize> getPrizesByIds(List<Integer> prize_ids) {
 		List<Prize> list = new LinkedList<Prize>();
+		
 		for(int id:prize_ids){
 			Prize prize =  prizeMapper.getPrizeById(id);
 			list.add(prize);
@@ -88,6 +89,7 @@ public class CandidateRelationDBServer {
 		 for(int id:electjoin_ids){
 			 ElectJoin electJoin =  electJoinMapper.getElectJoinById(id);
 			 list.add(electJoin);
+			 System.out.println(electJoin.getProject_name());
 		 }
 		 return list;
 	}

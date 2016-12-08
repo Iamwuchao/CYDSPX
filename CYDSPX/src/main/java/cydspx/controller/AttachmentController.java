@@ -105,4 +105,42 @@ public class AttachmentController {
 		return response;
 	}
 	 
+	 
+
+		/*
+		 * 获取附件
+		 */
+		 @RequestMapping(value="/cydspx/schoolAdmin/{filename}")
+		 public ResponseEntity<InputStreamResource> getPicture(@PathVariable String filename,HttpServletRequest request,HttpServletResponse response) throws IOException{
+			/* 	String path = env.getProperty("rootPath");
+		    	log.info("path = " + path);
+		    	try {
+					StreamUtils.copy( new FileInputStream(path + filename) , response.getOutputStream() );
+				}catch (IOException e) {
+					log.warn("StreamUtils copy warn",e );
+				}
+		    	
+		    	try {
+					response.getOutputStream().flush();
+				} catch (IOException e) {
+					log.warn("getOutputStream flush warn",e );
+				}*/
+			 String path = env.getProperty("rootPath") + filename;
+			 FileSystemResource file=new FileSystemResource(path);
+		    	if(!file.exists()){
+		    		System.out.println("文件不存在");
+		    	}
+		    	HttpHeaders headers = new HttpHeaders();  
+		        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");  
+		        headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", file.getFilename()));  
+		        headers.add("Pragma", "no-cache");  
+		        headers.add("Expires", "0");  
+		        return ResponseEntity  
+		                .ok()  
+		                .headers(headers)  
+		                .contentLength(file.contentLength())  
+		                .contentType(MediaType.parseMediaType("application/octet-stream"))  
+		                .body(new InputStreamResource(file.getInputStream())); 
+		 }
+	 
 }

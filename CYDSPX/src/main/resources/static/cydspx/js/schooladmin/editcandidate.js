@@ -205,8 +205,9 @@ function getCandidateData(candidateId){
 		},
 		dataType:"json",
 		success:function(data){
-			console.log(data);
+			console.log(data.prizes);
 			var candidate = data.candidate;
+			//candidate.photograph =candidate.photograph+"/";
 			vue = new Vue({
 				el: "#candidateTable",
 		        data: {
@@ -261,8 +262,8 @@ function getCandidateData(candidateId){
 		            electShow0:electShow0,
 		            electShow1:electShow1,
 		            electShow2:electShow2,
-		            prizeList:prizeList,
-		            electList:electList
+		            prizeList:data.prizes,
+		            electList:data.electjoins
 				}
 			});
 		}
