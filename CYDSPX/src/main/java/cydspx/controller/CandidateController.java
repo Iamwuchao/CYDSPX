@@ -167,6 +167,7 @@ public class CandidateController {
 		
 		List<Integer> electjoin_ids = relationHandler.getElectJoinIds(candidate_id);
 		List<Integer> prize_ids = relationHandler.getPrizeIds(candidate_id);
+		
 		msg.prizes = new LinkedList<Prize>();
 		msg.electjoins = new LinkedList<ElectJoin>();
 		if(prize_ids!=null && prize_ids.size()>0)
@@ -344,7 +345,9 @@ public class CandidateController {
   		 * 服务意向
   		 */
   		if (form.getService_intention() != null) {
+  			//System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
   			for (String service : form.getService_intention()) {
+  				//System.out.println("service "+service);
   				relationHandler.addServiceItem(candidate_id, service);
   			}
   		}

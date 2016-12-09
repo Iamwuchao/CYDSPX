@@ -45,7 +45,10 @@ public class CandidateRelationDBServer {
 	private PrizeMapper prizeMapper;
 	
 	public int addPrizeItem(int candidate_id, String achievement, String prize_year, String level) {
-		return prizeMapper.addPrizeItem(candidate_id, achievement, prize_year, level);
+		if(achievement!=null && prize_year!=null && !achievement.isEmpty() && !prize_year.isEmpty())
+			return prizeMapper.addPrizeItem(candidate_id, achievement, prize_year, level);
+		else
+			return 0;
 	}
 	
 
@@ -72,7 +75,10 @@ public class CandidateRelationDBServer {
 	private ElectJoinMapper electJoinMapper;
 	
 	public int addElectJoin(int candidate_id, String project_name, String elect_year, String level) {
-		return electJoinMapper.addElectJoinItem(candidate_id, project_name, elect_year, level);
+		if(project_name!=null && !project_name.isEmpty() && elect_year!=null && !elect_year.isEmpty() && level!=null && !level.isEmpty())
+			return electJoinMapper.addElectJoinItem(candidate_id, project_name, elect_year, level);
+		else
+			return 0;
 	}
 	
 

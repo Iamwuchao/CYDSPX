@@ -72,11 +72,11 @@ var electList = [
 //var prizeShow = [true,true,false];
 var prizeShow0=true;
 var prizeShow1=true;
-var prizeShow2=false;
+var prizeShow2=true;
 
 var electShow0=true;
 var electShow1=true;
-var electShow2=false;
+var electShow2=true;
 
 function editCandidate(object){
 	var candidateId = $(object).attr("id");
@@ -208,6 +208,7 @@ function getCandidateData(candidateId){
 			console.log(data.prizes);
 			var candidate = data.candidate;
 			//candidate.photograph =candidate.photograph+"/";
+			
 			vue = new Vue({
 				el: "#candidateTable",
 		        data: {
@@ -236,10 +237,10 @@ function getCandidateData(candidateId){
 					job:candidate.job,
 					workunit:candidate.workunit,
 					origin_recommand:candidate.origin_recommand,
-//					vocation:data.vocations,
+					vocation:data.vocations,
 //					service_intention:data.services,
-					vocation:vocationtest,
-					service_intention:servicetest,
+					//vocation:vocationtest,
+					service_intention:data.services,
 					
 					sexList: sexList,
 		            nationList:listData.nations,
@@ -267,6 +268,7 @@ function getCandidateData(candidateId){
 		            resume:candidate.resume
 				}
 			});
+			
 		}
 	});
 }
