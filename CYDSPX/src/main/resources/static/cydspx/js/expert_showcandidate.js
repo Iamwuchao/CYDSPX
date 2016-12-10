@@ -78,10 +78,10 @@ var electShow0=true;
 var electShow1=true;
 var electShow2=true;
 
-function editCandidate(object){
+function showCandidateInfo(object){
 	var candidateId = $(object).attr("id");
 	$.ajax({
-		url:"/cydspx/schoolAdmin/editcandidate",
+		url:"/cydspx/schoolAdmin/showcandidate",
 		type:"get",
 		dataType:"text",
 		success:function(data){

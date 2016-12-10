@@ -2,19 +2,19 @@
 <div>
 	<form action="" method="post" id="fileuploadForm">
 	
-		<fieldset class="upload">
-	    	<legend>文件上传</legend>
+	<!--	<fieldset class="upload">
+	      	<legend>文件上传</legend>
 	        <div class="showpic">
 	        	<img v-bind:src="photograph" alt="" id="pic"></img>
-	        </div>
-	        <div class="uploadpic">
+	        </div>-->
+	   <!--    <div class="uploadpic">
 	            	<button type="button" id="addpic" class="btn addBtn">添加照片</button>
 	            	<span class="required-span">*</span>
 	            	<div class="fileinput" id="picInput">
 	            		<input type="file" id="attachement_pic" name="attachement_pic"/>
 						<p class="help-block">图片只支持jpg格式.</p>
 						<p class="helip-block" id="fileError"></p>
-	            	</div>
+	            	</div> 
 		            <br/>
 		            <span>
 		                <strong>注意:</strong><br/>1、请上传导师近期免冠正面彩色头像<br/>2、文件使用导师的证件号码命名
@@ -35,7 +35,7 @@
 	                <br/>2、建议简历中包含左侧表单中包含的所有项<br/>3、文件格式为pdf
 	            </span>
 	        </div>
-	    </fieldset>
+	    </fieldset>-->  
 	</form>
 	<form action="" method="post" id="applyForm">
 	    <input id="attachementPicId" name="photograph" type="hidden" v-model="photograph"/>
@@ -48,7 +48,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</span>
-	                        <input type="text" class="form-control" name="name" v-model="name"></input>
+	                        <input type="text" class="form-control" name="name" v-model="name"  readonly="readonly"></input>
 	                        <span class="required-span">*</span>
 	                    </div>
 	                </div>
@@ -57,8 +57,8 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</span>
-	                        <select class="select" name="sex" v-model="sex">
-	                            <option v-for="option in sexList" v-bind:value="option.value">
+	                        <select class="select" name="sex" v-model="sex" disabled="disabled">
+	                            <option v-for="option in sexList" v-bind:value="option.value"  >
 	                                {{ option.text }}
 	                              </option>
 	                        </select>
@@ -72,7 +72,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族</span>
-							<select class="select" name="nation" v-model="nation">
+							<select class="select" name="nation" v-model="nation" disabled="disabled">
                             	<option v-for="option in nationList" v-bind:value="option">
                                 	{{ option }}
                               	</option>
@@ -85,7 +85,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">出生日期</span>
-	                        <input type="text" class="form-control" name="birthday" placeholder="格式如：20161007" v-model="birthday"></input>
+	                        <input type="text" class="form-control" name="birthday" placeholder="格式如：20161007" v-model="birthday"  readonly="readonly"></input>
 	                        <span class="required-span">*</span>
 	                    </div>
 	                </div>
@@ -96,7 +96,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">政治面貌</span>
-	                        <select class="select" name="politics" v-model="politics">
+	                        <select class="select" name="politics" v-model="politics" disabled="disabled">
 	                            <option v-for="option in politicsList" v-bind:value="option.value">
 	                                {{ option.text }}
 	                              </option>
@@ -114,7 +114,7 @@
 	                                {{ option }}
 	                              </option>
 	                        </select>  -->
-	                        <input type="text" class="form-control" name="state" v-model="state"></input>
+	                        <input type="text" class="form-control" name="state" v-model="state"  readonly="readonly"></input>
 	                        <span class="required-span">*</span>
 	                    </div>
 	                </div>
@@ -125,7 +125,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">证件类型</span>
-	                        <select class="select" name="cert_type" v-model="cert_type">
+	                        <select class="select" name="cert_type" v-model="cert_type"  disabled="disabled">
 	                            <option v-for="option in cert_typeList" v-bind:value="option.value">
 	                                {{ option.text }}
 	                              </option>
@@ -138,7 +138,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">证件号码</span>
-	                        <input type="text" class="form-control" name="cert_no" v-model="cert_no"></input>
+	                        <input type="text" class="form-control" name="cert_no" v-model="cert_no"  disabled="disabled"></input>
 	                        <span class="required-span">*</span>
 	                    </div>
 	                </div>
@@ -152,7 +152,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">联系地址</span>
-	                        <input type="text" class="form-control" name="address" v-model="address"></input>
+	                        <input type="text" class="form-control" name="address" v-model="address"  disabled="disabled"></input>
 	                    </div>
 	                </div>
 	            </div>
@@ -160,7 +160,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">邮政编码</span>
-	                        <input type="text" class="form-control" name="postal_code" v-model="postal_code"></input>
+	                        <input type="text" class="form-control" name="postal_code" v-model="postal_code"   disabled="disabled"></input>
 	                    </div>
 	                </div>
 	            </div>
@@ -170,7 +170,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">移动电话</span>
-	                        <input type="text" class="form-control" name="mobile_phone" v-model="mobile_phone"></input>
+	                        <input type="text" class="form-control" name="mobile_phone" v-model="mobile_phone"    disabled="disabled"></input>
 	                        <span class="required-span">*</span>
 	                    </div>
 	                </div>
@@ -179,7 +179,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">固定电话</span>
-	                        <input type="text" class="form-control" name="tel_phone" placeholder="区号-电话号码" v-model="tel_phone"></input>
+	                        <input type="text" class="form-control" name="tel_phone" placeholder="区号-电话号码" v-model="tel_phone"    disabled="disabled"></input>
 	                        <span class="required-span">*</span>
 	                    </div>
 	                </div>
@@ -190,7 +190,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">电子邮箱</span>
-	                        <input type="email" class="form-control" name="email" v-model="email"></input>
+	                        <input type="email" class="form-control" name="email" v-model="email"   disabled="disabled"></input>
 	                        <span class="required-span">*</span>
 	                    </div>
 	                </div>
@@ -205,7 +205,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">学历类别</span>
-	                    	<select class="select" name="edu_type" v-model="edu_type">
+	                    	<select class="select" name="edu_type" v-model="edu_type"  disabled="disabled">
 	                            <option v-for="option in edu_typeList" v-bind:value="option">
 	                                {{ option }}
 	                              </option>
@@ -222,7 +222,7 @@
 	                                {{ option }}
 	                              </option>
 	                        </select>-->
-	                        <input type="text" class="form-control" name="edu_hierarchy" v-model="edu_hierarchy"></input>
+	                        <input type="text" class="form-control" name="edu_hierarchy" v-model="edu_hierarchy"   disabled="disabled"></input>
 	                    </div>
 	                </div>
 	            </div>
@@ -232,7 +232,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">学科门类</span>
-	                    	<select class="select" name="subject_category" v-model="subject_category">
+	                    	<select class="select" name="subject_category" v-model="subject_category"  disabled="disabled">
 	                            <option v-for="option in subject_categoryList" v-bind:value="option">
 	                                {{ option }}
 	                              </option>
@@ -244,7 +244,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">学位类别</span>
-	                        <select class="select" name="degree_type" v-model="degree_type">
+	                        <select class="select" name="degree_type" v-model="degree_type"  disabled="disabled">
 	                            <option v-for="option in degree_typeList" v-bind:value="option">
 	                                {{ option }}
 	                              </option>
@@ -258,7 +258,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">院校名称</span>
-	                        <input type="text" class="form-control" name="academy_name" v-model="academy_name"></input>
+	                        <input type="text" class="form-control" name="academy_name" v-model="academy_name"   disabled="disabled"></input>
 	                    </div>
 	                </div>
 	            </div>
@@ -266,7 +266,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">专业名称</span>
-	                        <input type="text" class="form-control" name="specialty_name" v-model="specialty_name"></input>
+	                        <input type="text" class="form-control" name="specialty_name" v-model="specialty_name"   disabled="disabled"></input>
 	                    </div>
 	                </div>
 	            </div>
@@ -276,7 +276,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称</span>
-	                        <select class="select" name="title" v-model="title">
+	                        <select class="select" name="title" v-model="title"  disabled="disabled">
 	                            <option v-for="option in titleList" v-bind:value="option">
 	                                {{ option }}
 	                              </option>
@@ -299,7 +299,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">工作单位</span>
-	                        <input type="text" class="form-control" name="workunit" v-model="workunit"></input>
+	                        <input type="text" class="form-control" name="workunit" v-model="workunit"   disabled="disabled"></input>
 	                        <span class="required-span">*</span>
 	                    </div>
 	                </div>
@@ -308,7 +308,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">原始推荐单位</span>
-	                        <input type="text" class="form-control" name="origin_recommand" placeholder="推荐该导师的高校名称" v-model="origin_recommand"></input>
+	                        <input type="text" class="form-control" name="origin_recommand" placeholder="推荐该导师的高校名称" v-model="origin_recommand"    disabled="disabled"></input>
 	                        <span class="required-span">*</span>
 	                    </div>
 	                </div>
@@ -319,7 +319,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">行&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业</span>
-	                        <select class="select" name="vocation" multiple="multiple" size="4" v-model="vocation">
+	                        <select class="select" name="vocation" multiple="multiple" size="4" v-model="vocation"  disabled="disabled">
 	                            <option v-for="option in vocationList" v-bind:value="option">
 	                                {{ option }}
 	                              </option>
@@ -337,7 +337,7 @@
 	                        <span class="input-group-addon">服务意向</span>
 	                        <div class="select">
 	                            <span v-for="option in service_intentionList">
-	                                <input type="checkbox" name="service_intention" v-bind:value="option" v-model="service_intention"></input>
+	                                <input type="checkbox" name="service_intention" v-bind:value="option" v-model="service_intention"   disabled="disabled"></input>
 	                                {{option}}
 	                            </span>
 	                        </div>
@@ -359,7 +359,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">成果名称</span>
-	                        <input type="text" class="form-control" name="achievement1" v-model="prizeList[0].achievement"></input>
+	                        <input type="text" class="form-control" name="achievement1" v-model="prizeList[0].achievement"   disabled="disabled"></input>
 	                        <span class="required-span">*</span>
 	                    </div>
 	                </div>
@@ -370,7 +370,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">获奖年份</span>
-	                        <input type="text" class="form-control" name="prize_year1" placeholder="格式如:2016" v-model="prizeList[0].prize_year"></input>
+	                        <input type="text" class="form-control" name="prize_year1" placeholder="格式如:2016" v-model="prizeList[0].prize_year"   disabled="disabled"></input>
 	                        <span class="required-span">*</span>
 	                    </div>
 	                </div>
@@ -381,7 +381,7 @@
 	                        <span class="input-group-addon">级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</span>
 	                        <div class="select">
 	                            <span v-for="option in prize_levelList">
-	                                <input type="radio" name="prize_level1" v-bind:value="option.value" v-model="prizeList[0].prize_level"></input>
+	                                <input type="radio" name="prize_level1" v-bind:value="option.value" v-model="prizeList[0].prize_level"   disabled="disabled"></input>
 	                                <label>{{option.text}}</label>
 	                            </span>
 	                        </div>
@@ -399,7 +399,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">成果名称</span>
-	                        <input type="text" class="form-control" name="achievement2" v-model="prizeList[1].achievement"></input>
+	                        <input type="text" class="form-control" name="achievement2" v-model="prizeList[1].achievement"   disabled="disabled"></input>
 	                        <span class="required-span">*</span>
 	                    </div>
 	                </div>
@@ -410,7 +410,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">获奖年份</span>
-	                        <input type="text" class="form-control" name="prize_year2" placeholder="格式如:2016" v-model="prizeList[1].prize_year"></input>
+	                        <input type="text" class="form-control" name="prize_year2" placeholder="格式如:2016" v-model="prizeList[1].prize_year"   disabled="disabled"></input>
 	                        <span class="required-span">*</span>
 	                    </div>
 	                </div>
@@ -421,7 +421,7 @@
 	                        <span class="input-group-addon">级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</span>
 	                        <div class="select">
 	                            <span v-for="option in prize_levelList">
-	                                <input type="radio" name="prize_level2" v-bind:value="option.value" v-model="prizeList[1].prize_level"></input>
+	                                <input type="radio" name="prize_level2" v-bind:value="option.value" v-model="prizeList[1].prize_level"   disabled="disabled"></input>
 	                                <label>{{option.text}}</label>
 	                            </span>
 	                        </div>
@@ -439,7 +439,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">成果名称</span>
-	                        <input type="text" class="form-control" name="achievement3" v-model="prizeList[2].achievement"></input>
+	                        <input type="text" class="form-control" name="achievement3" v-model="prizeList[2].achievement"   disabled="disabled"></input>
 	                        <span class="required-span">*</span>
 	                    </div>
 	                </div>
@@ -450,7 +450,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">获奖年份</span>
-	                        <input type="text" class="form-control" name="prize_year3" placeholder="格式如:2016" v-model="prizeList[2].prize_year"></input>
+	                        <input type="text" class="form-control" name="prize_year3" placeholder="格式如:2016" v-model="prizeList[2].prize_year"   disabled="disabled"></input>
 	                        <span class="required-span">*</span>
 	                    </div>
 	                </div>
@@ -461,7 +461,7 @@
 	                        <span class="input-group-addon">级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</span>
 	                        <div class="select">
 	                            <span v-for="option in prize_levelList">
-	                                <input type="radio" name="prize_level3" v-bind:value="option.value" v-model="prizeList[2].prize_level"></input>
+	                                <input type="radio" name="prize_level3" v-bind:value="option.value" v-model="prizeList[2].prize_level"   disabled="disabled"></input>
 	                                <label>{{option.text}}</label>
 	                            </span>
 	                        </div>
@@ -483,7 +483,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">评审项目名称</span>
-	                        <input type="text" class="form-control" name="project_name1" v-model="electList[0].project_name"></input>
+	                        <input type="text" class="form-control" name="project_name1" v-model="electList[0].project_name"   disabled="disabled"></input>
 	                        <span class="required-span">*</span>
 	                    </div>
 	                </div>
@@ -494,7 +494,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">参与评审年份</span>
-	                        <input type="text" class="form-control" name="elect_year1" placeholder="格式如:2016" v-model="electList[0].elect_year"></input>
+	                        <input type="text" class="form-control" name="elect_year1" placeholder="格式如:2016" v-model="electList[0].elect_year"   disabled="disabled"></input>
 	                        <span class="required-span">*</span>
 	                    </div>
 	                </div>
@@ -505,7 +505,7 @@
 	                        <span class="input-group-addon">级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</span>
 	                        <div class="select">
 	                            <span v-for="elect in elect_levelList">
-	                                <input type="radio" name="elect_level1" v-bind:value="elect.value" v-model="electList[0].elect_level"></input>
+	                                <input type="radio" name="elect_level1" v-bind:value="elect.value" v-model="electList[0].elect_level"   disabled="disabled"></input>
 	                                <label>{{elect.text}}</label>
 	                            </span>
 	                        </div>
@@ -523,7 +523,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">评审项目名称</span>
-	                        <input type="text" class="form-control" name="project_name2" v-model="electList[1].project_name"></input>
+	                        <input type="text" class="form-control" name="project_name2" v-model="electList[1].project_name"   disabled="disabled"></input>
 	                        <span class="required-span">*</span>
 	                    </div>
 	                </div>
@@ -534,7 +534,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">参与评审年份</span>
-	                        <input type="text" class="form-control" name="elect_year2" placeholder="格式如:2016" v-model="electList[1].elect_year"></input>
+	                        <input type="text" class="form-control" name="elect_year2" placeholder="格式如:2016" v-model="electList[1].elect_year"   disabled="disabled"></input>
 	                        <span class="required-span">*</span>
 	                    </div>
 	                </div>
@@ -545,7 +545,7 @@
 	                        <span class="input-group-addon">级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</span>
 	                        <div class="select">
 	                            <span v-for="option in elect_levelList">
-	                                <input type="radio" name="elect_level2" v-bind:value="option.value" v-model="electList[1].elect_level"></input>
+	                                <input type="radio" name="elect_level2" v-bind:value="option.value" v-model="electList[1].elect_level"   disabled="disabled"></input>
 	                                <label>{{option.text}}</label>
 	                            </span>
 	                        </div>
@@ -563,7 +563,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">评审项目名称</span>
-	                        <input type="text" class="form-control" name="project_name3" v-model="electList[2].project_name"></input>
+	                        <input type="text" class="form-control" name="project_name3" v-model="electList[2].project_name"   disabled="disabled"></input>
 	                        <span class="required-span">*</span>
 	                    </div>
 	                </div>
@@ -574,7 +574,7 @@
 	                <div class="form-group">
 	                    <div class="input-group">
 	                        <span class="input-group-addon">参与评审年份</span>
-	                        <input type="text" class="form-control" name="elect_year3" placeholder="格式如:2016" v-model="electList[2].elect_year"></input>
+	                        <input type="text" class="form-control" name="elect_year3" placeholder="格式如:2016" v-model="electList[2].elect_year"   disabled="disabled"></input>
 	                        <span class="required-span">*</span>
 	                    </div>
 	                </div>
@@ -585,7 +585,7 @@
 	                        <span class="input-group-addon">级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</span>
 	                        <div class="select">
 	                            <span v-for="option in elect_levelList">
-	                                <input type="radio" name="elect_level3" v-bind:value="option.value" v-model="electList[2].elect_level"></input>
+	                                <input type="radio" name="elect_level3" v-bind:value="option.value" v-model="electList[2].elect_level"   disabled="disabled"></input>
 	                                <label>{{option.text}}</label>
 	                            </span>
 	                        </div>
@@ -598,7 +598,7 @@
 	            </div>
 	        </div>
 	    </fieldset>
-	    <input type="button" id="submitBtn" value="确认提交"></input>
+	   <!-- <input type="button" id="submitBtn" value="确认提交"></input> --> 
 	</form>			
 </div>
 		

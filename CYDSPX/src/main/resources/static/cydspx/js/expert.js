@@ -56,7 +56,11 @@ function updateCandidateList(urlList){
 	    		});
 				
 				for(index in data){
-					data[index].attachment = "/cydspx/attachment/" + data[index].attachment+"/";
+					if(data[index].attachment==null || data[index].attachment==""){
+						data[index].attachment="#";
+					}
+					else
+						data[index].attachment = "/cydspx/attachment/" + data[index].attachment+"/";
 				}
 				showCandidate.candidateList = data;
 			}
@@ -85,3 +89,4 @@ function grade(object){
 		}
 	});
 }
+

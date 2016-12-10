@@ -15,4 +15,9 @@ public class ExpertPageController {
 		return "/expert/gradedcandidatetable";
 	}
 	
+	@RequestMapping("/cydspx/schoolAdmin/showcandidate")
+	public String showCandidate(){
+		return "/expert/showCandidateinfo";
+	}
+	
 }

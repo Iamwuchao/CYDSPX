@@ -61,7 +61,7 @@ public class AttachmentController {
 			} catch (IOException e) {
 				log.warn("getOutputStream flush warn",e );
 			}*/
-		 String path = env.getProperty("rootPath") + filename;
+		 String path = env.getProperty("rootPath") +"/"+ filename;
 		 FileSystemResource file=new FileSystemResource(path);
 	    	if(!file.exists()){
 	    		System.out.println("文件不存在");
@@ -135,6 +135,7 @@ public class AttachmentController {
 		        headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", file.getFilename()));  
 		        headers.add("Pragma", "no-cache");  
 		        headers.add("Expires", "0");  
+		        
 		        return ResponseEntity  
 		                .ok()  
 		                .headers(headers)  
