@@ -1,0 +1,31 @@
+<div>
+		<div class="input-group">
+				<span class="input-group-addon">需要导出前多少个</span>
+				<input id="count" style="width:200px;"
+				 onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" 
+				 type="text" class="form-control" placeholder="需要导出前多少个"></input>
+				 <button type="button" class="btn btn-primary" onclick="getCandidateList()">设置导出比例</button>
+			</div><br></br>
+	<div id="htmlContent">
+	<table id="candidateTable" border="1" bordercolor="#000000" cellspacing="0" cellpadding="2" style="border-collapse:collapse;">
+			  <caption>全国万名优秀创新创业导师人才库推荐导师汇总表</caption>
+			  <thead>
+			    <tr>
+			      <th>序号</th>
+			      <th>姓名</th>
+			      <th>所在单位</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr  v-for="candidate in candidateList">
+			      <td>{{$index}}</td>
+			      <td>{{candidate.name}}</td>
+			      <td>{{candidate.workunit}}</td>
+			    </tr>
+			  </tbody>
+	</table>
+	</div>
+	<div>
+		<a id="download" type="button" class="btn btn-primary"  onclick=" generateDoc()">下载结果文档</a>
+	</div>
+</div>

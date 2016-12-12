@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import cydspx.mapper.AllocateMapper;
 import cydspx.mapper.CandidateGroupMapper;
+import cydspx.mapper.ElectResultMapper;
 import cydspx.mapper.ExpertGroupMapper;
 
 @Service
@@ -19,6 +20,9 @@ public class AllocationDBServer {
 	@Autowired
 	private ExpertGroupMapper expertGroupMapper;
 	
+	@Autowired
+	private ElectResultMapper electResultMapper; 
+	
 	public void saveGroupInfo(int candidateGroupId,int expertGroupId){
 		allocationMapper.saveGroupInfo(candidateGroupId, expertGroupId);
 	}
@@ -30,4 +34,9 @@ public class AllocationDBServer {
 		candidateGroupMapper.truncateTable();
 		expertGroupMapper.truncateTable();
 	}
+	
+	public void clearScore(){
+		electResultMapper.truncateTable();
+	}
+	
 }

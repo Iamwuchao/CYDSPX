@@ -49,6 +49,7 @@ public class Interceptor implements HandlerInterceptor{
 	        
 	        System.out.println("&&&&&& "+request.getContextPath() + "/");
 	        response.sendRedirect("/cydspx");
+	        System.out.println("%%%%%%%%% 拦截了");
 	        return false;
 	}
 

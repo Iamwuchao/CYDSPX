@@ -2,6 +2,7 @@ package cydspx.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
@@ -40,4 +41,10 @@ public interface ElectResultMapper {
 	
 	@Select("select ifnull(count(id),1) from cydspx.elect_result_table where candidate_id=#{candidateId};")
 	public int getCountJudgement(@Param("candidateId") int candidateId);
+	
+	/*
+	 * 清空表数据
+	 */
+	@Delete("truncate table  `elect_result_table`;")
+	void truncateTable();
 }

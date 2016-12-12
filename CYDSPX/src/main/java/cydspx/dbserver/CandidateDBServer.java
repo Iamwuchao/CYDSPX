@@ -81,7 +81,8 @@ public class CandidateDBServer {
 			int score = electResultMapper.getSumScore(id);
 			int count = electResultMapper.getCountJudgement(id);
 			if(count==0) count=1;
-			double avgScore = ((score*1.0)/count*1.0);
+			//double avgScore = ((score*1.0)/count*1.0);
+			double avgScore  = score*1.0;
 			candidateMapper.updateCandidateScore(avgScore, id);
 		}
 	}
