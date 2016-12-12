@@ -7,7 +7,7 @@
 				      <th>职务</th>
 				      <th>职称</th>
 				      <th>简历附件</th>
-				      <th>评分</th>
+				      <th>评审结果</th>
 				    </tr>
 				  </thead>
 				  <tbody>
@@ -18,7 +18,8 @@
 				      <td>{{candidate.job}}</td>
 				      <td>{{candidate.title}}</td>
 				      <td><a v-bind:href="candidate.attachment">附件</a></td>
-				      <td>{{candidate.score}}</td>
+				      <td v-if="candidate.score == 100">同意</td>
+				        <td v-if="candidate.score == -100">不同意</td>
 				    </tr>
 				  </tbody>
 </table>

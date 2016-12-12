@@ -61,6 +61,10 @@ public class AllocationHandler {
 		
 		//清空之前的分组信息
 		allocationDBServer.clearTable();
+		allocationDBServer.clearScore();
+		
+		//claer score
+		
 		
 		//先对专家进行分组
 		List<User> allExpert = userDBServer.getAllUsersByType(UserType.EXPERT.ordinal());
